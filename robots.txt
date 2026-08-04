@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.opensourcefeed.org/distro-chooser/sitemap-index.xml
