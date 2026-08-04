@@ -327,15 +327,7 @@
     ],
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-10-25",
-    "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/garuda-linux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/garuda-linux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/garuda-linux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/garuda-linux",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/garuda-linux"
-      ]
-    }
+    "links": {}
   },
   {
     "id": "kali-linux",
@@ -385,15 +377,7 @@
     ],
     "nvidiaFriendly": false,
     "lastVerifiedDate": "2026-08-20",
-    "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/alpine-linux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/alpine-linux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/alpine-linux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/alpine-linux",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/alpine-linux"
-      ]
-    }
+    "links": {}
   },
   {
     "id": "slackware",
@@ -415,15 +399,7 @@
     ],
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-07-10",
-    "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/slackware",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/slackware",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/slackware",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/slackware",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/slackware"
-      ]
-    }
+    "links": {}
   },
   {
     "id": "gentoo",

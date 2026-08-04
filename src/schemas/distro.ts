@@ -18,10 +18,12 @@ export const useCaseSchema = z.enum(USE_CASES);
 export const releaseModelSchema = z.enum(RELEASE_MODELS);
 
 // ── Links sub-schema ───────────────────────────────────────────────────────
-// pageUrl is the only field opensourcefeed.org guarantees today; the rest are
-// optional and populated once dedicated install/release/comparison pages exist.
+// pageUrl is optional: a handful of distros don't yet have a page on
+// opensourcefeed.org, and the UI hides the outbound link entirely for those
+// rather than pointing at a 404. The rest are populated once dedicated
+// install/release/comparison pages exist.
 export const linksSchema = z.object({
-  pageUrl: z.string().url(),
+  pageUrl: z.string().url().optional(),
   overviewUrl: z.string().url().optional(),
   installGuideUrl: z.string().url().optional(),
   latestReleaseUrl: z.string().url().optional(),

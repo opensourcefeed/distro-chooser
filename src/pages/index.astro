@@ -1,13 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import QuizApp from '../components/QuizApp';
-import { questionsSchema } from '../schemas/question';
-import { distrosSchema } from '../schemas/distro';
-import questionsData from '../data/questions.json';
-import distrosData from '../data/distros.json';
-
-const questions = questionsSchema.parse(questionsData);
-const distros = distrosSchema.parse(distrosData);
 ---
 
 <!--
@@ -16,19 +9,14 @@ const distros = distrosSchema.parse(distrosData);
   but the quiz is only 6 questions and the added complexity of
   hydrating partial state wasn't justified. If the quiz grows
   significantly, sessionStorage persistence is the recommended upgrade.
+
+  The heading and its "quiz" vs "results" copy live inside QuizApp.tsx so
+  there's exactly one <h1> at a time instead of a static one here plus a
+  second heading once results are shown.
 -->
 
 <Layout>
 	<main class="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-200">
-		<div class="w-full max-w-lg mx-auto px-4 pt-20 pb-12 sm:pt-12 text-center">
-			<h1 class="text-4xl md:text-5xl font-bold mb-3">Find Your Perfect Linux Distribution</h1>
-			<p class="text-lg text-gray-600 dark:text-gray-400 mb-8">Answer a few quick questions and get personalized GNU/Linux distro recommendations from {distros.length} options.</p>
-		</div>
-
-		<QuizApp
-			questions={questions}
-			distros={distros}
-			client:load
-		/>
+		<QuizApp client:load />
 	</main>
 </Layout>

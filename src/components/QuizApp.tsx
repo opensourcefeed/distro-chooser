@@ -2,15 +2,17 @@ import { useState, useEffect, useCallback } from "react";
 import Quiz from "./Quiz";
 import ResultsView from "./ResultsView";
 import { scoreDistros, type ScoredDistro, type Answers } from "../lib/scoring";
-import type { Distro } from "../schemas/distro";
 import type { Question } from "../schemas/question";
+import { questionsSchema } from "../schemas/question";
+import { distrosSchema } from "../schemas/distro";
+import questionsData from "../data/questions.json";
+import distrosData from "../data/distros.json";
 
-// ── Types ──────────────────────────────────────────────────────────────────
-
-interface QuizAppProps {
-  questions: Question[];
-  distros: Distro[];
-}
+// Parsed once at module load, inside the client JS bundle — not serialized
+// into the page HTML as island props (which would double-ship ~100KB of
+// data: once in the HTML, once in the JS that reads it).
+const questions = questionsSchema.parse(questionsData);
+const distros = distrosSchema.parse(distrosData);
 
 // ── URL encoding helpers ───────────────────────────────────────────────────
 
@@ -51,7 +53,7 @@ function decodeAnswers(questions: Question[], raw: string): Answers | null {
 
 type View = "quiz" | "results";
 
-export default function QuizApp({ questions, distros }: QuizAppProps) {
+export default function QuizApp() {
   const [view, setView] = useState<View>("quiz");
   const [results, setResults] = useState<ScoredDistro[] | null>(null);
   const [answers, setAnswers] = useState<Answers | null>(null);
@@ -109,8 +111,21 @@ export default function QuizApp({ questions, distros }: QuizAppProps) {
     window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
+  const heading =
+    view === "results"
+      ? { title: "Your Top Picks", subtitle: "Based on your answers, here are the Linux distributions we recommend for you." }
+      : {
+          title: "Find Your Perfect Linux Distribution",
+          subtitle: `Answer a few quick questions and get personalized GNU/Linux distro recommendations from ${distros.length} options.`,
+        };
+
   return (
     <>
+      <div className="w-full max-w-lg mx-auto px-4 pt-20 pb-8 sm:pt-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-3">{heading.title}</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-400">{heading.subtitle}</p>
+      </div>
+
       {view === "quiz" && (
         <Quiz
           key={resetNonce}

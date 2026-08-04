@@ -76,6 +76,18 @@ const jsonLd = {
 				document.documentElement.classList.toggle("dark", isDark);
 			})();
 		</script>
+
+		<!-- ahrefs analytics -->
+		<script src="https://analytics.ahrefs.com/analytics.js" data-key="CtE+TXWgN05s3ROalk1xUg" async></script>
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-KD5NJYRYD3"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-KD5NJYRYD3');
+		</script>
 	</head>
 	<body>
 		<ThemeToggle client:load />
