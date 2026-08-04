@@ -23,7 +23,7 @@ pnpm build
 
 echo "=== Copying build to $TARGET ==="
 
-cp -r dist/* "$TARGET"/
+cp -r dist/. "$TARGET"/
 
 echo "=== Committing & pushing current repo ==="
 git add -A
