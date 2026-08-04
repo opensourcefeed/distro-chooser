@@ -100,7 +100,7 @@
   {
     "id": "arch-linux",
     "name": "Arch Linux",
-    "slug": "arch-linux",
+    "slug": "arch",
     "description": "A lightweight and flexible rolling-release distribution that follows the KISS principle.",
     "experienceLevel": "advanced",
     "useCases": [
@@ -121,12 +121,12 @@
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-11-05",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/arch-linux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/arch-linux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/arch-linux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/arch-linux",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/arch",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/arch",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/arch",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/arch",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/arch-linux"
+        "https://www.opensourcefeed.org/distribution/arch"
       ]
     }
   },
@@ -163,7 +163,7 @@
   {
     "id": "linux-mint",
     "name": "Linux Mint",
-    "slug": "linux-mint",
+    "slug": "linuxmint",
     "description": "An elegant and modern desktop distribution based on Ubuntu, focused on user-friendliness.",
     "experienceLevel": "beginner",
     "useCases": [
@@ -180,19 +180,19 @@
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-11-01",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/linux-mint",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/linux-mint",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/linux-mint",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/linux-mint",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/linux-mint"
+        "https://www.opensourcefeed.org/distribution/linuxmint"
       ]
     }
   },
   {
     "id": "pop-os",
     "name": "Pop!_OS",
-    "slug": "pop-os",
+    "slug": "pop",
     "description": "A developer-friendly distribution from System76 with excellent hardware and gaming support.",
     "experienceLevel": "beginner",
     "useCases": [
@@ -209,12 +209,12 @@
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-11-03",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/pop-os",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/pop-os",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/pop-os",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/pop-os",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/pop",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/pop",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/pop",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/pop",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/pop-os"
+        "https://www.opensourcefeed.org/distribution/pop"
       ]
     }
   },
@@ -253,7 +253,7 @@
   {
     "id": "elementary-os",
     "name": "elementary OS",
-    "slug": "elementary-os",
+    "slug": "elementary",
     "description": "A privacy-respecting distribution with a beautiful, macOS-inspired desktop environment.",
     "experienceLevel": "beginner",
     "useCases": [
@@ -268,19 +268,19 @@
     "nvidiaFriendly": false,
     "lastVerifiedDate": "2026-09-15",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/elementary-os",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/elementary-os",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/elementary-os",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/elementary-os",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/elementary",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/elementary",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/elementary",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/elementary",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/elementary-os"
+        "https://www.opensourcefeed.org/distribution/elementary"
       ]
     }
   },
   {
     "id": "zorin-os",
     "name": "Zorin OS",
-    "slug": "zorin-os",
+    "slug": "zorin",
     "description": "A beginner-friendly distribution designed to ease the transition from Windows to Linux.",
     "experienceLevel": "beginner",
     "useCases": [
@@ -295,12 +295,12 @@
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-10-10",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/zorin-os",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/zorin-os",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/zorin-os",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/zorin-os",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/zorin",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/zorin",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/zorin",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/zorin",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/zorin-os"
+        "https://www.opensourcefeed.org/distribution/zorin"
       ]
     }
   },
@@ -340,7 +340,7 @@
   {
     "id": "kali-linux",
     "name": "Kali Linux",
-    "slug": "kali-linux",
+    "slug": "kali",
     "description": "The industry-standard distribution for penetration testing and security research.",
     "experienceLevel": "advanced",
     "useCases": [
@@ -356,12 +356,12 @@
     "nvidiaFriendly": true,
     "lastVerifiedDate": "2026-11-02",
     "links": {
-      "pageUrl": "https://www.opensourcefeed.org/distribution/kali-linux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/kali-linux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kali-linux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kali-linux",
+      "pageUrl": "https://www.opensourcefeed.org/distribution/kali",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/kali",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kali",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kali",
       "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/kali-linux"
+        "https://www.opensourcefeed.org/distribution/kali"
       ]
     }
   },
@@ -455,6 +455,728 @@
       "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/gentoo",
       "comparisonUrls": [
         "https://www.opensourcefeed.org/distribution/gentoo"
+      ]
+    }
+  },
+  {
+    "id": "nixos",
+    "name": "NixOS",
+    "slug": "nixos",
+    "description": "A declarative distribution built on the Nix package manager, enabling fully reproducible system configurations.",
+    "experienceLevel": "advanced",
+    "useCases": [
+      "development",
+      "privacy"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME",
+      "KDE Plasma",
+      "XFCE",
+      "Sway",
+      "Hyprland"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/nixos",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/nixos",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/nixos",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/nixos",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/nixos"
+      ]
+    }
+  },
+  {
+    "id": "endeavour",
+    "name": "EndeavourOS",
+    "slug": "endeavour",
+    "description": "A terminal-centric, near-vanilla Arch Linux experience with a friendly installer and welcoming community.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development",
+      "gaming"
+    ],
+    "releaseModel": "rolling",
+    "desktopEnvironments": [
+      "XFCE",
+      "KDE Plasma",
+      "GNOME",
+      "i3",
+      "Cinnamon"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/endeavour",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/endeavour",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/endeavour",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/endeavour",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/endeavour"
+      ]
+    }
+  },
+  {
+    "id": "mx",
+    "name": "MX Linux",
+    "slug": "mx",
+    "description": "A stable, lightweight Debian-based distribution with unique tools for easy configuration.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE",
+      "KDE Plasma",
+      "Fluxbox"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/mx",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/mx",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/mx",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/mx",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/mx"
+      ]
+    }
+  },
+  {
+    "id": "kubuntu",
+    "name": "Kubuntu",
+    "slug": "kubuntu",
+    "description": "The official KDE Plasma flavor of Ubuntu, combining Canonical's stability with a polished Plasma desktop.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/kubuntu"
+      ]
+    }
+  },
+  {
+    "id": "xubuntu",
+    "name": "Xubuntu",
+    "slug": "xubuntu",
+    "description": "The XFCE flavor of Ubuntu, aimed at users who want a lightweight, stable desktop on modest hardware.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/xubuntu"
+      ]
+    }
+  },
+  {
+    "id": "ubuntumate",
+    "name": "Ubuntu MATE",
+    "slug": "ubuntumate",
+    "description": "The MATE flavor of Ubuntu, offering a traditional desktop metaphor that runs well on older machines.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "MATE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/ubuntumate"
+      ]
+    }
+  },
+  {
+    "id": "ubuntucinnamon",
+    "name": "Ubuntu Cinnamon",
+    "slug": "ubuntucinnamon",
+    "description": "The official Cinnamon flavor of Ubuntu, pairing a familiar desktop layout with Ubuntu's package base.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "Cinnamon"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/ubuntucinnamon"
+      ]
+    }
+  },
+  {
+    "id": "cachyos",
+    "name": "CachyOS",
+    "slug": "cachyos",
+    "description": "A performance-tuned Arch-based rolling distribution with optimized kernels and gaming-focused defaults.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "gaming",
+      "development"
+    ],
+    "releaseModel": "rolling",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME",
+      "Hyprland"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/cachyos",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/cachyos",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/cachyos",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/cachyos",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/cachyos"
+      ]
+    }
+  },
+  {
+    "id": "solus",
+    "name": "Solus",
+    "slug": "solus",
+    "description": "An independently-built distribution with its own package manager, designed for a clean home-computing experience.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "Budgie",
+      "GNOME",
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/solus",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/solus",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/solus",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/solus",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/solus"
+      ]
+    }
+  },
+  {
+    "id": "kdeneon",
+    "name": "KDE neon",
+    "slug": "kdeneon",
+    "description": "An Ubuntu-based distribution maintained by the KDE community, shipping the latest Plasma releases quickly.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/kdeneon"
+      ]
+    }
+  },
+  {
+    "id": "pureos",
+    "name": "PureOS",
+    "slug": "pureos",
+    "description": "A privacy- and freedom-focused Debian derivative developed by Purism, shipping only free software by default.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "privacy"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/pureos",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/pureos",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/pureos",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/pureos",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/pureos"
+      ]
+    }
+  },
+  {
+    "id": "q4os",
+    "name": "Q4OS",
+    "slug": "q4os",
+    "description": "A fast, lightweight Debian-based distribution designed to run comfortably on both old and new hardware.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "Trinity"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/q4os",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/q4os",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/q4os",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/q4os",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/q4os"
+      ]
+    }
+  },
+  {
+    "id": "peppermint",
+    "name": "Peppermint OS",
+    "slug": "peppermint",
+    "description": "A lightweight Debian-based distribution built around a minimal XFCE desktop and low resource use.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/peppermint",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/peppermint",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/peppermint",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/peppermint",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/peppermint"
+      ]
+    }
+  },
+  {
+    "id": "puppy",
+    "name": "Puppy Linux",
+    "slug": "puppy",
+    "description": "An extremely small, fast distribution that can run entirely from RAM, ideal for reviving very old machines.",
+    "experienceLevel": "advanced",
+    "useCases": [
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "JWM",
+      "Openbox"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/puppy",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/puppy",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/puppy",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/puppy",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/puppy"
+      ]
+    }
+  },
+  {
+    "id": "tails",
+    "name": "Tails",
+    "slug": "tails",
+    "description": "The Amnesic Incognito Live System — a Debian-based live OS that routes all traffic through Tor for anonymity.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "privacy"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/tails",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/tails",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/tails",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/tails",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/tails"
+      ]
+    }
+  },
+  {
+    "id": "steamos",
+    "name": "SteamOS",
+    "slug": "steamos",
+    "description": "Valve's Arch-based gaming operating system, purpose-built for the Steam Deck and living-room gaming PCs.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "gaming"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/steamos",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/steamos",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/steamos",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/steamos",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/steamos"
+      ]
+    }
+  },
+  {
+    "id": "raspberry-pi-os",
+    "name": "Raspberry Pi OS",
+    "slug": "raspberry-pi-os",
+    "description": "The official Debian-based distribution optimized for Raspberry Pi single-board computers.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "LXDE",
+      "XFCE"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/raspberry-pi-os"
+      ]
+    }
+  },
+  {
+    "id": "deepin",
+    "name": "deepin",
+    "slug": "deepin",
+    "description": "A visually polished, independently-developed distribution known for its custom DDE desktop environment.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "DDE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/deepin",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/deepin",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/deepin",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/deepin",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/deepin"
+      ]
+    }
+  },
+  {
+    "id": "devuan",
+    "name": "Devuan GNU+Linux",
+    "slug": "devuan",
+    "description": "A Debian fork that replaces systemd with alternative init systems, aimed at users who want init freedom.",
+    "experienceLevel": "advanced",
+    "useCases": [
+      "privacy",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE",
+      "MATE",
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/devuan",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/devuan",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/devuan",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/devuan",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/devuan"
+      ]
+    }
+  },
+  {
+    "id": "vanillaos",
+    "name": "Vanilla OS",
+    "slug": "vanillaos",
+    "description": "An immutable, atomic-update distribution with on-demand access to multiple package ecosystems.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/vanillaos"
+      ]
+    }
+  },
+  {
+    "id": "rhino-linux",
+    "name": "Rhino Linux",
+    "slug": "rhino-linux",
+    "description": "An Ubuntu-based rolling-release distribution that pairs continuous updates with a curated XFCE experience.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "rolling",
+    "desktopEnvironments": [
+      "XFCE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/rhino-linux"
+      ]
+    }
+  },
+  {
+    "id": "rosa",
+    "name": "ROSA Linux",
+    "slug": "rosa",
+    "description": "A Russian-developed, RPM-based distribution built on a customized KDE Plasma desktop.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/rosa",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/rosa",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/rosa",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/rosa",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/rosa"
+      ]
+    }
+  },
+  {
+    "id": "openmandriva",
+    "name": "OpenMandriva",
+    "slug": "openmandriva",
+    "description": "An RPM-based distribution descended from Mandriva Linux, offering both rolling and stable editions.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "rolling",
+    "desktopEnvironments": [
+      "KDE Plasma"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/openmandriva"
+      ]
+    }
+  },
+  {
+    "id": "mageia",
+    "name": "Mageia",
+    "slug": "mageia",
+    "description": "A community fork of Mandriva Linux focused on stability and ease of configuration via its control center.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME",
+      "XFCE"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/mageia",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/mageia",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/mageia",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/mageia",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/mageia"
+      ]
+    }
+  },
+  {
+    "id": "antix",
+    "name": "antiX",
+    "slug": "antix",
+    "description": "A fast, systemd-free, lightweight Debian-based distribution designed for old and low-resource hardware.",
+    "experienceLevel": "advanced",
+    "useCases": [
+      "old-hardware",
+      "privacy"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "IceWM",
+      "Fluxbox"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/antix",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/antix",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/antix",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/antix",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/antix"
+      ]
+    }
+  },
+  {
+    "id": "spirallinux",
+    "name": "SpiralLinux",
+    "slug": "spirallinux",
+    "description": "A curated, ready-to-use Debian derivative offering multiple desktop-environment editions out of the box.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE",
+      "KDE Plasma",
+      "GNOME",
+      "Cinnamon"
+    ],
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/spirallinux"
+      ]
+    }
+  },
+  {
+    "id": "trisquel",
+    "name": "Trisquel GNU/Linux",
+    "slug": "trisquel",
+    "description": "A fully free (FSF-endorsed) Ubuntu-based distribution that ships no proprietary firmware or software.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "privacy",
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME",
+      "MATE"
+    ],
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-08-01",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/trisquel",
+      "overviewUrl": "https://www.opensourcefeed.org/distribution/trisquel",
+      "installGuideUrl": "https://www.opensourcefeed.org/distribution/trisquel",
+      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/trisquel",
+      "comparisonUrls": [
+        "https://www.opensourcefeed.org/distribution/trisquel"
       ]
     }
   }

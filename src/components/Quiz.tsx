@@ -1,28 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-
-// ── Types (mirrors src/schemas/question.ts) ────────────────────────────────
-
-interface ScoreEffect {
-  distroTag: string;
-  weight: number;
-}
-
-interface Option {
-  id: string;
-  label: string;
-  scoreEffects: ScoreEffect[];
-}
-
-interface Question {
-  id: string;
-  text: string;
-  type: "single-select";
-  options: Option[];
-}
+import type { Question } from "../schemas/question";
+import type { Answers } from "../lib/scoring";
 
 interface QuizProps {
   questions: Question[];
-  onComplete: (answers: Record<string, string>) => void;
+  initialAnswers?: Answers;
+  onComplete: (answers: Answers) => void;
 }
 
 // ── Utility ────────────────────────────────────────────────────────────────
@@ -34,9 +17,9 @@ function getProgressPercent(current: number, total: number): number {
 
 // ── Component ──────────────────────────────────────────────────────────────
 
-export default function Quiz({ questions, onComplete }: QuizProps) {
+export default function Quiz({ questions, initialAnswers, onComplete }: QuizProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answers, setAnswers] = useState<Answers>(initialAnswers ?? {});
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [transitioning, setTransitioning] = useState(false);
 
@@ -47,6 +30,18 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
   const totalQuestions = questions.length;
+  const isMultiSelect = currentQuestion.type === "multi-select";
+
+  const currentValue = answers[currentQuestion.id];
+  const selectedIds = Array.isArray(currentValue) ? currentValue : currentValue ? [currentValue] : [];
+
+  const isOptionSelected = useCallback(
+    (optionId: string) => selectedIds.includes(optionId),
+    [selectedIds],
+  );
+
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [focusedIndex, setFocusedIndex] = useState(0);
 
   // Focus the heading when the question changes
   useEffect(() => {
@@ -57,11 +52,20 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
-  const handleAnswer = useCallback(
-    (optionId: string) => {
-      const newAnswers = { ...answers, [currentQuestion.id]: optionId };
-      setAnswers(newAnswers);
+  // Reset roving focus index when the question changes: land on the
+  // previously-selected option if there is one, otherwise the first option.
+  useEffect(() => {
+    optionRefs.current = [];
+    const firstSelectedId = selectedIds[0];
+    const selectedIndex = firstSelectedId
+      ? currentQuestion.options.findIndex((o) => o.id === firstSelectedId)
+      : -1;
+    setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
 
+  const goToNextOrComplete = useCallback(
+    (newAnswers: Answers) => {
       if (isLast) {
         // Small delay so the user sees the selection briefly
         setTimeout(() => onComplete(newAnswers), 200);
@@ -74,8 +78,39 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
         }, 150);
       }
     },
-    [answers, currentQuestion.id, isLast, onComplete],
+    [isLast, onComplete],
   );
+
+  // Single-select: choosing an option commits it and immediately advances.
+  const handleSingleSelect = useCallback(
+    (optionId: string) => {
+      const newAnswers = { ...answers, [currentQuestion.id]: optionId };
+      setAnswers(newAnswers);
+      goToNextOrComplete(newAnswers);
+    },
+    [answers, currentQuestion.id, goToNextOrComplete],
+  );
+
+  // Multi-select: toggling an option only updates the checked state;
+  // advancing requires the explicit Next action.
+  const handleToggleMulti = useCallback(
+    (optionId: string) => {
+      setAnswers((prev) => {
+        const current = prev[currentQuestion.id];
+        const currentArr = Array.isArray(current) ? current : [];
+        const next = currentArr.includes(optionId)
+          ? currentArr.filter((id) => id !== optionId)
+          : [...currentArr, optionId];
+        return { ...prev, [currentQuestion.id]: next };
+      });
+    },
+    [currentQuestion.id],
+  );
+
+  const handleMultiNext = useCallback(() => {
+    if (selectedIds.length === 0) return;
+    goToNextOrComplete(answers);
+  }, [answers, selectedIds.length, goToNextOrComplete]);
 
   const handleBack = useCallback(() => {
     if (isFirst) return;
@@ -88,13 +123,39 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
   }, [isFirst]);
 
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent, optionId: string) => {
+    (e: React.KeyboardEvent, optionId: string, index: number) => {
+      const optionCount = currentQuestion.options.length;
+
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        handleAnswer(optionId);
+        if (isMultiSelect) {
+          handleToggleMulti(optionId);
+        } else {
+          handleSingleSelect(optionId);
+        }
+        return;
+      }
+
+      // Roving-tabindex arrow key navigation per the WAI-ARIA pattern for
+      // radiogroups/listboxes: arrow keys move focus without submitting.
+      let nextIndex: number | null = null;
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+        nextIndex = (index + 1) % optionCount;
+      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+        nextIndex = (index - 1 + optionCount) % optionCount;
+      } else if (e.key === "Home") {
+        nextIndex = 0;
+      } else if (e.key === "End") {
+        nextIndex = optionCount - 1;
+      }
+
+      if (nextIndex !== null) {
+        e.preventDefault();
+        setFocusedIndex(nextIndex);
+        optionRefs.current[nextIndex]?.focus();
       }
     },
-    [handleAnswer],
+    [currentQuestion.options.length, isMultiSelect, handleToggleMulti, handleSingleSelect],
   );
 
   // ── Render ──────────────────────────────────────────────────────────────
@@ -113,13 +174,13 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
       {/* Progress bar */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             Question {currentIndex + 1} of {totalQuestions}
           </span>
-          <span className="text-sm text-gray-400">{getProgressPercent(currentIndex, totalQuestions)}%</span>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{getProgressPercent(currentIndex, totalQuestions)}%</span>
         </div>
         <div
-          className="w-full h-2 bg-gray-700 rounded-full overflow-hidden"
+          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
           role="progressbar"
           aria-valuenow={getProgressPercent(currentIndex, totalQuestions)}
           aria-valuemin={0}
@@ -138,7 +199,7 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
         <h2
           ref={headingRef}
           tabIndex={-1}
-          className="text-xl md:text-2xl font-semibold text-white mb-6 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-950 rounded"
+          className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950 rounded"
           id={`question-${currentQuestion.id}-heading`}
         >
           {currentQuestion.text}
@@ -151,31 +212,59 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
         >
           <legend className="sr-only">{currentQuestion.text}</legend>
           <div className="flex flex-col gap-3">
-            {currentQuestion.options.map((option) => (
-              <button
-                key={option.id}
-                type="button"
-                role="radio"
-                aria-checked={answers[currentQuestion.id] === option.id}
-                aria-label={option.label}
-                tabIndex={0}
-                onClick={() => handleAnswer(option.id)}
-                onKeyDown={(e) => handleKeyDown(e, option.id)}
-                className={`
-                  w-full min-h-[44px] px-5 py-3 rounded-xl text-left text-base
-                  transition-all duration-150 ease-in-out
-                  focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-950
-                  cursor-pointer border
-                  ${
-                    answers[currentQuestion.id] === option.id
-                      ? "bg-emerald-600/20 border-emerald-500 text-emerald-300 font-medium"
-                      : "bg-gray-800 border-gray-700 text-gray-200 hover:bg-gray-700 hover:border-gray-500"
-                  }
-                `}
-              >
-                {option.label}
-              </button>
-            ))}
+            {currentQuestion.options.map((option, index) => {
+              const selected = isOptionSelected(option.id);
+              return (
+                <button
+                  key={option.id}
+                  ref={(el) => {
+                    optionRefs.current[index] = el;
+                  }}
+                  type="button"
+                  role={isMultiSelect ? "checkbox" : "radio"}
+                  aria-checked={selected}
+                  aria-label={option.label}
+                  tabIndex={index === focusedIndex ? 0 : -1}
+                  onClick={() => {
+                    setFocusedIndex(index);
+                    if (isMultiSelect) {
+                      handleToggleMulti(option.id);
+                    } else {
+                      handleSingleSelect(option.id);
+                    }
+                  }}
+                  onKeyDown={(e) => handleKeyDown(e, option.id, index)}
+                  className={`
+                    w-full min-h-[44px] px-5 py-3 rounded-xl text-left text-base
+                    transition-all duration-150 ease-in-out
+                    focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
+                    cursor-pointer border flex items-center gap-3
+                    ${
+                      selected
+                        ? "bg-emerald-50 dark:bg-emerald-600/20 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-medium"
+                        : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500"
+                    }
+                  `}
+                >
+                  {isMultiSelect && (
+                    <span
+                      aria-hidden="true"
+                      className={`
+                        flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center
+                        ${selected ? "bg-emerald-500 border-emerald-400" : "border-gray-400 dark:border-gray-500"}
+                      `}
+                    >
+                      {selected && (
+                        <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      )}
+                    </span>
+                  )}
+                  {option.label}
+                </button>
+              );
+            })}
           </div>
         </fieldset>
 
@@ -188,9 +277,9 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
               aria-label="Go back to the previous question"
               className="
                 inline-flex items-center gap-2 px-4 py-2 min-h-[44px]
-                text-sm text-gray-400 hover:text-white
+                text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
                 transition-colors duration-150
-                focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-950 rounded
+                focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950 rounded
               "
             >
               <svg
@@ -213,9 +302,28 @@ export default function Quiz({ questions, onComplete }: QuizProps) {
             <div /> /* Spacer to keep the layout balanced */
           )}
 
-          <span className="text-xs text-gray-500">
-            Press&nbsp;<kbd className="px-1.5 py-0.5 bg-gray-800 rounded text-gray-400 font-mono">Enter</kbd>&nbsp;to select
-          </span>
+          {isMultiSelect ? (
+            <button
+              type="button"
+              onClick={handleMultiNext}
+              disabled={selectedIds.length === 0}
+              className="
+                inline-flex items-center gap-2 px-5 py-2 min-h-[44px]
+                bg-emerald-600 text-white text-sm font-medium rounded-lg
+                transition-colors duration-150
+                hover:bg-emerald-500
+                disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-emerald-600
+                focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
+              "
+            >
+              {isLast ? "See results" : "Next"}
+            </button>
+          ) : (
+            <span className="text-xs text-gray-500">
+              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-gray-500 dark:text-gray-400 font-mono">↑↓</kbd>&nbsp;to navigate,&nbsp;
+              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-gray-500 dark:text-gray-400 font-mono">Enter</kbd>&nbsp;to select
+            </span>
+          )}
         </div>
       </div>
     </div>

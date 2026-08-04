@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { scoreDistros, type Question, type Answers } from "./scoring";
+import { scoreDistros, getMaxPossibleScore, type Question, type Answers } from "./scoring";
 import type { Distro } from "../schemas/distro";
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -25,11 +25,12 @@ function makeDistro(overrides: Partial<Distro> & { id: string }): Distro {
 function makeQuestion(
   id: string,
   options: { optionId: string; effects: { distroTag: string; weight: number }[] }[],
+  type: "single-select" | "multi-select" = "single-select",
 ): Question {
   return {
     id,
     text: "Test question",
-    type: "single-select",
+    type,
     options: options.map((o) => ({
       id: o.optionId,
       label: `Option ${o.optionId}`,
@@ -226,5 +227,28 @@ describe("scoreDistros", () => {
     expect(results[0].distro.id).toBe("lower-fit-full");
     expect(results[1].distro.id).toBe("high-fit-sparse");
     expect(results[0].adjustedScore).toBeGreaterThan(results[1].adjustedScore);
+  });
+
+  it("sums effects across all selected options on a multi-select question", () => {
+    const distros = [ubuntu, arch];
+    const question = makeQuestion(
+      "use-cases",
+      [
+        { optionId: "everyday", effects: [{ distroTag: "ubuntu", weight: 3 }, { distroTag: "arch-linux", weight: 1 }] },
+        { optionId: "development", effects: [{ distroTag: "ubuntu", weight: 2 }, { distroTag: "arch-linux", weight: 2 }] },
+        { optionId: "gaming", effects: [{ distroTag: "ubuntu", weight: 2 }, { distroTag: "arch-linux", weight: 1 }] },
+      ],
+      "multi-select",
+    );
+
+    // User selects two of the three options — both should contribute.
+    const answers: Answers = { "use-cases": ["everyday", "development"] };
+    const results = scoreDistros(answers, distros, [question]);
+
+    expect(results.find((r) => r.distro.id === "ubuntu")!.score).toBe(5); // 3 + 2
+    expect(results.find((r) => r.distro.id === "arch-linux")!.score).toBe(3); // 1 + 2
+
+    // Max possible score sums every option's own best weight (all could be picked).
+    expect(getMaxPossibleScore([question])).toBe(3 + 2 + 2);
   });
 });

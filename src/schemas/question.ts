@@ -13,11 +13,15 @@ export const optionSchema = z.object({
   scoreEffects: z.array(scoreEffectSchema),
 });
 
-// ── A quiz question (currently only single-select is supported) ────────────
+// ── A quiz question ──────────────────────────────────────────────────────
+// "single-select" auto-advances on choice; "multi-select" lets the user
+// check multiple options and requires an explicit Next action.
+export const questionTypeSchema = z.enum(["single-select", "multi-select"]);
+
 export const questionSchema = z.object({
   id: z.string().min(1),
   text: z.string().min(1),
-  type: z.literal("single-select"),
+  type: questionTypeSchema,
   options: z.array(optionSchema).min(2),
 });
 

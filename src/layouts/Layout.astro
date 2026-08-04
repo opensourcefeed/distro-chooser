@@ -1,18 +1,84 @@
+---
+import "../styles/global.css";
+import ThemeToggle from "../components/ThemeToggle";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Distro Chooser — Find Your Perfect Linux Distribution | OpenSourceFeed",
+	description = "Answer a few quick questions and get personalized GNU/Linux distribution recommendations tailored to your experience level, hardware, and use case. Free interactive quiz from OpenSourceFeed.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL("/distro-chooser/og-image.png", Astro.site);
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "WebApplication",
+	name: "Distro Chooser",
+	url: canonicalURL.toString(),
+	description,
+	applicationCategory: "UtilitiesApplication",
+	operatingSystem: "Any",
+	offers: {
+		"@type": "Offer",
+		price: "0",
+		priceCurrency: "USD",
+	},
+	publisher: {
+		"@type": "Organization",
+		name: "OpenSourceFeed",
+		url: "https://www.opensourcefeed.org",
+	},
+};
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/distro-chooser/favicon.svg" />
 		<link rel="icon" href="/distro-chooser/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Distro Chooser</title>
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="theme-color" content="#10b981" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:site_name" content="OpenSourceFeed" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+		<meta name="twitter:site" content="@opensourcefeed" />
+
+		<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+		<!-- Applied before first paint to avoid a flash of the wrong theme. -->
+		<script is:inline>
+			(function () {
+				var stored = localStorage.getItem("theme");
+				var isDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+				document.documentElement.classList.toggle("dark", isDark);
+			})();
+		</script>
 	</head>
 	<body>
+		<ThemeToggle client:load />
 		<slot />
 	</body>
 </html>
-
-<style is:global>
-	@import "tailwindcss";
-</style>

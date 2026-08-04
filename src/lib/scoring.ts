@@ -1,38 +1,24 @@
 import type { Distro } from "../schemas/distro";
 import { getContentDepthMultiplier } from "../schemas/distro";
+import type { Question } from "../schemas/question";
+
+export type { Question, Option, ScoreEffect } from "../schemas/question";
 
 /**
- * Shape of a score effect within a question option.
- * Mirrors the Zod schema from src/schemas/question.ts.
+ * Answers map: question id → selected option id, or option ids for
+ * multi-select questions.
  */
-export interface ScoreEffect {
-  distroTag: string;
-  weight: number;
+export type Answers = Record<string, string | string[]>;
+
+/**
+ * Normalizes an answer value into an array of selected option ids,
+ * regardless of whether the question was single- or multi-select.
+ */
+function getSelectedOptionIds(answers: Answers, questionId: string): string[] {
+  const value = answers[questionId];
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
 }
-
-/**
- * Shape of a question option as loaded from JSON.
- */
-export interface Option {
-  id: string;
-  label: string;
-  scoreEffects: ScoreEffect[];
-}
-
-/**
- * Shape of a question as loaded from JSON.
- */
-export interface Question {
-  id: string;
-  text: string;
-  type: "single-select";
-  options: Option[];
-}
-
-/**
- * Answers map: question id → selected option id.
- */
-export type Answers = Record<string, string>;
 
 /**
  * A scored distro result.
@@ -67,20 +53,22 @@ export function scoreDistros(
     rawScores.set(d.id, 0);
   }
 
-  // Process each question
+  // Process each question — sums effects across all selected options,
+  // so multi-select questions can contribute more than one option's weight.
   for (const question of questions) {
-    const selectedOptionId = answers[question.id];
-    if (!selectedOptionId) continue; // unanswered question → skip
+    const selectedOptionIds = getSelectedOptionIds(answers, question.id);
 
-    const option = question.options.find((o) => o.id === selectedOptionId);
-    if (!option) continue; // invalid answer → skip
+    for (const selectedOptionId of selectedOptionIds) {
+      const option = question.options.find((o) => o.id === selectedOptionId);
+      if (!option) continue; // invalid answer → skip
 
-    for (const effect of option.scoreEffects) {
-      const current = rawScores.get(effect.distroTag);
-      if (current !== undefined) {
-        rawScores.set(effect.distroTag, current + effect.weight);
+      for (const effect of option.scoreEffects) {
+        const current = rawScores.get(effect.distroTag);
+        if (current !== undefined) {
+          rawScores.set(effect.distroTag, current + effect.weight);
+        }
+        // If the distroTag doesn't match any known distro, ignore silently
       }
-      // If the distroTag doesn't match any known distro, ignore silently
     }
   }
 
@@ -107,22 +95,34 @@ export function scoreDistros(
 }
 
 /**
- * Computes the theoretical maximum raw score any distro could achieve
- * by summing the highest positive weight per question.
+ * Computes the theoretical maximum raw score any distro could achieve.
  * Used to calculate match percentage.
+ *
+ * For single-select questions, only one option can be chosen, so this is
+ * the single highest positive weight found anywhere in the question.
+ * For multi-select questions, every option can be chosen simultaneously,
+ * so this sums each option's own best positive weight.
  */
 export function getMaxPossibleScore(questions: Question[]): number {
   let max = 0;
   for (const question of questions) {
-    let bestForQuestion = 0;
-    for (const option of question.options) {
-      for (const effect of option.scoreEffects) {
-        if (effect.weight > 0 && effect.weight > bestForQuestion) {
-          bestForQuestion = effect.weight;
+    if (question.type === "multi-select") {
+      for (const option of question.options) {
+        let bestForOption = 0;
+        for (const effect of option.scoreEffects) {
+          if (effect.weight > bestForOption) bestForOption = effect.weight;
+        }
+        max += bestForOption;
+      }
+    } else {
+      let bestForQuestion = 0;
+      for (const option of question.options) {
+        for (const effect of option.scoreEffects) {
+          if (effect.weight > bestForQuestion) bestForQuestion = effect.weight;
         }
       }
+      max += bestForQuestion;
     }
-    max += bestForQuestion;
   }
   return max;
 }
@@ -140,19 +140,20 @@ export function getWhyRecommended(
   const reasons: { question: string; answer: string; weight: number }[] = [];
 
   for (const question of questions) {
-    const selectedOptionId = answers[question.id];
-    if (!selectedOptionId) continue;
+    const selectedOptionIds = getSelectedOptionIds(answers, question.id);
 
-    const option = question.options.find((o) => o.id === selectedOptionId);
-    if (!option) continue;
+    for (const selectedOptionId of selectedOptionIds) {
+      const option = question.options.find((o) => o.id === selectedOptionId);
+      if (!option) continue;
 
-    const effect = option.scoreEffects.find((e) => e.distroTag === distroId);
-    if (effect && effect.weight > 0) {
-      reasons.push({
-        question: question.text,
-        answer: option.label,
-        weight: effect.weight,
-      });
+      const effect = option.scoreEffects.find((e) => e.distroTag === distroId);
+      if (effect && effect.weight > 0) {
+        reasons.push({
+          question: question.text,
+          answer: option.label,
+          weight: effect.weight,
+        });
+      }
     }
   }
 

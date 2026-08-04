@@ -6,37 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const { default: z } = await import("zod");
-
-const EXPERIENCE_LEVELS = ["beginner", "intermediate", "advanced"];
-const USE_CASES = ["everyday", "development", "gaming", "privacy", "ai-ml", "old-hardware"];
-const RELEASE_MODELS = ["stable", "rolling"];
-
-const linksSchema = z.object({
-  pageUrl: z.string().url(),
-  overviewUrl: z.string().url().optional(),
-  installGuideUrl: z.string().url().optional(),
-  latestReleaseUrl: z.string().url().optional(),
-  comparisonUrls: z.array(z.string().url()).optional(),
-});
-
-const distroSchema = z.object({
-  id: z.string().min(1),
-  name: z.string().min(1),
-  slug: z.string().min(1),
-  description: z.string().max(200),
-  experienceLevel: z.enum(EXPERIENCE_LEVELS),
-  useCases: z.array(z.enum(USE_CASES)).min(1),
-  releaseModel: z.enum(RELEASE_MODELS),
-  desktopEnvironments: z.array(z.string()).min(1),
-  nvidiaFriendly: z.boolean(),
-  lastVerifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
-    message: "lastVerifiedDate must be an ISO date string (YYYY-MM-DD)",
-  }),
-  links: linksSchema,
-});
-
-const distrosSchema = z.array(distroSchema);
+const { distrosSchema } = await import("../src/schemas/distro.ts");
 
 // Read and parse the JSON file
 const jsonPath = resolve(__dirname, "../src/data/distros.json");

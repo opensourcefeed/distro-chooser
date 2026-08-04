@@ -8,172 +8,1021 @@
         "id": "beginner",
         "label": "Beginner — I'm new to Linux or prefer a user-friendly experience",
         "scoreEffects": [
-          { "distroTag": "ubuntu", "weight": 3 },
-          { "distroTag": "linux-mint", "weight": 3 },
-          { "distroTag": "pop-os", "weight": 3 },
-          { "distroTag": "manjaro", "weight": 2 },
-          { "distroTag": "elementary-os", "weight": 3 },
-          { "distroTag": "zorin-os", "weight": 3 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": -3 },
-          { "distroTag": "kali-linux", "weight": -2 },
-          { "distroTag": "alpine-linux", "weight": -2 },
-          { "distroTag": "slackware", "weight": -3 },
-          { "distroTag": "gentoo", "weight": -3 }
+          {
+            "distroTag": "ubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 3
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": -3
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -3
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": -3
+          },
+          {
+            "distroTag": "nixos",
+            "weight": -3
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": -1
+          },
+          {
+            "distroTag": "mx",
+            "weight": 3
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 3
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": -1
+          },
+          {
+            "distroTag": "solus",
+            "weight": 3
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": -1
+          },
+          {
+            "distroTag": "pureos",
+            "weight": -1
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 3
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 3
+          },
+          {
+            "distroTag": "puppy",
+            "weight": -3
+          },
+          {
+            "distroTag": "tails",
+            "weight": -1
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "deepin",
+            "weight": 3
+          },
+          {
+            "distroTag": "devuan",
+            "weight": -3
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": -1
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "rosa",
+            "weight": -1
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": -1
+          },
+          {
+            "distroTag": "mageia",
+            "weight": -1
+          },
+          {
+            "distroTag": "antix",
+            "weight": -3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 3
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": -1
+          }
         ]
       },
       {
         "id": "intermediate",
         "label": "Intermediate — I'm comfortable with the terminal and troubleshooting",
         "scoreEffects": [
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 2 },
-          { "distroTag": "garuda-linux", "weight": 2 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "linux-mint", "weight": 1 },
-          { "distroTag": "pop-os", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "kali-linux", "weight": 1 }
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 1
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": -1
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": -1
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": -1
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "solus",
+            "weight": -1
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": -1
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": -1
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 1
+          },
+          {
+            "distroTag": "tails",
+            "weight": 2
+          },
+          {
+            "distroTag": "steamos",
+            "weight": -1
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "deepin",
+            "weight": -1
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 1
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 1
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": -1
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "advanced",
         "label": "Advanced — I want full control and don't mind manual configuration",
         "scoreEffects": [
-          { "distroTag": "arch-linux", "weight": 3 },
-          { "distroTag": "gentoo", "weight": 3 },
-          { "distroTag": "slackware", "weight": 3 },
-          { "distroTag": "alpine-linux", "weight": 2 },
-          { "distroTag": "kali-linux", "weight": 2 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": -2 },
-          { "distroTag": "linux-mint", "weight": -3 },
-          { "distroTag": "pop-os", "weight": -2 },
-          { "distroTag": "manjaro", "weight": -1 },
-          { "distroTag": "elementary-os", "weight": -3 },
-          { "distroTag": "zorin-os", "weight": -3 }
+          {
+            "distroTag": "arch-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 3
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 3
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": -2
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": -3
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": -1
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 3
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 1
+          },
+          {
+            "distroTag": "mx",
+            "weight": -3
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": -3
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": -3
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": -3
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": -3
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 1
+          },
+          {
+            "distroTag": "solus",
+            "weight": -3
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 1
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 1
+          },
+          {
+            "distroTag": "q4os",
+            "weight": -3
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": -3
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 3
+          },
+          {
+            "distroTag": "tails",
+            "weight": 1
+          },
+          {
+            "distroTag": "steamos",
+            "weight": -3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "deepin",
+            "weight": -3
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 3
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 1
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 1
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 1
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 1
+          },
+          {
+            "distroTag": "antix",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": -3
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 1
+          }
         ]
       }
     ]
   },
   {
     "id": "primary-use-case",
-    "text": "What will be your primary use case?",
-    "type": "single-select",
+    "text": "What will you use it for? (select all that apply)",
+    "type": "multi-select",
     "options": [
       {
         "id": "everyday",
         "label": "Everyday computing (browsing, media, office work)",
         "scoreEffects": [
-          { "distroTag": "ubuntu", "weight": 3 },
-          { "distroTag": "linux-mint", "weight": 3 },
-          { "distroTag": "elementary-os", "weight": 3 },
-          { "distroTag": "zorin-os", "weight": 3 },
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "pop-os", "weight": 2 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "manjaro", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "slackware", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 1 }
+          {
+            "distroTag": "ubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 3
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 3
+          },
+          {
+            "distroTag": "mx",
+            "weight": 3
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 3
+          },
+          {
+            "distroTag": "solus",
+            "weight": 3
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 3
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 3
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "deepin",
+            "weight": 3
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 3
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 3
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 3
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 3
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "development",
         "label": "Development / Programming",
         "scoreEffects": [
-          { "distroTag": "fedora", "weight": 3 },
-          { "distroTag": "pop-os", "weight": 3 },
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 2 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 2 },
-          { "distroTag": "elementary-os", "weight": 1 },
-          { "distroTag": "kali-linux", "weight": -1 },
-          { "distroTag": "alpine-linux", "weight": -1 },
-          { "distroTag": "slackware", "weight": 1 }
+          {
+            "distroTag": "fedora",
+            "weight": 3
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 2
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 3
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 2
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "gaming",
         "label": "Gaming",
         "scoreEffects": [
-          { "distroTag": "pop-os", "weight": 3 },
-          { "distroTag": "garuda-linux", "weight": 3 },
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "manjaro", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "debian", "weight": -1 },
-          { "distroTag": "elementary-os", "weight": -2 },
-          { "distroTag": "zorin-os", "weight": -1 },
-          { "distroTag": "alpine-linux", "weight": -3 },
-          { "distroTag": "slackware", "weight": -2 }
+          {
+            "distroTag": "pop-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "debian",
+            "weight": -1
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -3
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 3
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 3
+          }
         ]
       },
       {
         "id": "privacy",
         "label": "Privacy & Security",
         "scoreEffects": [
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "elementary-os", "weight": 2 },
-          { "distroTag": "kali-linux", "weight": 3 },
-          { "distroTag": "alpine-linux", "weight": 3 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 2 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": -1 },
-          { "distroTag": "pop-os", "weight": -1 },
-          { "distroTag": "manjaro", "weight": -1 }
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 3
+          },
+          {
+            "distroTag": "tails",
+            "weight": 3
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 3
+          },
+          {
+            "distroTag": "antix",
+            "weight": 2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 3
+          }
         ]
       },
       {
         "id": "ai-ml",
         "label": "AI & Machine Learning",
         "scoreEffects": [
-          { "distroTag": "fedora", "weight": 3 },
-          { "distroTag": "pop-os", "weight": 3 },
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": -2 },
-          { "distroTag": "slackware", "weight": -2 },
-          { "distroTag": "kali-linux", "weight": -1 }
+          {
+            "distroTag": "fedora",
+            "weight": 3
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -2
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": -1
+          }
         ]
       },
       {
         "id": "old-hardware",
         "label": "Old Hardware Revival",
         "scoreEffects": [
-          { "distroTag": "debian", "weight": 3 },
-          { "distroTag": "linux-mint", "weight": 2 },
-          { "distroTag": "zorin-os", "weight": 2 },
-          { "distroTag": "alpine-linux", "weight": 3 },
-          { "distroTag": "slackware", "weight": 3 },
-          { "distroTag": "gentoo", "weight": 2 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "pop-os", "weight": -1 },
-          { "distroTag": "garuda-linux", "weight": -2 },
-          { "distroTag": "fedora", "weight": -1 },
-          { "distroTag": "arch-linux", "weight": -1 },
-          { "distroTag": "manjaro", "weight": -1 },
-          { "distroTag": "kali-linux", "weight": -2 }
+          {
+            "distroTag": "debian",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 3
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": -1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": -1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 2
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 2
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          }
         ]
       }
     ]
@@ -187,66 +1036,412 @@
         "id": "less-than-2",
         "label": "Less than 2 years old",
         "scoreEffects": [
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": 2 },
-          { "distroTag": "pop-os", "weight": 2 },
-          { "distroTag": "garuda-linux", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": -1 },
-          { "distroTag": "slackware", "weight": -1 }
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 1
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 1
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 1
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 1
+          }
         ]
       },
       {
         "id": "2-to-5",
         "label": "2–5 years",
         "scoreEffects": [
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "linux-mint", "weight": 2 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "pop-os", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "zorin-os", "weight": 1 },
-          { "distroTag": "elementary-os", "weight": 1 }
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 1
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 1
+          },
+          {
+            "distroTag": "solus",
+            "weight": 1
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 1
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 1
+          },
+          {
+            "distroTag": "tails",
+            "weight": 1
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 1
+          },
+          {
+            "distroTag": "deepin",
+            "weight": 1
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 1
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 1
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 1
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 1
+          }
         ]
       },
       {
         "id": "5-plus",
         "label": "5–10 years",
         "scoreEffects": [
-          { "distroTag": "linux-mint", "weight": 2 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "zorin-os", "weight": 2 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": 2 },
-          { "distroTag": "slackware", "weight": 2 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "pop-os", "weight": -1 },
-          { "distroTag": "garuda-linux", "weight": -2 },
-          { "distroTag": "fedora", "weight": -1 }
+          {
+            "distroTag": "linux-mint",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 2
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 2
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": -1
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 2
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 2
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": -1
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "10-plus",
         "label": "10+ years",
         "scoreEffects": [
-          { "distroTag": "debian", "weight": 3 },
-          { "distroTag": "alpine-linux", "weight": 3 },
-          { "distroTag": "slackware", "weight": 3 },
-          { "distroTag": "gentoo", "weight": 2 },
-          { "distroTag": "zorin-os", "weight": 2 },
-          { "distroTag": "linux-mint", "weight": 2 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "pop-os", "weight": -2 },
-          { "distroTag": "garuda-linux", "weight": -3 },
-          { "distroTag": "fedora", "weight": -2 },
-          { "distroTag": "arch-linux", "weight": -1 },
-          { "distroTag": "manjaro", "weight": -2 }
+          {
+            "distroTag": "debian",
+            "weight": 3
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 3
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": -3
+          },
+          {
+            "distroTag": "fedora",
+            "weight": -2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": -2
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 3
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 3
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": -2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 3
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 3
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 3
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": -2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 3
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 2
+          }
         ]
       }
     ]
@@ -260,28 +1455,212 @@
         "id": "yes",
         "label": "Yes",
         "scoreEffects": [
-          { "distroTag": "pop-os", "weight": 3 },
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "garuda-linux", "weight": 2 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "linux-mint", "weight": 1 },
-          { "distroTag": "zorin-os", "weight": 1 },
-          { "distroTag": "slackware", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "elementary-os", "weight": -2 },
-          { "distroTag": "alpine-linux", "weight": -2 }
+          {
+            "distroTag": "pop-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 1
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 2
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": -2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 2
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": -2
+          },
+          {
+            "distroTag": "tails",
+            "weight": -2
+          },
+          {
+            "distroTag": "steamos",
+            "weight": -2
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "deepin",
+            "weight": 2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 2
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": -2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": -2
+          }
         ]
       },
       {
         "id": "no",
         "label": "No",
         "scoreEffects": [
-          { "distroTag": "elementary-os", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": 1 }
+          {
+            "distroTag": "elementary-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 1
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 1
+          },
+          {
+            "distroTag": "tails",
+            "weight": 1
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 1
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "antix",
+            "weight": 1
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 1
+          }
         ]
       },
       {
@@ -300,42 +1679,348 @@
         "id": "stable",
         "label": "Rock-solid stability — I want things to just work",
         "scoreEffects": [
-          { "distroTag": "debian", "weight": 3 },
-          { "distroTag": "linux-mint", "weight": 3 },
-          { "distroTag": "ubuntu", "weight": 2 },
-          { "distroTag": "elementary-os", "weight": 2 },
-          { "distroTag": "zorin-os", "weight": 2 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "pop-os", "weight": 2 },
-          { "distroTag": "slackware", "weight": 2 },
-          { "distroTag": "alpine-linux", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": -3 },
-          { "distroTag": "opensuse", "weight": -1 },
-          { "distroTag": "manjaro", "weight": -2 },
-          { "distroTag": "garuda-linux", "weight": -3 },
-          { "distroTag": "kali-linux", "weight": -2 },
-          { "distroTag": "gentoo", "weight": -1 }
+          {
+            "distroTag": "debian",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": 3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 2
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": -3
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": -1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": -2
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": -3
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": -2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 2
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": -2
+          },
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 2
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": 2
+          },
+          {
+            "distroTag": "tails",
+            "weight": 2
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 2
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "deepin",
+            "weight": 2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 2
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": -2
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": -2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "antix",
+            "weight": 2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "rolling",
         "label": "Cutting-edge — I want the latest packages",
         "scoreEffects": [
-          { "distroTag": "arch-linux", "weight": 3 },
-          { "distroTag": "garuda-linux", "weight": 3 },
-          { "distroTag": "manjaro", "weight": 2 },
-          { "distroTag": "opensuse", "weight": 2 },
-          { "distroTag": "kali-linux", "weight": 2 },
-          { "distroTag": "gentoo", "weight": 2 },
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "debian", "weight": -2 },
-          { "distroTag": "linux-mint", "weight": -3 },
-          { "distroTag": "ubuntu", "weight": -1 },
-          { "distroTag": "elementary-os", "weight": -3 },
-          { "distroTag": "zorin-os", "weight": -2 },
-          { "distroTag": "pop-os", "weight": -1 },
-          { "distroTag": "slackware", "weight": -1 },
-          { "distroTag": "alpine-linux", "weight": -1 }
+          {
+            "distroTag": "arch-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 2
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": -2
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": -3
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": -2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": -2
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": -2
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": -2
+          },
+          {
+            "distroTag": "ubuntumate",
+            "weight": -2
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": -2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "solus",
+            "weight": -2
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": -2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": -2
+          },
+          {
+            "distroTag": "q4os",
+            "weight": -2
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": -2
+          },
+          {
+            "distroTag": "puppy",
+            "weight": -2
+          },
+          {
+            "distroTag": "tails",
+            "weight": -2
+          },
+          {
+            "distroTag": "steamos",
+            "weight": -2
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "deepin",
+            "weight": -2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": -2
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": -2
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "rosa",
+            "weight": -2
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 2
+          },
+          {
+            "distroTag": "mageia",
+            "weight": -2
+          },
+          {
+            "distroTag": "antix",
+            "weight": -2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": -2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": -2
+          }
         ]
       },
       {
@@ -354,76 +2039,380 @@
         "id": "gnome",
         "label": "GNOME",
         "scoreEffects": [
-          { "distroTag": "ubuntu", "weight": 3 },
-          { "distroTag": "fedora", "weight": 3 },
-          { "distroTag": "pop-os", "weight": 2 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "zorin-os", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "kali-linux", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": 1 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "linux-mint", "weight": -2 },
-          { "distroTag": "elementary-os", "weight": -1 },
-          { "distroTag": "slackware", "weight": -1 }
+          {
+            "distroTag": "ubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 3
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": -2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 3
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 2
+          },
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "pureos",
+            "weight": 3
+          },
+          {
+            "distroTag": "tails",
+            "weight": 3
+          },
+          {
+            "distroTag": "vanillaos",
+            "weight": 3
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          },
+          {
+            "distroTag": "trisquel",
+            "weight": 3
+          }
         ]
       },
       {
         "id": "kde-plasma",
         "label": "KDE Plasma",
         "scoreEffects": [
-          { "distroTag": "opensuse", "weight": 3 },
-          { "distroTag": "garuda-linux", "weight": 3 },
-          { "distroTag": "manjaro", "weight": 2 },
-          { "distroTag": "arch-linux", "weight": 2 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "kali-linux", "weight": 1 },
-          { "distroTag": "slackware", "weight": 2 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": 1 },
-          { "distroTag": "linux-mint", "weight": -2 },
-          { "distroTag": "pop-os", "weight": -2 },
-          { "distroTag": "elementary-os", "weight": -3 },
-          { "distroTag": "zorin-os", "weight": -1 }
+          {
+            "distroTag": "opensuse",
+            "weight": 3
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 2
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 2
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "linux-mint",
+            "weight": -2
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "mx",
+            "weight": 2
+          },
+          {
+            "distroTag": "kubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "cachyos",
+            "weight": 3
+          },
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "kdeneon",
+            "weight": 3
+          },
+          {
+            "distroTag": "q4os",
+            "weight": 3
+          },
+          {
+            "distroTag": "steamos",
+            "weight": 3
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 2
+          },
+          {
+            "distroTag": "rosa",
+            "weight": 3
+          },
+          {
+            "distroTag": "openmandriva",
+            "weight": 3
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          }
         ]
       },
       {
         "id": "xfce",
         "label": "XFCE",
         "scoreEffects": [
-          { "distroTag": "linux-mint", "weight": 3 },
-          { "distroTag": "manjaro", "weight": 3 },
-          { "distroTag": "debian", "weight": 2 },
-          { "distroTag": "zorin-os", "weight": 2 },
-          { "distroTag": "fedora", "weight": 1 },
-          { "distroTag": "arch-linux", "weight": 1 },
-          { "distroTag": "opensuse", "weight": 1 },
-          { "distroTag": "slackware", "weight": 2 },
-          { "distroTag": "gentoo", "weight": 1 },
-          { "distroTag": "alpine-linux", "weight": 1 },
-          { "distroTag": "kali-linux", "weight": 1 },
-          { "distroTag": "garuda-linux", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": 1 },
-          { "distroTag": "pop-os", "weight": -2 },
-          { "distroTag": "elementary-os", "weight": -3 }
+          {
+            "distroTag": "linux-mint",
+            "weight": 3
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 3
+          },
+          {
+            "distroTag": "debian",
+            "weight": 2
+          },
+          {
+            "distroTag": "zorin-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 1
+          },
+          {
+            "distroTag": "arch-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse",
+            "weight": 1
+          },
+          {
+            "distroTag": "slackware",
+            "weight": 2
+          },
+          {
+            "distroTag": "gentoo",
+            "weight": 1
+          },
+          {
+            "distroTag": "alpine-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "kali-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "nixos",
+            "weight": 2
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 3
+          },
+          {
+            "distroTag": "mx",
+            "weight": 3
+          },
+          {
+            "distroTag": "xubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "peppermint",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "devuan",
+            "weight": 3
+          },
+          {
+            "distroTag": "rhino-linux",
+            "weight": 3
+          },
+          {
+            "distroTag": "mageia",
+            "weight": 2
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 3
+          }
         ]
       },
       {
         "id": "cinnamon",
         "label": "Cinnamon",
         "scoreEffects": [
-          { "distroTag": "linux-mint", "weight": 3 },
-          { "distroTag": "fedora", "weight": 2 },
-          { "distroTag": "debian", "weight": 1 },
-          { "distroTag": "manjaro", "weight": 1 },
-          { "distroTag": "ubuntu", "weight": -1 },
-          { "distroTag": "pop-os", "weight": -2 },
-          { "distroTag": "elementary-os", "weight": -3 }
+          {
+            "distroTag": "linux-mint",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora",
+            "weight": 2
+          },
+          {
+            "distroTag": "debian",
+            "weight": 1
+          },
+          {
+            "distroTag": "manjaro",
+            "weight": 1
+          },
+          {
+            "distroTag": "ubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "pop-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "elementary-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "endeavour",
+            "weight": 2
+          },
+          {
+            "distroTag": "ubuntucinnamon",
+            "weight": 3
+          },
+          {
+            "distroTag": "spirallinux",
+            "weight": 2
+          }
         ]
       },
       {

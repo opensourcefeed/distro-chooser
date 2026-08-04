@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Manual dark mode: toggled via a `.dark` class on <html>, set by the
+   inline theme-init script in Layout.astro (before first paint) and by
+   ThemeToggle.tsx afterwards. Falls back to system preference on first visit. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ── Slide animations for quiz transitions ──────────────────────────────── */
 @keyframes slide-in-right {
   from {
@@ -59,4 +64,32 @@
 
 @utility animate-slide-out-right {
   animation: slide-out-right 150ms ease-in-out;
+}
+
+/* ── Results reveal animations ──────────────────────────────────────────── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up 400ms ease-out both;
+}
+
+/* ── Respect reduced-motion preference ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

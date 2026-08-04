@@ -6,29 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const { default: z } = await import("zod");
-
-// ── Schema (mirrors src/schemas/question.ts) ───────────────────────────────
-
-const scoreEffectSchema = z.object({
-  distroTag: z.string().min(1),
-  weight: z.number().int().min(-5).max(5),
-});
-
-const optionSchema = z.object({
-  id: z.string().min(1),
-  label: z.string().min(1),
-  scoreEffects: z.array(scoreEffectSchema),
-});
-
-const questionSchema = z.object({
-  id: z.string().min(1),
-  text: z.string().min(1),
-  type: z.literal("single-select"),
-  options: z.array(optionSchema).min(2),
-});
-
-const questionsSchema = z.array(questionSchema);
+const { questionsSchema } = await import("../src/schemas/question.ts");
 
 // ── Load distros.json to get valid distro IDs ──────────────────────────────
 
