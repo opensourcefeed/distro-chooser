@@ -1,67 +1,39 @@
-#!/usr/bin/env bash
-# Deploys distro-chooser: pushes source to main, builds, and publishes dist/ to
-# the gh-pages branch via a sibling clone at ../distro-chooser.
+#!/bin/bash
+set -e
 
-REMOTE_URL="git@github.com:opensourcefeed/distro-chooser.git"
-DEPLOY_DIR="../distro-chooser"
+# Check for mandatory commit message argument
+if [ $# -eq 0 ]; then
+    echo "Error: Commit message is required."
+    echo "Usage: $0 <commit-message>"
+    exit 1
+fi
+
+COMMIT_MSG="$*"
 
 cd "$(dirname "$0")/.."
 
-step() { echo "==> $*"; }
+# Load NVM for npm/pnpm availability
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-step "Checking git remote"
-if ! git remote get-url origin >/dev/null 2>&1; then
-  git remote add origin "$REMOTE_URL"
-  git branch -M main
-fi
+TARGET="../distro-chooser"
 
-step "Committing source changes"
-if [ -n "$(git status --porcelain)" ]; then
-  git add -A
-  git commit -m "Deploy $(date '+%Y-%m-%d %H:%M:%S')"
-else
-  echo "Nothing to commit"
-fi
-
-step "Pushing to main (errors ignored)"
-git push -u origin main || echo "warning: push to main failed, continuing"
-
-set -euo pipefail
-
-step "Building"
+echo "=== Building project ==="
 pnpm build
 
-step "Preparing $DEPLOY_DIR"
-if [ ! -d "$DEPLOY_DIR" ]; then
-  git clone "$REMOTE_URL" "$DEPLOY_DIR"
-fi
+echo "=== Copying build to $TARGET ==="
 
-(
-  cd "$DEPLOY_DIR"
-  git fetch origin
-  if git rev-parse --verify origin/gh-pages >/dev/null 2>&1; then
-    git checkout -B gh-pages origin/gh-pages
-  else
-    git checkout --orphan gh-pages
-    git rm -rf . >/dev/null 2>&1 || true
-  fi
-)
+cp -r dist/* "$TARGET"/
 
-step "Syncing dist/ into $DEPLOY_DIR"
-SHORT_SHA="$(git rev-parse --short HEAD)"
-find "$DEPLOY_DIR" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
-cp -r dist/. "$DEPLOY_DIR/"
+echo "=== Committing & pushing current repo ==="
+git add -A
+git commit -m "$COMMIT_MSG" || echo "Nothing to commit"
+git push origin
 
-step "Committing and pushing gh-pages"
-(
-  cd "$DEPLOY_DIR"
-  git add -A
-  if ! git diff --cached --quiet; then
-    git commit -m "Deploy $(date '+%Y-%m-%d %H:%M:%S') from distro-chooser-src@${SHORT_SHA}"
-    git push -u origin gh-pages
-  else
-    echo "Nothing to deploy"
-  fi
-)
+echo "=== Committing & pushing target repo ==="
+cd "$TARGET"
+git add -A
+git commit -m "$COMMIT_MSG" || echo "Nothing to commit"
+git push -u origin gh-pages
 
-step "Done"
+echo "=== Deployment complete ==="

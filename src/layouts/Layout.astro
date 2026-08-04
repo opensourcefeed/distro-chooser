@@ -41,14 +41,17 @@ const jsonLd = {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/distro-chooser/favicon.svg" />
-		<link rel="icon" href="/distro-chooser/favicon.ico" />
+		<link rel="icon" href="/distro-chooser/favicon.ico" sizes="any" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/distro-chooser/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/distro-chooser/favicon-16x16.png" />
+		<link rel="apple-touch-icon" href="/distro-chooser/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="512x512" href="/distro-chooser/icon-512.png" />
 		<meta name="generator" content={Astro.generator} />
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
-		<meta name="theme-color" content="#10b981" />
+		<meta name="theme-color" content="#2b6765" />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
@@ -90,6 +93,22 @@ const jsonLd = {
 		</script>
 	</head>
 	<body>
+		<a
+			href="https://www.opensourcefeed.org"
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label="OpenSourceFeed"
+			class="
+				fixed top-4 left-4 z-20 flex items-center gap-2 h-11 min-h-[44px] px-2.5
+				rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur border border-gray-200 dark:border-gray-700
+				text-gray-700 dark:text-gray-300 shadow-sm hover:shadow-md transition-all duration-150
+				hover:bg-white dark:hover:bg-gray-700
+				focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-gray-950
+			"
+		>
+			<img src="/distro-chooser/icon-512.png" alt="" width="24" height="24" class="w-6 h-6 rounded-md" />
+			<span class="hidden sm:inline text-xs font-medium tracking-wide">OpenSourceFeed</span>
+		</a>
 		<ThemeToggle client:load />
 		<slot />
 	</body>
