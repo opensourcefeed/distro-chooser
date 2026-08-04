@@ -1,11 +1,29 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import QuizApp from '../components/QuizApp';
+import questions from '../data/questions.json';
+import distros from '../data/distros.json';
 ---
 
+<!--
+  Tradeoff: on mid-quiz reload we restart cleanly.
+  We could persist answers to sessionStorage and restore on load,
+  but the quiz is only 6 questions and the added complexity of
+  hydrating partial state wasn't justified. If the quiz grows
+  significantly, sessionStorage persistence is the recommended upgrade.
+-->
+
 <Layout>
-	<Welcome />
+	<main class="min-h-screen flex flex-col items-center justify-center bg-gray-950 text-white">
+		<div class="w-full max-w-lg mx-auto px-4 py-12 text-center">
+			<h1 class="text-4xl md:text-5xl font-bold mb-3">Distro Chooser</h1>
+			<p class="text-lg text-gray-400 mb-8">Find your perfect Linux distribution.</p>
+		</div>
+
+		<QuizApp
+			questions={questions}
+			distros={distros}
+			client:load
+		/>
+	</main>
 </Layout>

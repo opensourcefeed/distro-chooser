@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* ── Slide animations for quiz transitions ──────────────────────────────── */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-left {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+}
+
+@utility animate-slide-in-right {
+  animation: slide-in-right 150ms ease-in-out;
+}
+
+@utility animate-slide-out-left {
+  animation: slide-out-left 150ms ease-in-out;
+}
+
+@utility animate-slide-in-left {
+  animation: slide-in-left 150ms ease-in-out;
+}
+
+@utility animate-slide-out-right {
+  animation: slide-out-right 150ms ease-in-out;
+}

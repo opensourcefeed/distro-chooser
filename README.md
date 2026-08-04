@@ -1,46 +1,57 @@
-# Astro Starter Kit: Basics
+# Distro Chooser
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+An interactive Linux distribution chooser / quiz built with Astro. Help users find the perfect Linux distro based on their preferences, use case, and experience level.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🧰 Stack
+
+| Technology | Purpose |
+|-----------|---------|
+| [Astro](https://astro.build) v7 | Static site generation and routing |
+| [TypeScript](https://www.typescriptlang.org/) | Type safety (strict mode) |
+| [Tailwind CSS](https://tailwindcss.com) v4 | Utility-first CSS framework |
+| [pnpm](https://pnpm.io) | Fast, disk-efficient package manager |
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
+```
 /
 ├── public/
 │   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+├── src/
+│   ├── assets/
+│   │   └── astro.svg
+│   ├── components/
+│   │   └── Welcome.astro
+│   ├── data/
+│   │   └── .gitkeep
+│   ├── layouts/
+│   │   └── Layout.astro
+│   ├── lib/
+│   │   └── .gitkeep
+│   ├── pages/
+│   │   └── index.astro
+│   ├── schemas/
+│   │   └── .gitkeep
+│   └── styles/
+│       └── global.css
+├── astro.config.mjs
+├── package.json
+├── pnpm-workspace.yaml
+├── tsconfig.json
+└── .gitignore
 ```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Action |
+|---------|--------|
+| `pnpm install` | Install dependencies |
+| `pnpm dev` | Start local dev server at `localhost:4321` |
+| `pnpm build` | Build production site to `./dist/` |
+| `pnpm preview` | Preview production build locally |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## 🌐 Deployment
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The site is configured to deploy at:
+- **Base path:** `/distro-chooser/`
+- **Production site:** `https://www.opensourcefeed.org`

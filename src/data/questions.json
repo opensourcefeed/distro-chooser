@@ -1,0 +1,436 @@
+[
+  {
+    "id": "experience-level",
+    "text": "How would you describe your Linux experience?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "beginner",
+        "label": "Beginner — I'm new to Linux or prefer a user-friendly experience",
+        "scoreEffects": [
+          { "distroTag": "ubuntu", "weight": 3 },
+          { "distroTag": "linux-mint", "weight": 3 },
+          { "distroTag": "pop-os", "weight": 3 },
+          { "distroTag": "manjaro", "weight": 2 },
+          { "distroTag": "elementary-os", "weight": 3 },
+          { "distroTag": "zorin-os", "weight": 3 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": -3 },
+          { "distroTag": "kali-linux", "weight": -2 },
+          { "distroTag": "alpine-linux", "weight": -2 },
+          { "distroTag": "slackware", "weight": -3 },
+          { "distroTag": "gentoo", "weight": -3 }
+        ]
+      },
+      {
+        "id": "intermediate",
+        "label": "Intermediate — I'm comfortable with the terminal and troubleshooting",
+        "scoreEffects": [
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 2 },
+          { "distroTag": "garuda-linux", "weight": 2 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "linux-mint", "weight": 1 },
+          { "distroTag": "pop-os", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "kali-linux", "weight": 1 }
+        ]
+      },
+      {
+        "id": "advanced",
+        "label": "Advanced — I want full control and don't mind manual configuration",
+        "scoreEffects": [
+          { "distroTag": "arch-linux", "weight": 3 },
+          { "distroTag": "gentoo", "weight": 3 },
+          { "distroTag": "slackware", "weight": 3 },
+          { "distroTag": "alpine-linux", "weight": 2 },
+          { "distroTag": "kali-linux", "weight": 2 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": -2 },
+          { "distroTag": "linux-mint", "weight": -3 },
+          { "distroTag": "pop-os", "weight": -2 },
+          { "distroTag": "manjaro", "weight": -1 },
+          { "distroTag": "elementary-os", "weight": -3 },
+          { "distroTag": "zorin-os", "weight": -3 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "primary-use-case",
+    "text": "What will be your primary use case?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "everyday",
+        "label": "Everyday computing (browsing, media, office work)",
+        "scoreEffects": [
+          { "distroTag": "ubuntu", "weight": 3 },
+          { "distroTag": "linux-mint", "weight": 3 },
+          { "distroTag": "elementary-os", "weight": 3 },
+          { "distroTag": "zorin-os", "weight": 3 },
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "pop-os", "weight": 2 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "manjaro", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "slackware", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 1 }
+        ]
+      },
+      {
+        "id": "development",
+        "label": "Development / Programming",
+        "scoreEffects": [
+          { "distroTag": "fedora", "weight": 3 },
+          { "distroTag": "pop-os", "weight": 3 },
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 2 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 2 },
+          { "distroTag": "elementary-os", "weight": 1 },
+          { "distroTag": "kali-linux", "weight": -1 },
+          { "distroTag": "alpine-linux", "weight": -1 },
+          { "distroTag": "slackware", "weight": 1 }
+        ]
+      },
+      {
+        "id": "gaming",
+        "label": "Gaming",
+        "scoreEffects": [
+          { "distroTag": "pop-os", "weight": 3 },
+          { "distroTag": "garuda-linux", "weight": 3 },
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "manjaro", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "debian", "weight": -1 },
+          { "distroTag": "elementary-os", "weight": -2 },
+          { "distroTag": "zorin-os", "weight": -1 },
+          { "distroTag": "alpine-linux", "weight": -3 },
+          { "distroTag": "slackware", "weight": -2 }
+        ]
+      },
+      {
+        "id": "privacy",
+        "label": "Privacy & Security",
+        "scoreEffects": [
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "elementary-os", "weight": 2 },
+          { "distroTag": "kali-linux", "weight": 3 },
+          { "distroTag": "alpine-linux", "weight": 3 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 2 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": -1 },
+          { "distroTag": "pop-os", "weight": -1 },
+          { "distroTag": "manjaro", "weight": -1 }
+        ]
+      },
+      {
+        "id": "ai-ml",
+        "label": "AI & Machine Learning",
+        "scoreEffects": [
+          { "distroTag": "fedora", "weight": 3 },
+          { "distroTag": "pop-os", "weight": 3 },
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": -2 },
+          { "distroTag": "slackware", "weight": -2 },
+          { "distroTag": "kali-linux", "weight": -1 }
+        ]
+      },
+      {
+        "id": "old-hardware",
+        "label": "Old Hardware Revival",
+        "scoreEffects": [
+          { "distroTag": "debian", "weight": 3 },
+          { "distroTag": "linux-mint", "weight": 2 },
+          { "distroTag": "zorin-os", "weight": 2 },
+          { "distroTag": "alpine-linux", "weight": 3 },
+          { "distroTag": "slackware", "weight": 3 },
+          { "distroTag": "gentoo", "weight": 2 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "pop-os", "weight": -1 },
+          { "distroTag": "garuda-linux", "weight": -2 },
+          { "distroTag": "fedora", "weight": -1 },
+          { "distroTag": "arch-linux", "weight": -1 },
+          { "distroTag": "manjaro", "weight": -1 },
+          { "distroTag": "kali-linux", "weight": -2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hardware-age",
+    "text": "How old is your hardware?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "less-than-2",
+        "label": "Less than 2 years old",
+        "scoreEffects": [
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": 2 },
+          { "distroTag": "pop-os", "weight": 2 },
+          { "distroTag": "garuda-linux", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": -1 },
+          { "distroTag": "slackware", "weight": -1 }
+        ]
+      },
+      {
+        "id": "2-to-5",
+        "label": "2–5 years",
+        "scoreEffects": [
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "linux-mint", "weight": 2 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "pop-os", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "zorin-os", "weight": 1 },
+          { "distroTag": "elementary-os", "weight": 1 }
+        ]
+      },
+      {
+        "id": "5-plus",
+        "label": "5–10 years",
+        "scoreEffects": [
+          { "distroTag": "linux-mint", "weight": 2 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "zorin-os", "weight": 2 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": 2 },
+          { "distroTag": "slackware", "weight": 2 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "pop-os", "weight": -1 },
+          { "distroTag": "garuda-linux", "weight": -2 },
+          { "distroTag": "fedora", "weight": -1 }
+        ]
+      },
+      {
+        "id": "10-plus",
+        "label": "10+ years",
+        "scoreEffects": [
+          { "distroTag": "debian", "weight": 3 },
+          { "distroTag": "alpine-linux", "weight": 3 },
+          { "distroTag": "slackware", "weight": 3 },
+          { "distroTag": "gentoo", "weight": 2 },
+          { "distroTag": "zorin-os", "weight": 2 },
+          { "distroTag": "linux-mint", "weight": 2 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "pop-os", "weight": -2 },
+          { "distroTag": "garuda-linux", "weight": -3 },
+          { "distroTag": "fedora", "weight": -2 },
+          { "distroTag": "arch-linux", "weight": -1 },
+          { "distroTag": "manjaro", "weight": -2 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nvidia-gpu",
+    "text": "Do you have an NVIDIA GPU?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "yes",
+        "label": "Yes",
+        "scoreEffects": [
+          { "distroTag": "pop-os", "weight": 3 },
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "garuda-linux", "weight": 2 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "linux-mint", "weight": 1 },
+          { "distroTag": "zorin-os", "weight": 1 },
+          { "distroTag": "slackware", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "elementary-os", "weight": -2 },
+          { "distroTag": "alpine-linux", "weight": -2 }
+        ]
+      },
+      {
+        "id": "no",
+        "label": "No",
+        "scoreEffects": [
+          { "distroTag": "elementary-os", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": 1 }
+        ]
+      },
+      {
+        "id": "not-sure",
+        "label": "Not sure",
+        "scoreEffects": []
+      }
+    ]
+  },
+  {
+    "id": "update-philosophy",
+    "text": "What's your update philosophy?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "stable",
+        "label": "Rock-solid stability — I want things to just work",
+        "scoreEffects": [
+          { "distroTag": "debian", "weight": 3 },
+          { "distroTag": "linux-mint", "weight": 3 },
+          { "distroTag": "ubuntu", "weight": 2 },
+          { "distroTag": "elementary-os", "weight": 2 },
+          { "distroTag": "zorin-os", "weight": 2 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "pop-os", "weight": 2 },
+          { "distroTag": "slackware", "weight": 2 },
+          { "distroTag": "alpine-linux", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": -3 },
+          { "distroTag": "opensuse", "weight": -1 },
+          { "distroTag": "manjaro", "weight": -2 },
+          { "distroTag": "garuda-linux", "weight": -3 },
+          { "distroTag": "kali-linux", "weight": -2 },
+          { "distroTag": "gentoo", "weight": -1 }
+        ]
+      },
+      {
+        "id": "rolling",
+        "label": "Cutting-edge — I want the latest packages",
+        "scoreEffects": [
+          { "distroTag": "arch-linux", "weight": 3 },
+          { "distroTag": "garuda-linux", "weight": 3 },
+          { "distroTag": "manjaro", "weight": 2 },
+          { "distroTag": "opensuse", "weight": 2 },
+          { "distroTag": "kali-linux", "weight": 2 },
+          { "distroTag": "gentoo", "weight": 2 },
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "debian", "weight": -2 },
+          { "distroTag": "linux-mint", "weight": -3 },
+          { "distroTag": "ubuntu", "weight": -1 },
+          { "distroTag": "elementary-os", "weight": -3 },
+          { "distroTag": "zorin-os", "weight": -2 },
+          { "distroTag": "pop-os", "weight": -1 },
+          { "distroTag": "slackware", "weight": -1 },
+          { "distroTag": "alpine-linux", "weight": -1 }
+        ]
+      },
+      {
+        "id": "balanced",
+        "label": "Somewhere in between",
+        "scoreEffects": []
+      }
+    ]
+  },
+  {
+    "id": "desktop-environment",
+    "text": "Which desktop environment appeals to you most?",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "gnome",
+        "label": "GNOME",
+        "scoreEffects": [
+          { "distroTag": "ubuntu", "weight": 3 },
+          { "distroTag": "fedora", "weight": 3 },
+          { "distroTag": "pop-os", "weight": 2 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "zorin-os", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "kali-linux", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": 1 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "linux-mint", "weight": -2 },
+          { "distroTag": "elementary-os", "weight": -1 },
+          { "distroTag": "slackware", "weight": -1 }
+        ]
+      },
+      {
+        "id": "kde-plasma",
+        "label": "KDE Plasma",
+        "scoreEffects": [
+          { "distroTag": "opensuse", "weight": 3 },
+          { "distroTag": "garuda-linux", "weight": 3 },
+          { "distroTag": "manjaro", "weight": 2 },
+          { "distroTag": "arch-linux", "weight": 2 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "kali-linux", "weight": 1 },
+          { "distroTag": "slackware", "weight": 2 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": 1 },
+          { "distroTag": "linux-mint", "weight": -2 },
+          { "distroTag": "pop-os", "weight": -2 },
+          { "distroTag": "elementary-os", "weight": -3 },
+          { "distroTag": "zorin-os", "weight": -1 }
+        ]
+      },
+      {
+        "id": "xfce",
+        "label": "XFCE",
+        "scoreEffects": [
+          { "distroTag": "linux-mint", "weight": 3 },
+          { "distroTag": "manjaro", "weight": 3 },
+          { "distroTag": "debian", "weight": 2 },
+          { "distroTag": "zorin-os", "weight": 2 },
+          { "distroTag": "fedora", "weight": 1 },
+          { "distroTag": "arch-linux", "weight": 1 },
+          { "distroTag": "opensuse", "weight": 1 },
+          { "distroTag": "slackware", "weight": 2 },
+          { "distroTag": "gentoo", "weight": 1 },
+          { "distroTag": "alpine-linux", "weight": 1 },
+          { "distroTag": "kali-linux", "weight": 1 },
+          { "distroTag": "garuda-linux", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": 1 },
+          { "distroTag": "pop-os", "weight": -2 },
+          { "distroTag": "elementary-os", "weight": -3 }
+        ]
+      },
+      {
+        "id": "cinnamon",
+        "label": "Cinnamon",
+        "scoreEffects": [
+          { "distroTag": "linux-mint", "weight": 3 },
+          { "distroTag": "fedora", "weight": 2 },
+          { "distroTag": "debian", "weight": 1 },
+          { "distroTag": "manjaro", "weight": 1 },
+          { "distroTag": "ubuntu", "weight": -1 },
+          { "distroTag": "pop-os", "weight": -2 },
+          { "distroTag": "elementary-os", "weight": -3 }
+        ]
+      },
+      {
+        "id": "no-preference",
+        "label": "No preference / I'll use whatever comes default",
+        "scoreEffects": []
+      }
+    ]
+  }
+]
