@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="color-scheme" content="light dark"><link rel="icon" href="/distro-chooser/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="/distro-chooser/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/distro-chooser/favicon-16x16.png"><link rel="apple-touch-icon" href="/distro-chooser/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="512x512" href="/distro-chooser/icon-512.png"><meta name="generator" content="Astro v7.0.7"><link rel="preload" href="/distro-chooser/_astro/inter-latin-wght-normal.Dx4kXJAl.woff2" as="font" type="font/woff2" crossorigin><title>Best Linux Distros by Need | OpenSourceFeed</title><meta name="description" content="Hand-reviewed guides to the best Linux distributions for beginners, gaming, programming, privacy and people switching from Windows."><link rel="canonical" href="https://www.opensourcefeed.org/distro-chooser/best-for/"><meta name="theme-color" content="#f5f8f7" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0a1413" media="(prefers-color-scheme: dark)"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:title" content="Best Linux Distros by Need | OpenSourceFeed"><meta property="og:description" content="Hand-reviewed guides to the best Linux distributions for beginners, gaming, programming, privacy and people switching from Windows."><meta property="og:url" content="https://www.opensourcefeed.org/distro-chooser/best-for/"><meta property="og:image" content="https://www.opensourcefeed.org/distro-chooser/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:site_name" content="OpenSourceFeed"><meta property="og:locale" content="en_US"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Best Linux Distros by Need | OpenSourceFeed"><meta name="twitter:description" content="Hand-reviewed guides to the best Linux distributions for beginners, gaming, programming, privacy and people switching from Windows."><meta name="twitter:image" content="https://www.opensourcefeed.org/distro-chooser/og-image.png"><meta name="twitter:site" content="@opensourcefeed"><script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"OpenSourceFeed","item":"https://www.opensourcefeed.org/"},{"@type":"ListItem","position":2,"name":"Distro Chooser","item":"https://www.opensourcefeed.org/distro-chooser/"},{"@type":"ListItem","position":3,"name":"Best distros by need","item":"https://www.opensourcefeed.org/distro-chooser/best-for/"}]}]</script><!-- Applied before first paint to avoid a flash of the wrong theme. --><script>
+			(function () {
+				var stored = null;
+				try { stored = localStorage.getItem("theme"); } catch (e) {}
+				var isDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+				document.documentElement.classList.toggle("dark", isDark);
+			})();
+		</script><!--
+			Analytics (Ahrefs + GA4) only load after the visitor accepts them in the
+			consent banner below. The choice is stored in localStorage under
+			"analytics-consent" ("granted" | "denied"); with no stored choice nothing
+			is loaded and the banner is shown. Loading waits for the page to be idle
+			so analytics never compete with the quiz for the main thread.
+		--><script>
+			(function () {
+				var KEY = "analytics-consent";
+				var GA_ID = "G-KD5NJYRYD3";
+				var loaded = false;
+
+				function read() {
+					try { return localStorage.getItem(KEY); } catch (e) { return null; }
+				}
+				function write(value) {
+					try { localStorage.setItem(KEY, value); } catch (e) { /* storage blocked: choice lasts for this page view */ }
+				}
+				function addScript(src, attrs) {
+					var el = document.createElement("script");
+					el.src = src;
+					el.async = true;
+					for (var k in attrs) el.setAttribute(k, attrs[k]);
+					document.head.appendChild(el);
+				}
+				function load() {
+					if (loaded) return;
+					loaded = true;
+					var run = function () {
+						addScript("https://analytics.ahrefs.com/analytics.js", { "data-key": "CtE+TXWgN05s3ROalk1xUg" });
+						addScript("https://www.googletagmanager.com/gtag/js?id=" + GA_ID, {});
+						window.dataLayer = window.dataLayer || [];
+						window.gtag = function () { window.dataLayer.push(arguments); };
+						window.gtag("js", new Date());
+						window.gtag("config", GA_ID);
+					};
+					if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 4000 });
+					else window.addEventListener("load", function () { setTimeout(run, 1); });
+				}
+				function clearGaCookies() {
+					var host = location.hostname.replace(/^www\./, "");
+					document.cookie.split(";").forEach(function (c) {
+						var name = c.split("=")[0].trim();
+						if (name === "_ga" || name.indexOf("_ga_") === 0) {
+							["", "; domain=" + host, "; domain=." + host].forEach(function (d) {
+								document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+							});
+						}
+					});
+				}
+
+				window.osfConsent = {
+					get: read,
+					accept: function () { write("granted"); load(); },
+					decline: function () {
+						var wasLoaded = loaded;
+						write("denied");
+						clearGaCookies();
+						// Scripts that already ran can't be unloaded; reload so they stop.
+						if (wasLoaded) location.reload();
+					},
+				};
+
+				if (read() === "granted") load();
+			})();
+		</script><link rel="stylesheet" href="/distro-chooser/_astro/Layout.B8Fc3yHu.css"></head><body class="min-h-dvh flex flex-col"><a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-surface focus:text-fg focus:shadow-lift">Skip to content</a><header id="site-header" class="sticky top-0 z-40 border-b border-transparent bg-canvas/80 backdrop-blur-md transition-colors duration-200 data-[scrolled]:border-line pt-[env(safe-area-inset-top)]"><div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-[max(1rem,env(safe-area-inset-left))] sm:px-6"><a href="https://www.opensourcefeed.org" class="group flex min-h-11 items-center gap-2.5 rounded-lg focus-ring" aria-label="OpenSourceFeed home"><img src="/distro-chooser/icon-512.png" alt="" width="32" height="32" class="h-8 w-8 rounded-lg"><span class="hidden text-sm font-medium text-muted transition-colors group-hover:text-fg min-[400px]:inline">OpenSourceFeed</span></a><span class="hidden h-5 w-px bg-line min-[400px]:block" aria-hidden="true"></span><a href="/distro-chooser/" class="mr-auto min-h-11 inline-flex items-center rounded-lg font-display text-base font-semibold tracking-tight text-fg focus-ring">Distro Chooser</a><button type="button" id="header-start-over" hidden class="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--radius-control)] px-3 text-sm font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg focus-ring"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg><span>Start over</span></button><button type="button" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-fg shadow-sm transition-colors hover:bg-surface-2 focus-ring"><svg class="h-5 w-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><svg class="hidden h-5 w-5 dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path></svg></button></div></header><script>
+	(function () {
+		var header = document.getElementById("site-header");
+		var toggle = document.getElementById("theme-toggle");
+		var startOver = document.getElementById("header-start-over");
+		var root = document.documentElement;
+
+		function syncToggle() {
+			var dark = root.classList.contains("dark");
+			toggle.setAttribute("aria-pressed", String(dark));
+			toggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+		}
+		syncToggle();
+		toggle.addEventListener("click", function () {
+			var dark = !root.classList.contains("dark");
+			root.classList.toggle("dark", dark);
+			try { localStorage.setItem("theme", dark ? "dark" : "light"); } catch (e) {}
+			syncToggle();
+		});
+
+		function onScroll() {
+			if (window.scrollY > 4) header.setAttribute("data-scrolled", "");
+			else header.removeAttribute("data-scrolled");
+		}
+		onScroll();
+		window.addEventListener("scroll", onScroll, { passive: true });
+
+		window.addEventListener("dc:view", function (e) {
+			startOver.hidden = !(e.detail === "quiz" || e.detail === "results");
+		});
+		startOver.addEventListener("click", function () {
+			window.dispatchEvent(new CustomEvent("dc:start-over"));
+		});
+	})();
+</script><main id="main" class="flex-1"><div class="mx-auto w-full max-w-4xl px-4 pt-6 pb-20 sm:px-6"><nav aria-label="Breadcrumb" class="text-sm text-muted"><ol class="flex flex-wrap items-center gap-x-2 gap-y-1"><li><a href="/distro-chooser/" class="inline-flex min-h-11 items-center hover:text-fg hover:underline underline-offset-4">Distro Chooser</a></li><li class="flex items-center gap-2"><span aria-hidden="true">/</span><span aria-current="page" class="inline-flex min-h-11 items-center font-medium text-fg">Best distros by need</span></li></ol></nav><h1 class="mt-6 text-h1 font-semibold tracking-tight">Best Linux distros by need</h1><p class="mt-4 max-w-[62ch] text-lead text-muted">The best Linux distribution depends on what you want to do with it. Each guide below explains what matters for one need, ranks a short list of distros using the same scoring as the Distro Chooser quiz, and says plainly who each pick is and isn't for.</p><ul class="mt-10 grid gap-4 sm:grid-cols-2"><li><a href="/distro-chooser/best-for/beginners/" class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring"><span class="font-display text-h3 font-semibold tracking-tight">Best Linux distros for beginners</span><span class="mt-2 text-sm leading-relaxed text-muted">For most people trying Linux for the first time, Linux Mint is the safest choice. Ubuntu, Zorin OS and Pop!_OS are close behind, and the right one depends on your hardware and the desktop you prefer.</span></a></li><li><a href="/distro-chooser/best-for/gaming/" class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring"><span class="font-display text-h3 font-semibold tracking-tight">Best Linux distros for gaming</span><span class="mt-2 text-sm leading-relaxed text-muted">If you want a general-purpose desktop that also games well, Pop!_OS or Ubuntu are the safe picks. If gaming is the main job, a gaming-focused distro such as Bazzite, Nobara or CachyOS saves you setup time.</span></a></li><li><a href="/distro-chooser/best-for/programming/" class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring"><span class="font-display text-h3 font-semibold tracking-tight">Best Linux distros for programming</span><span class="mt-2 text-sm leading-relaxed text-muted">Fedora is the best all-round developer desktop, with recent toolchains and container tools built in. Ubuntu is the most compatible choice, and NixOS is the strongest if you want a fully reproducible setup.</span></a></li><li><a href="/distro-chooser/best-for/privacy/" class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring"><span class="font-display text-h3 font-semibold tracking-tight">Best Linux distros for privacy and security</span><span class="mt-2 text-sm leading-relaxed text-muted">There is no single best privacy distro. Qubes OS gives the strongest isolation, Tails is built for anonymity, and Debian or Fedora make a private, secure everyday desktop for most people.</span></a></li><li><a href="/distro-chooser/best-for/windows-switchers/" class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring"><span class="font-display text-h3 font-semibold tracking-tight">Best Linux distros for Windows users</span><span class="mt-2 text-sm leading-relaxed text-muted">Linux Mint is the easiest move from Windows for most people. Zorin OS is the closest look-alike, and Kubuntu suits people who like to customise.</span></a></li></ul><section aria-labelledby="osf-heading" class="mt-12"><h2 id="osf-heading" class="text-h3 font-semibold tracking-tight">More guides on OpenSourceFeed</h2><ul class="mt-4 space-y-1"><li><a href="https://www.opensourcefeed.org/revive-old-pc-linux-distros/" class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">Linux distros for old PCs and laptops</a></li><li><a href="https://www.opensourcefeed.org/best-linux-distro-local-llm/" class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">Best Linux distros for running local LLMs</a></li></ul></section><aside class="my-14 overflow-hidden rounded-[var(--radius-card)] border border-brand-300/60 bg-surface shadow-[var(--shadow-card)] dark:border-brand-800"><div class="flex flex-col gap-5 bg-gradient-to-br from-accent-soft to-transparent p-6 sm:flex-row sm:items-center sm:p-8"><div class="flex-1"><p class="font-display text-h3 font-semibold tracking-tight">Get a recommendation for your own computer</p><p class="mt-2 max-w-[60ch] text-muted">Guides like this one cover typical needs. The Distro Chooser quiz weighs your device, experience, hardware age, graphics card and desktop preference, and explains every match. It takes about a minute.</p></div><a href="/distro-chooser/" class="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-primary px-6 font-semibold text-on-primary shadow-[var(--shadow-card)] transition-colors hover:bg-primary-hover focus-ring">Take the quiz<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a></div></aside></div></main><footer class="mt-auto border-t border-line bg-surface pb-[env(safe-area-inset-bottom)]"><div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]"><div class="max-w-sm"><p class="font-display text-lg font-semibold tracking-tight text-fg">Distro Chooser</p><p class="mt-2 text-sm leading-relaxed text-muted">A free, independent quiz from OpenSourceFeed that matches you with a Linux distribution. It compares 50 distributions using hand-reviewed data and explains every recommendation.</p><p class="mt-4 text-sm text-muted">Data last reviewed: <time datetime="2026-11-09" class="font-medium text-fg">9 November 2026</time></p></div><nav aria-label="About this tool"><p class="text-xs font-semibold uppercase tracking-wider text-muted">About</p><ul class="mt-3 space-y-1 text-sm"><li><a href="/distro-chooser/#how-it-works" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">How it works</a></li><li><a href="/distro-chooser/#methodology" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">How we score</a></li><li><a href="/distro-chooser/#faq" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">FAQ</a></li><li><a href="/distro-chooser/#all-distros" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">All distros we consider</a></li><li><a href="/distro-chooser/best-for/" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">Best distros by need</a></li><li><a href="/distro-chooser/compare/" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">Distro comparisons</a></li></ul></nav><nav aria-label="OpenSourceFeed and feedback"><p class="text-xs font-semibold uppercase tracking-wider text-muted">More</p><ul class="mt-3 space-y-1 text-sm"><li><a href="https://www.opensourcefeed.org" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">OpenSourceFeed</a></li><li><a href="https://www.opensourcefeed.org/distribution/" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">Linux distribution guides</a></li><li><a href="https://github.com/opensourcefeed/distro-chooser/issues/new" rel="noopener" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">Report an error</a></li><li><a href="https://www.opensourcefeed.org/privacy-policy/" class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4">Privacy policy</a></li><li><button type="button" data-consent-settings class="inline-flex min-h-11 items-center text-fg hover:text-accent hover:underline underline-offset-4 rounded focus-ring">Cookie settings</button></li></ul></nav></div><div class="border-t border-line"><p class="mx-auto max-w-6xl px-4 py-5 text-xs text-muted sm:px-6">© 2026 OpenSourceFeed. Analytics (Google Analytics, Ahrefs) only run if you allow them. Distribution names are trademarks of their respective owners.</p></div></footer><div id="consent-banner" role="region" aria-label="Cookie consent" hidden class="fixed inset-x-0 bottom-0 z-50 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]"><div class="max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-[var(--radius-card)] bg-surface border border-line shadow-lift text-sm text-fg"><p class="flex-1 text-muted">Can we use Google Analytics and Ahrefs to count visits and improve this quiz? They stay off unless you say yes. Your quiz answers are never sent anywhere.</p><div class="flex gap-2 shrink-0"><button type="button" id="consent-decline" class="flex-1 sm:flex-none min-h-11 px-4 rounded-[var(--radius-control)] border border-line-strong hover:bg-surface-2 font-medium transition-colors">Decline</button><button type="button" id="consent-accept" class="flex-1 sm:flex-none min-h-11 px-4 rounded-[var(--radius-control)] bg-primary hover:bg-primary-hover text-on-primary font-semibold transition-colors">Accept</button></div></div></div><script>
+			(function () {
+				var banner = document.getElementById("consent-banner");
+				function hide() { banner.hidden = true; }
+				function show() { banner.hidden = false; document.getElementById("consent-accept").focus(); }
+				document.getElementById("consent-accept").addEventListener("click", function () { window.osfConsent.accept(); hide(); });
+				document.getElementById("consent-decline").addEventListener("click", function () { hide(); window.osfConsent.decline(); });
+				document.querySelectorAll("[data-consent-settings]").forEach(function (el) { el.addEventListener("click", show); });
+				if (!window.osfConsent.get()) banner.hidden = false;
+			})();
+		</script></body></html>
