@@ -1,0 +1,24 @@
+---
+import { renderInline } from "../../lib/inline-text";
+
+interface Props {
+	faqs: { q: string; a: string }[];
+	headingId?: string;
+}
+const { faqs, headingId = "faq-heading" } = Astro.props;
+---
+
+<section aria-labelledby={headingId} class="mt-14">
+	<h2 id={headingId} class="text-h2 font-semibold tracking-tight">Frequently asked questions</h2>
+	<div class="mt-6 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-surface">
+		{faqs.map((f) => (
+			<details class="group px-5 sm:px-6 [&_summary::-webkit-details-marker]:hidden">
+				<summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 rounded py-4 focus-ring">
+					<h3 class="font-sans text-base font-semibold">{f.q}</h3>
+					<svg class="h-5 w-5 shrink-0 text-muted transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+				</summary>
+				<p class="max-w-[70ch] pb-5 text-muted leading-relaxed" set:html={renderInline(f.a)} />
+			</details>
+		))}
+	</div>
+</section>

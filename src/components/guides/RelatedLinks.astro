@@ -1,0 +1,28 @@
+---
+interface Props {
+	links: { label: string; href: string }[];
+}
+const { links } = Astro.props;
+---
+
+<section aria-labelledby="related-heading" class="mt-14">
+	<h2 id="related-heading" class="text-h3 font-semibold tracking-tight">Related guides</h2>
+	<ul class="mt-4 grid gap-3 sm:grid-cols-2">
+		{links.map((l) => {
+			const external = l.href.startsWith("https://");
+			return (
+				<li>
+					<a
+						href={l.href}
+						class="flex min-h-14 items-center justify-between gap-3 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3 font-medium text-fg transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-card)] focus-ring"
+					>
+						<span>{l.label}</span>
+						<svg class="h-4 w-4 shrink-0 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							{external ? <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /> : <path d="M5 12h14M12 5l7 7-7 7" />}
+						</svg>
+					</a>
+				</li>
+			);
+		})}
+	</ul>
+</section>

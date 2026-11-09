@@ -1,86 +1,192 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/space-grotesk/wght.css";
 
 /* Manual dark mode: toggled via a `.dark` class on <html>, set by the
-   inline theme-init script in Layout.astro (before first paint) and by
-   ThemeToggle.tsx afterwards. Falls back to system preference on first visit. */
+   inline theme-init script in Layout.astro (before first paint) and by the
+   header's theme button afterwards. Falls back to system preference. */
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+@theme {
+  /* Typography */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid type scale (320px → 1440px) */
+  --text-display: clamp(2.125rem, 1.55rem + 2.9vw, 3.75rem);
+  --text-display--line-height: 1.04;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: clamp(1.75rem, 1.4rem + 1.75vw, 2.75rem);
+  --text-h1--line-height: 1.1;
+  --text-h2: clamp(1.5rem, 1.25rem + 1.2vw, 2.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h3: clamp(1.1875rem, 1.1rem + 0.45vw, 1.5rem);
+  --text-h3--line-height: 1.25;
+  --text-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --text-lead--line-height: 1.55;
+
+  /* Brand teal scale, built around the OpenSourceFeed teal #2b6765 (600) */
+  --color-brand-50: #eff8f7;
+  --color-brand-100: #d9efed;
+  --color-brand-200: #b3dcd9;
+  --color-brand-300: #80c2be;
+  --color-brand-400: #4fa19d;
+  --color-brand-500: #36837e;
+  --color-brand-600: #2b6765;
+  --color-brand-700: #235553;
+  --color-brand-800: #1d4644;
+  --color-brand-900: #183a39;
+  --color-brand-950: #0c2423;
+
+  /* Status */
+  --color-warn-50: #fff8eb;
+  --color-warn-200: #f7d9a0;
+  --color-warn-700: #8a5300;
+  --color-warn-900: #5c3700;
+
+  /* Radii, shadows, motion */
+  --radius-card: 1.25rem;
+  --radius-control: 0.875rem;
+  --shadow-card: 0 1px 2px rgb(12 36 35 / 0.05), 0 6px 20px -8px rgb(12 36 35 / 0.12);
+  --shadow-lift: 0 2px 6px rgb(12 36 35 / 0.06), 0 18px 40px -12px rgb(12 36 35 / 0.22);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Semantic surface/text colours switch between light and dark. Components
+   use these (bg-canvas, bg-surface, text-fg, text-muted, border-line…)
+   instead of hard-coded grays, so dark mode needs no per-class overrides. */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+}
+
+:root {
+  color-scheme: light;
+  --canvas: #f5f8f7;
+  --surface: #ffffff;
+  --surface-2: #eef4f3;
+  --line: #dce6e5;
+  --line-strong: #c3d3d1;
+  --fg: #102221;
+  --muted: #4c6260;          /* 6.3:1 on white */
+  --accent: #235553;         /* brand-700, 8:1 on white */
+  --accent-soft: #e4f2f0;
+  --ring: #36837e;
+  --primary: #2b6765;        /* white text 6.5:1 */
+  --primary-hover: #235553;
+  --on-primary: #ffffff;
+}
+
+.dark {
+  color-scheme: dark;
+  --canvas: #0a1413;
+  --surface: #10201f;
+  --surface-2: #162a29;
+  --line: #22403e;
+  --line-strong: #2f5452;
+  --fg: #e7f1f0;
+  --muted: #9cb3b1;          /* 7.5:1 on surface */
+  --accent: #80c2be;         /* brand-300 */
+  --accent-soft: rgb(79 161 157 / 0.14);
+  --ring: #5fb0aa;
+  --primary: #80c2be;        /* dark text on light teal: 8:1 */
+  --primary-hover: #b3dcd9;
+  --on-primary: #0c2423;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background-color: var(--canvas);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Reusable focus ring for interactive elements that need one on a coloured
+   background (outline can be clipped by overflow on some cards). */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Hero backdrop: soft brand glow plus a faint grid, pure CSS. */
+@utility hero-backdrop {
+  background-image:
+    radial-gradient(60rem 28rem at 50% -8rem, color-mix(in oklab, var(--color-brand-400) 22%, transparent), transparent 70%),
+    linear-gradient(to right, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+  background-position: center top;
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
 
 /* ── Slide animations for quiz transitions ──────────────────────────────── */
 @keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes slide-out-left {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-24px); }
 }
-
 @keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes slide-out-right {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(30px);
-  }
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(24px); }
 }
-
-@utility animate-slide-in-right {
-  animation: slide-in-right 150ms ease-in-out;
-}
-
-@utility animate-slide-out-left {
-  animation: slide-out-left 150ms ease-in-out;
-}
-
-@utility animate-slide-in-left {
-  animation: slide-in-left 150ms ease-in-out;
-}
-
-@utility animate-slide-out-right {
-  animation: slide-out-right 150ms ease-in-out;
-}
-
-/* ── Results reveal animations ──────────────────────────────────────────── */
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }
 
-@utility animate-fade-in-up {
-  animation: fade-in-up 400ms ease-out both;
-}
+@utility animate-slide-in-right { animation: slide-in-right 180ms var(--ease-soft); }
+@utility animate-slide-out-left { animation: slide-out-left 150ms ease-in forwards; }
+@utility animate-slide-in-left { animation: slide-in-left 180ms var(--ease-soft); }
+@utility animate-slide-out-right { animation: slide-out-right 150ms ease-in forwards; }
+@utility animate-fade-in-up { animation: fade-in-up 420ms var(--ease-soft) both; }
+@utility animate-toast-in { animation: toast-in 200ms var(--ease-soft) both; }
 
 /* ── Respect reduced-motion preference ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

@@ -1,57 +1,82 @@
 ---
 import "../styles/global.css";
-import ThemeToggle from "../components/ThemeToggle";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { dataLastReviewed } from "../lib/data";
+// Preloaded so body text renders in Inter without a late font swap. Only the
+// Latin subset is preloaded; other subsets load on demand via unicode-range.
+import interLatinUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 
 interface Props {
 	title?: string;
 	description?: string;
+	/** Extra JSON-LD objects for this page (e.g. FAQPage). */
+	structuredData?: Record<string, unknown>[];
+	/** Breadcrumb trail after "OpenSourceFeed › Distro Chooser" (absolute or site-relative URLs). */
+	breadcrumbs?: { name: string; href: string }[];
+	/** Set false on guide pages: they describe themselves with their own JSON-LD. */
+	isApp?: boolean;
 }
 
 const {
-	title = "Distro Chooser — Find Your Perfect Linux Distribution | OpenSourceFeed",
-	description = "Answer a few quick questions and get personalized GNU/Linux distribution recommendations tailored to your experience level, hardware, and use case. Free interactive quiz from OpenSourceFeed.",
+	title = "Which Linux Distro Should I Use? Free Quiz | OpenSourceFeed",
+	description = "Answer 7 quick questions and get a ranked shortlist of Linux distributions that fit your experience, hardware and use case, with the reasons behind each match.",
+	structuredData = [],
+	breadcrumbs = [],
+	isApp = true,
 } = Astro.props;
+
+const appURL = new URL("/distro-chooser/", Astro.site).toString();
+const trail = [
+	{ name: "OpenSourceFeed", item: "https://www.opensourcefeed.org/" },
+	{ name: "Distro Chooser", item: appURL },
+	...breadcrumbs.map((b) => ({ name: b.name, item: new URL(b.href, Astro.site).toString() })),
+];
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL("/distro-chooser/og-image.png", Astro.site);
 
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "WebApplication",
-	name: "Distro Chooser",
-	url: canonicalURL.toString(),
-	description,
-	applicationCategory: "UtilitiesApplication",
-	operatingSystem: "Any",
-	offers: {
-		"@type": "Offer",
-		price: "0",
-		priceCurrency: "USD",
+const jsonLd = [
+	isApp && {
+		"@context": "https://schema.org",
+		"@type": "WebApplication",
+		name: "Distro Chooser",
+		url: appURL,
+		description,
+		applicationCategory: "UtilitiesApplication",
+		operatingSystem: "Any",
+		dateModified: dataLastReviewed,
+		offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+		publisher: { "@type": "Organization", name: "OpenSourceFeed", url: "https://www.opensourcefeed.org" },
 	},
-	publisher: {
-		"@type": "Organization",
-		name: "OpenSourceFeed",
-		url: "https://www.opensourcefeed.org",
+	{
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
+		itemListElement: trail.map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, item: t.item })),
 	},
-};
+	...structuredData,
+].filter(Boolean);
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<meta name="color-scheme" content="light dark" />
 		<link rel="icon" href="/distro-chooser/favicon.ico" sizes="any" />
 		<link rel="icon" type="image/png" sizes="32x32" href="/distro-chooser/favicon-32x32.png" />
 		<link rel="icon" type="image/png" sizes="16x16" href="/distro-chooser/favicon-16x16.png" />
 		<link rel="apple-touch-icon" href="/distro-chooser/apple-touch-icon.png" />
 		<link rel="icon" type="image/png" sizes="512x512" href="/distro-chooser/icon-512.png" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preload" href={interLatinUrl} as="font" type="font/woff2" crossorigin />
 
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalURL} />
-		<meta name="theme-color" content="#2b6765" />
+		<meta name="theme-color" content="#f5f8f7" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0a1413" media="(prefers-color-scheme: dark)" />
 
 		<!-- Open Graph -->
 		<meta property="og:type" content="website" />
@@ -59,6 +84,8 @@ const jsonLd = {
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:site_name" content="OpenSourceFeed" />
 		<meta property="og:locale" content="en_US" />
 
@@ -74,42 +101,118 @@ const jsonLd = {
 		<!-- Applied before first paint to avoid a flash of the wrong theme. -->
 		<script is:inline>
 			(function () {
-				var stored = localStorage.getItem("theme");
+				var stored = null;
+				try { stored = localStorage.getItem("theme"); } catch (e) {}
 				var isDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
 				document.documentElement.classList.toggle("dark", isDark);
 			})();
 		</script>
 
-		<!-- ahrefs analytics -->
-		<script src="https://analytics.ahrefs.com/analytics.js" data-key="CtE+TXWgN05s3ROalk1xUg" async></script>
-
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-KD5NJYRYD3"></script>
+		<!--
+			Analytics (Ahrefs + GA4) only load after the visitor accepts them in the
+			consent banner below. The choice is stored in localStorage under
+			"analytics-consent" ("granted" | "denied"); with no stored choice nothing
+			is loaded and the banner is shown. Loading waits for the page to be idle
+			so analytics never compete with the quiz for the main thread.
+		-->
 		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'G-KD5NJYRYD3');
+			(function () {
+				var KEY = "analytics-consent";
+				var GA_ID = "G-KD5NJYRYD3";
+				var loaded = false;
+
+				function read() {
+					try { return localStorage.getItem(KEY); } catch (e) { return null; }
+				}
+				function write(value) {
+					try { localStorage.setItem(KEY, value); } catch (e) { /* storage blocked: choice lasts for this page view */ }
+				}
+				function addScript(src, attrs) {
+					var el = document.createElement("script");
+					el.src = src;
+					el.async = true;
+					for (var k in attrs) el.setAttribute(k, attrs[k]);
+					document.head.appendChild(el);
+				}
+				function load() {
+					if (loaded) return;
+					loaded = true;
+					var run = function () {
+						addScript("https://analytics.ahrefs.com/analytics.js", { "data-key": "CtE+TXWgN05s3ROalk1xUg" });
+						addScript("https://www.googletagmanager.com/gtag/js?id=" + GA_ID, {});
+						window.dataLayer = window.dataLayer || [];
+						window.gtag = function () { window.dataLayer.push(arguments); };
+						window.gtag("js", new Date());
+						window.gtag("config", GA_ID);
+					};
+					if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 4000 });
+					else window.addEventListener("load", function () { setTimeout(run, 1); });
+				}
+				function clearGaCookies() {
+					var host = location.hostname.replace(/^www\./, "");
+					document.cookie.split(";").forEach(function (c) {
+						var name = c.split("=")[0].trim();
+						if (name === "_ga" || name.indexOf("_ga_") === 0) {
+							["", "; domain=" + host, "; domain=." + host].forEach(function (d) {
+								document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d;
+							});
+						}
+					});
+				}
+
+				window.osfConsent = {
+					get: read,
+					accept: function () { write("granted"); load(); },
+					decline: function () {
+						var wasLoaded = loaded;
+						write("denied");
+						clearGaCookies();
+						// Scripts that already ran can't be unloaded; reload so they stop.
+						if (wasLoaded) location.reload();
+					},
+				};
+
+				if (read() === "granted") load();
+			})();
 		</script>
 	</head>
-	<body>
+	<body class="min-h-dvh flex flex-col">
 		<a
-			href="https://www.opensourcefeed.org"
-			target="_blank"
-			rel="noopener noreferrer"
-			aria-label="OpenSourceFeed"
-			class="
-				fixed top-4 left-4 z-20 flex items-center gap-2 h-11 min-h-[44px] px-2.5
-				rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur border border-gray-200 dark:border-gray-700
-				text-gray-700 dark:text-gray-300 shadow-sm hover:shadow-md transition-all duration-150
-				hover:bg-white dark:hover:bg-gray-700
-				focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 dark:focus:ring-offset-gray-950
-			"
-		>
-			<img src="/distro-chooser/icon-512.png" alt="" width="24" height="24" class="w-6 h-6 rounded-md" />
-			<span class="hidden sm:inline text-xs font-medium tracking-wide">OpenSourceFeed</span>
-		</a>
-		<ThemeToggle client:load />
+			href="#main"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-surface focus:text-fg focus:shadow-lift"
+		>Skip to content</a>
+		<Header />
 		<slot />
+		<Footer />
+
+		<div
+			id="consent-banner"
+			role="region"
+			aria-label="Cookie consent"
+			hidden
+			class="fixed inset-x-0 bottom-0 z-50 px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]"
+		>
+			<div class="max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 p-4 rounded-[var(--radius-card)] bg-surface border border-line shadow-lift text-sm text-fg">
+				<p class="flex-1 text-muted">
+					Can we use Google Analytics and Ahrefs to count visits and improve this quiz? They stay off unless you say yes. Your quiz answers are never sent anywhere.
+				</p>
+				<div class="flex gap-2 shrink-0">
+					<button type="button" id="consent-decline" class="flex-1 sm:flex-none min-h-11 px-4 rounded-[var(--radius-control)] border border-line-strong hover:bg-surface-2 font-medium transition-colors">Decline</button>
+					<button type="button" id="consent-accept" class="flex-1 sm:flex-none min-h-11 px-4 rounded-[var(--radius-control)] bg-primary hover:bg-primary-hover text-on-primary font-semibold transition-colors">Accept</button>
+				</div>
+			</div>
+		</div>
+
+		<script is:inline>
+			(function () {
+				var banner = document.getElementById("consent-banner");
+				function hide() { banner.hidden = true; }
+				function show() { banner.hidden = false; document.getElementById("consent-accept").focus(); }
+				document.getElementById("consent-accept").addEventListener("click", function () { window.osfConsent.accept(); hide(); });
+				document.getElementById("consent-decline").addEventListener("click", function () { hide(); window.osfConsent.decline(); });
+				document.querySelectorAll("[data-consent-settings]").forEach(function (el) { el.addEventListener("click", show); });
+				if (!window.osfConsent.get()) banner.hidden = false;
+			})();
+		</script>
 	</body>
 </html>

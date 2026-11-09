@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/guides/Breadcrumbs.astro";
+import QuizCta from "../../components/guides/QuizCta.astro";
+import { bestForGuides } from "../../content/best-for";
+
+// Needs OpenSourceFeed already covers in its own articles. We link to them
+// instead of publishing a competing page.
+const onOsf = [
+	{ label: "Linux distros for old PCs and laptops", href: "https://www.opensourcefeed.org/revive-old-pc-linux-distros/" },
+	{ label: "Best Linux distros for running local LLMs", href: "https://www.opensourcefeed.org/best-linux-distro-local-llm/" },
+];
+---
+
+<Layout
+	title="Best Linux Distros by Need | OpenSourceFeed"
+	description="Hand-reviewed guides to the best Linux distributions for beginners, gaming, programming, privacy and people switching from Windows."
+	isApp={false}
+	breadcrumbs={[{ name: "Best distros by need", href: "/distro-chooser/best-for/" }]}
+>
+	<main id="main" class="flex-1">
+		<div class="mx-auto w-full max-w-4xl px-4 pt-6 pb-20 sm:px-6">
+			<Breadcrumbs items={[{ name: "Best distros by need" }]} />
+			<h1 class="mt-6 text-h1 font-semibold tracking-tight">Best Linux distros by need</h1>
+			<p class="mt-4 max-w-[62ch] text-lead text-muted">
+				The best Linux distribution depends on what you want to do with it. Each guide below explains what matters for one need, ranks a short list of distros using the same scoring as the Distro Chooser quiz, and says plainly who each pick is and isn't for.
+			</p>
+
+			<ul class="mt-10 grid gap-4 sm:grid-cols-2">
+				{bestForGuides.map((g) => (
+					<li>
+						<a href={`/distro-chooser/best-for/${g.slug}/`} class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring">
+							<span class="font-display text-h3 font-semibold tracking-tight">{g.h1}</span>
+							<span class="mt-2 text-sm leading-relaxed text-muted">{g.answer}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+
+			<section aria-labelledby="osf-heading" class="mt-12">
+				<h2 id="osf-heading" class="text-h3 font-semibold tracking-tight">More guides on OpenSourceFeed</h2>
+				<ul class="mt-4 space-y-1">
+					{onOsf.map((l) => (
+						<li><a href={l.href} class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">{l.label}</a></li>
+					))}
+				</ul>
+			</section>
+
+			<QuizCta />
+		</div>
+	</main>
+</Layout>

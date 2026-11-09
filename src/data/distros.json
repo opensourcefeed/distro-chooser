@@ -12,30 +12,26 @@
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
-      "GNOME",
-      "KDE Plasma",
-      "XFCE",
-      "Budgie",
-      "MATE",
-      "LXQt"
+      "GNOME"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/ubuntu",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/ubuntu",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/ubuntu",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/ubuntu",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/ubuntu"
-      ]
+      "officialUrl": "https://ubuntu.com/desktop"
     }
   },
   {
     "id": "fedora",
     "name": "Fedora",
     "slug": "fedora",
-    "description": "A cutting-edge distribution sponsored by Red Hat, showcasing the latest open-source technologies.",
+    "description": "A community distribution sponsored by Red Hat that ships recent open-source software on a roughly six-month release cycle.",
     "experienceLevel": "intermediate",
     "useCases": [
       "everyday",
@@ -50,18 +46,22 @@
       "LXQt",
       "Cinnamon",
       "MATE",
-      "i3"
+      "Budgie",
+      "COSMIC",
+      "i3",
+      "Sway"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "DNF",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/fedora",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/fedora",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/fedora",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/fedora",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/fedora"
-      ]
+      "officialUrl": "https://fedoraproject.org"
     }
   },
   {
@@ -82,19 +82,21 @@
       "KDE Plasma",
       "XFCE",
       "LXDE",
+      "LXQt",
       "MATE",
       "Cinnamon"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-15",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/debian",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/debian",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/debian",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/debian",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/debian"
-      ]
+      "officialUrl": "https://www.debian.org"
     }
   },
   {
@@ -118,23 +120,23 @@
       "Sway",
       "bspwm"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "pacman",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-05",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/arch",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/arch",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/arch",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/arch",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/arch"
-      ]
+      "officialUrl": "https://archlinux.org"
     }
   },
   {
     "id": "opensuse",
-    "name": "openSUSE",
+    "name": "openSUSE Tumbleweed",
     "slug": "opensuse",
-    "description": "A versatile distribution offering both stable Leap and rolling Tumbleweed releases.",
+    "description": "openSUSE's rolling-release edition, with every snapshot tested by openQA. openSUSE also offers a fixed-release edition, Leap.",
     "experienceLevel": "intermediate",
     "useCases": [
       "everyday",
@@ -148,23 +150,24 @@
       "XFCE",
       "Sway"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "Zypper",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-20",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/opensuse",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/opensuse",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/opensuse",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/opensuse",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/opensuse"
-      ]
+      "officialUrl": "https://get.opensuse.org/tumbleweed/"
     }
   },
   {
     "id": "linux-mint",
     "name": "Linux Mint",
     "slug": "linuxmint",
-    "description": "An elegant and modern desktop distribution based on Ubuntu, focused on user-friendliness.",
+    "description": "A desktop-focused distribution based on Ubuntu LTS, known for its traditional layout and ease of use.",
     "experienceLevel": "beginner",
     "useCases": [
       "everyday",
@@ -177,23 +180,23 @@
       "MATE",
       "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/linuxmint",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/linuxmint"
-      ]
+      "officialUrl": "https://linuxmint.com"
     }
   },
   {
     "id": "pop-os",
     "name": "Pop!_OS",
     "slug": "pop",
-    "description": "A developer-friendly distribution from System76 with excellent hardware and gaming support.",
+    "description": "System76's Ubuntu LTS-based distribution with its own COSMIC desktop and a dedicated ISO for NVIDIA graphics.",
     "experienceLevel": "beginner",
     "useCases": [
       "everyday",
@@ -203,19 +206,18 @@
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
-      "COSMIC",
-      "GNOME"
+      "COSMIC"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-03",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/pop",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/pop",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/pop",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/pop",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/pop"
-      ]
+      "officialUrl": "https://system76.com/pop/"
     }
   },
   {
@@ -238,43 +240,43 @@
       "Cinnamon",
       "i3"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Arch Linux",
+    "packageManager": "pacman",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-28",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/manjaro",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/manjaro",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/manjaro",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/manjaro",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/manjaro"
-      ]
+      "officialUrl": "https://manjaro.org"
     }
   },
   {
     "id": "elementary-os",
     "name": "elementary OS",
     "slug": "elementary",
-    "description": "A privacy-respecting distribution with a beautiful, macOS-inspired desktop environment.",
+    "description": "An Ubuntu-based distribution built around Pantheon, a polished desktop with a macOS-like layout and a curated app store.",
     "experienceLevel": "beginner",
     "useCases": [
       "everyday",
-      "development",
-      "privacy"
+      "development"
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
       "Pantheon"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-09-15",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/elementary",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/elementary",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/elementary",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/elementary",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/elementary"
-      ]
+      "officialUrl": "https://elementary.io"
     }
   },
   {
@@ -292,16 +294,16 @@
       "GNOME",
       "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-10",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/zorin",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/zorin",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/zorin",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/zorin",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/zorin"
-      ]
+      "officialUrl": "https://zorin.com/os/"
     }
   },
   {
@@ -313,31 +315,37 @@
     "useCases": [
       "everyday",
       "development",
-      "gaming",
-      "privacy"
+      "gaming"
     ],
     "releaseModel": "rolling",
     "desktopEnvironments": [
       "KDE Plasma",
       "GNOME",
       "XFCE",
+      "Cinnamon",
+      "i3",
       "Hyprland",
-      "Sway",
-      "bspwm"
+      "Sway"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Arch Linux",
+    "packageManager": "pacman",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-25",
-    "links": {}
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://garudalinux.org"
+    }
   },
   {
     "id": "kali-linux",
     "name": "Kali Linux",
     "slug": "kali",
-    "description": "The industry-standard distribution for penetration testing and security research.",
+    "description": "A Debian-based distribution for penetration testing and security research, maintained by OffSec.",
     "experienceLevel": "advanced",
     "useCases": [
-      "development",
-      "privacy"
+      "security-testing"
     ],
     "releaseModel": "rolling",
     "desktopEnvironments": [
@@ -345,16 +353,18 @@
       "GNOME",
       "KDE Plasma"
     ],
-    "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-11-02",
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
+    "nvidiaFriendly": false,
+    "caveat": "Built for penetration testing and security research. It is not meant as a daily-driver or privacy OS.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/kali",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/kali",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kali",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kali",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/kali"
-      ]
+      "officialUrl": "https://www.kali.org"
     }
   },
   {
@@ -375,9 +385,17 @@
       "XFCE",
       "Sway"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "apk",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-20",
-    "links": {}
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://alpinelinux.org"
+    }
   },
   {
     "id": "slackware",
@@ -397,9 +415,17 @@
       "Blackbox",
       "Fluxbox"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "pkgtool / slackpkg",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-07-10",
-    "links": {}
+    "caveat": "The latest stable release is 15.0 (2022); newer software is only in the -current development branch.",
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://www.slackware.com"
+    }
   },
   {
     "id": "gentoo",
@@ -422,16 +448,16 @@
       "Hyprland",
       "Sway"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "Portage",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-10-30",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/gentoo",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/gentoo",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/gentoo",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/gentoo",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/gentoo"
-      ]
+      "officialUrl": "https://www.gentoo.org"
     }
   },
   {
@@ -452,16 +478,16 @@
       "Sway",
       "Hyprland"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "Nix",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/nixos",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/nixos",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/nixos",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/nixos",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/nixos"
-      ]
+      "officialUrl": "https://nixos.org"
     }
   },
   {
@@ -477,22 +503,22 @@
     ],
     "releaseModel": "rolling",
     "desktopEnvironments": [
-      "XFCE",
       "KDE Plasma",
       "GNOME",
-      "i3",
-      "Cinnamon"
+      "XFCE",
+      "Cinnamon",
+      "i3"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Arch Linux",
+    "packageManager": "pacman",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/endeavour",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/endeavour",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/endeavour",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/endeavour",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/endeavour"
-      ]
+      "officialUrl": "https://endeavouros.com"
     }
   },
   {
@@ -511,16 +537,16 @@
       "KDE Plasma",
       "Fluxbox"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/mx",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/mx",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/mx",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/mx",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/mx"
-      ]
+      "officialUrl": "https://mxlinux.org"
     }
   },
   {
@@ -537,16 +563,16 @@
     "desktopEnvironments": [
       "KDE Plasma"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kubuntu",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/kubuntu"
-      ]
+      "officialUrl": "https://kubuntu.org"
     }
   },
   {
@@ -563,16 +589,16 @@
     "desktopEnvironments": [
       "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/xubuntu",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/xubuntu"
-      ]
+      "officialUrl": "https://xubuntu.org"
     }
   },
   {
@@ -589,16 +615,17 @@
     "desktopEnvironments": [
       "MATE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "caveat": "No Ubuntu MATE 26.04 LTS image was released. Check ubuntu-mate.org for the current release before installing.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/ubuntumate",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/ubuntumate"
-      ]
+      "officialUrl": "https://ubuntu-mate.org"
     }
   },
   {
@@ -614,16 +641,16 @@
     "desktopEnvironments": [
       "Cinnamon"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/ubuntucinnamon",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/ubuntucinnamon"
-      ]
+      "officialUrl": "https://ubuntucinnamon.org"
     }
   },
   {
@@ -640,46 +667,51 @@
     "desktopEnvironments": [
       "KDE Plasma",
       "GNOME",
-      "Hyprland"
+      "XFCE",
+      "COSMIC",
+      "Hyprland",
+      "i3"
     ],
+    "platforms": [
+      "pc",
+      "handheld"
+    ],
+    "baseDistro": "Arch Linux",
+    "packageManager": "pacman",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/cachyos",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/cachyos",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/cachyos",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/cachyos",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/cachyos"
-      ]
+      "officialUrl": "https://cachyos.org"
     }
   },
   {
     "id": "solus",
     "name": "Solus",
     "slug": "solus",
-    "description": "An independently-built distribution with its own package manager, designed for a clean home-computing experience.",
+    "description": "An independent distribution with its own package manager and curated weekly rolling updates, built for home computing.",
     "experienceLevel": "beginner",
     "useCases": [
       "everyday",
       "development"
     ],
-    "releaseModel": "stable",
+    "releaseModel": "rolling",
     "desktopEnvironments": [
       "Budgie",
       "GNOME",
-      "KDE Plasma"
+      "KDE Plasma",
+      "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "eopkg",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/solus",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/solus",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/solus",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/solus",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/solus"
-      ]
+      "officialUrl": "https://getsol.us"
     }
   },
   {
@@ -696,16 +728,16 @@
     "desktopEnvironments": [
       "KDE Plasma"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/kdeneon",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/kdeneon"
-      ]
+      "officialUrl": "https://neon.kde.org"
     }
   },
   {
@@ -721,16 +753,16 @@
     "desktopEnvironments": [
       "GNOME"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/pureos",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/pureos",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/pureos",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/pureos",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/pureos"
-      ]
+      "officialUrl": "https://pureos.net"
     }
   },
   {
@@ -748,16 +780,16 @@
       "KDE Plasma",
       "Trinity"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/q4os",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/q4os",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/q4os",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/q4os",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/q4os"
-      ]
+      "officialUrl": "https://q4os.org"
     }
   },
   {
@@ -774,16 +806,16 @@
     "desktopEnvironments": [
       "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/peppermint",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/peppermint",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/peppermint",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/peppermint",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/peppermint"
-      ]
+      "officialUrl": "https://peppermintos.com"
     }
   },
   {
@@ -800,16 +832,16 @@
       "JWM",
       "Openbox"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian (TrixiePup)",
+    "packageManager": "PPM",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/puppy",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/puppy",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/puppy",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/puppy",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/puppy"
-      ]
+      "officialUrl": "https://puppylinux-woof-ce.github.io"
     }
   },
   {
@@ -825,16 +857,17 @@
     "desktopEnvironments": [
       "GNOME"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "caveat": "Runs from a USB stick and forgets everything on shutdown. It is not meant to be installed as a regular desktop OS.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/tails",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/tails",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/tails",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/tails",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/tails"
-      ]
+      "officialUrl": "https://tails.net"
     }
   },
   {
@@ -850,16 +883,17 @@
     "desktopEnvironments": [
       "KDE Plasma"
     ],
+    "platforms": [
+      "handheld"
+    ],
+    "baseDistro": "Arch Linux",
+    "packageManager": "Flatpak (read-only base)",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "caveat": "Officially supported only on Valve hardware (Steam Deck, Steam Machine) and selected handhelds. Installing on other PCs is unofficial, and NVIDIA GPUs are not fully supported.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/steamos",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/steamos",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/steamos",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/steamos",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/steamos"
-      ]
+      "officialUrl": "https://store.steampowered.com/steamos"
     }
   },
   {
@@ -869,24 +903,23 @@
     "description": "The official Debian-based distribution optimized for Raspberry Pi single-board computers.",
     "experienceLevel": "beginner",
     "useCases": [
-      "everyday",
-      "old-hardware"
+      "everyday"
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
-      "LXDE",
-      "XFCE"
+      "PIXEL (labwc)"
     ],
+    "platforms": [
+      "raspberry-pi"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "caveat": "Made for Raspberry Pi single-board computers (ARM). Not intended for regular PCs or laptops.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/raspberry-pi-os",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/raspberry-pi-os"
-      ]
+      "officialUrl": "https://www.raspberrypi.com/software/"
     }
   },
   {
@@ -902,16 +935,16 @@
     "desktopEnvironments": [
       "DDE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/deepin",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/deepin",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/deepin",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/deepin",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/deepin"
-      ]
+      "officialUrl": "https://www.deepin.org/en/"
     }
   },
   {
@@ -930,16 +963,16 @@
       "MATE",
       "KDE Plasma"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/devuan",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/devuan",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/devuan",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/devuan",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/devuan"
-      ]
+      "officialUrl": "https://www.devuan.org"
     }
   },
   {
@@ -956,23 +989,23 @@
     "desktopEnvironments": [
       "GNOME"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "apx / Flatpak",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/vanillaos",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/vanillaos"
-      ]
+      "officialUrl": "https://vanillaos.org"
     }
   },
   {
     "id": "rhino-linux",
     "name": "Rhino Linux",
     "slug": "rhino-linux",
-    "description": "An Ubuntu-based rolling-release distribution that pairs continuous updates with a curated XFCE experience.",
+    "description": "An Ubuntu-based rolling-release distribution with continuous updates and the XFCE-based Unicorn desktop.",
     "experienceLevel": "intermediate",
     "useCases": [
       "everyday",
@@ -980,18 +1013,20 @@
     ],
     "releaseModel": "rolling",
     "desktopEnvironments": [
-      "XFCE"
+      "Unicorn (XFCE)",
+      "Lomiri"
     ],
+    "platforms": [
+      "pc",
+      "raspberry-pi"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "rpk (Pacstall + APT)",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/rhino-linux",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/rhino-linux"
-      ]
+      "officialUrl": "https://rhinolinux.org"
     }
   },
   {
@@ -1005,18 +1040,20 @@
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
-      "KDE Plasma"
+      "KDE Plasma",
+      "GNOME",
+      "LXQt"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "DNF",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/rosa",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/rosa",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/rosa",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/rosa",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/rosa"
-      ]
+      "officialUrl": "https://rosa.ru"
     }
   },
   {
@@ -1033,16 +1070,16 @@
     "desktopEnvironments": [
       "KDE Plasma"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "DNF",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/openmandriva",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/openmandriva"
-      ]
+      "officialUrl": "https://www.openmandriva.org"
     }
   },
   {
@@ -1061,16 +1098,16 @@
       "GNOME",
       "XFCE"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "DNF / urpmi",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/mageia",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/mageia",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/mageia",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/mageia",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/mageia"
-      ]
+      "officialUrl": "https://www.mageia.org"
     }
   },
   {
@@ -1086,18 +1123,20 @@
     "releaseModel": "stable",
     "desktopEnvironments": [
       "IceWM",
-      "Fluxbox"
+      "Fluxbox",
+      "JWM",
+      "herbstluftwm"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/antix",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/antix",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/antix",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/antix",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/antix"
-      ]
+      "officialUrl": "https://antixlinux.com"
     }
   },
   {
@@ -1112,21 +1151,25 @@
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
+      "Cinnamon",
       "XFCE",
-      "KDE Plasma",
       "GNOME",
-      "Cinnamon"
+      "KDE Plasma",
+      "MATE",
+      "Budgie",
+      "LXQt"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Debian",
+    "packageManager": "APT",
     "nvidiaFriendly": true,
-    "lastVerifiedDate": "2026-08-01",
+    "caveat": "No new release since late 2023 (based on Debian 12). Check the project is still active before installing.",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/spirallinux",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/spirallinux"
-      ]
+      "officialUrl": "https://spirallinux.github.io"
     }
   },
   {
@@ -1141,19 +1184,235 @@
     ],
     "releaseModel": "stable",
     "desktopEnvironments": [
-      "GNOME",
-      "MATE"
+      "MATE",
+      "KDE Plasma",
+      "LXDE",
+      "GNOME"
     ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
     "nvidiaFriendly": false,
-    "lastVerifiedDate": "2026-08-01",
+    "lastVerifiedDate": "2026-11-09",
     "links": {
       "pageUrl": "https://www.opensourcefeed.org/distribution/trisquel",
-      "overviewUrl": "https://www.opensourcefeed.org/distribution/trisquel",
-      "installGuideUrl": "https://www.opensourcefeed.org/distribution/trisquel",
-      "latestReleaseUrl": "https://www.opensourcefeed.org/distribution/trisquel",
-      "comparisonUrls": [
-        "https://www.opensourcefeed.org/distribution/trisquel"
-      ]
+      "officialUrl": "https://trisquel.info"
+    }
+  },
+  {
+    "id": "opensuse-leap",
+    "name": "openSUSE Leap",
+    "slug": "opensuse-leap",
+    "description": "openSUSE's fixed-release edition, built from the same sources as SUSE Linux Enterprise for a stable, long-supported system.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME"
+    ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Independent",
+    "packageManager": "Zypper",
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/opensuse",
+      "officialUrl": "https://get.opensuse.org/leap/"
+    }
+  },
+  {
+    "id": "bazzite",
+    "name": "Bazzite",
+    "slug": "bazzite",
+    "description": "A Fedora Atomic-based gaming distribution from Universal Blue, with Steam, gaming tweaks and NVIDIA images ready to go.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "gaming",
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME"
+    ],
+    "platforms": [
+      "pc",
+      "handheld"
+    ],
+    "baseDistro": "Fedora Atomic",
+    "packageManager": "Flatpak / rpm-ostree",
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://bazzite.gg"
+    }
+  },
+  {
+    "id": "nobara",
+    "name": "Nobara Project",
+    "slug": "nobara",
+    "description": "A Fedora-based distribution by GloriousEggroll with gaming, streaming and codec fixes applied out of the box.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "gaming",
+      "everyday"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME"
+    ],
+    "platforms": [
+      "pc",
+      "handheld"
+    ],
+    "baseDistro": "Fedora",
+    "packageManager": "DNF",
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://nobaraproject.org"
+    }
+  },
+  {
+    "id": "fedora-atomic",
+    "name": "Fedora Atomic Desktops",
+    "slug": "fedora-atomic",
+    "description": "Fedora's image-based editions (Silverblue, Kinoite and others) with atomic updates, easy rollbacks and apps installed as Flatpaks.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "GNOME",
+      "KDE Plasma",
+      "Sway",
+      "Budgie",
+      "COSMIC"
+    ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Fedora",
+    "packageManager": "rpm-ostree / Flatpak",
+    "nvidiaFriendly": false,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://fedoraproject.org/atomic-desktops/"
+    }
+  },
+  {
+    "id": "qubes-os",
+    "name": "Qubes OS",
+    "slug": "qubes-os",
+    "description": "A security-focused operating system that isolates apps and tasks in separate Xen virtual machines called qubes.",
+    "experienceLevel": "advanced",
+    "useCases": [
+      "privacy"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE"
+    ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Xen + Fedora/Debian",
+    "packageManager": "DNF (per qube)",
+    "nvidiaFriendly": false,
+    "caveat": "Needs CPU virtualization support (VT-x/VT-d or AMD-V/AMD-Vi) and plenty of RAM (16 GB recommended). Check the hardware compatibility list first.",
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://www.qubes-os.org"
+    }
+  },
+  {
+    "id": "lubuntu",
+    "name": "Lubuntu",
+    "slug": "lubuntu",
+    "description": "The official LXQt flavor of Ubuntu, a lightweight desktop for older or low-resource machines.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "LXQt"
+    ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/lubuntu",
+      "officialUrl": "https://lubuntu.me"
+    }
+  },
+  {
+    "id": "linux-lite",
+    "name": "Linux Lite",
+    "slug": "linux-lite",
+    "description": "An Ubuntu LTS-based distribution with an XFCE desktop and a Windows-like layout, aimed at newcomers on modest hardware.",
+    "experienceLevel": "beginner",
+    "useCases": [
+      "everyday",
+      "old-hardware"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "XFCE"
+    ],
+    "platforms": [
+      "pc"
+    ],
+    "baseDistro": "Ubuntu",
+    "packageManager": "APT",
+    "nvidiaFriendly": true,
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "pageUrl": "https://www.opensourcefeed.org/distribution/lite",
+      "officialUrl": "https://www.linuxliteos.com"
+    }
+  },
+  {
+    "id": "fedora-asahi-remix",
+    "name": "Fedora Asahi Remix",
+    "slug": "fedora-asahi-remix",
+    "description": "Fedora built by the Asahi Linux project to run natively on Apple Silicon Macs.",
+    "experienceLevel": "intermediate",
+    "useCases": [
+      "everyday",
+      "development"
+    ],
+    "releaseModel": "stable",
+    "desktopEnvironments": [
+      "KDE Plasma",
+      "GNOME"
+    ],
+    "platforms": [
+      "apple-silicon"
+    ],
+    "baseDistro": "Fedora",
+    "packageManager": "DNF",
+    "nvidiaFriendly": false,
+    "caveat": "Not every Apple Silicon generation is supported yet. Check the Asahi Linux device support list for your Mac model before installing.",
+    "lastVerifiedDate": "2026-11-09",
+    "links": {
+      "officialUrl": "https://asahilinux.org/fedora/"
     }
   }
 ]

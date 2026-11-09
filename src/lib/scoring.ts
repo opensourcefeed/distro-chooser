@@ -1,5 +1,4 @@
 import type { Distro } from "../schemas/distro";
-import { getContentDepthMultiplier } from "../schemas/distro";
 import type { Question } from "../schemas/question";
 
 export type { Question, Option, ScoreEffect } from "../schemas/question";
@@ -26,8 +25,6 @@ function getSelectedOptionIds(answers: Answers, questionId: string): string[] {
 export interface ScoredDistro {
   distro: Distro;
   score: number;
-  contentDepthMultiplier: number;
-  adjustedScore: number;
 }
 
 /**
@@ -35,18 +32,35 @@ export interface ScoredDistro {
  *
  * For each question, the selected option's scoreEffects are iterated and
  * each weight is added to the corresponding distro's running score.
- * After all questions are processed, a content-depth multiplier is applied:
- *   - 1.15 for distros with all 4 link fields populated
- *   - 1.05 for distros with 2-3 fields
- *   - 1.0 for distros with 0-1 fields
  *
- * @returns Distros sorted by adjustedScore descending (highest first).
+ * Distros excluded by a hard filter (see getEligibleDistros) are not returned.
+ *
+ * @returns Distros sorted by score descending (highest first). Ties keep the
+ * order of the input array (Array.prototype.sort is stable), so the curated
+ * order of distros.json acts as a deterministic tie-break.
  */
+/**
+ * Applies hard filters: if any selected option has a `filterPlatform`, only
+ * distros that list that platform are kept. Everything else is unfiltered.
+ */
+export function getEligibleDistros(answers: Answers, distros: Distro[], questions: Question[]): Distro[] {
+  const required = new Set<string>();
+  for (const question of questions) {
+    for (const selectedOptionId of getSelectedOptionIds(answers, question.id)) {
+      const option = question.options.find((o) => o.id === selectedOptionId);
+      if (option?.filterPlatform) required.add(option.filterPlatform);
+    }
+  }
+  if (required.size === 0) return distros;
+  return distros.filter((d) => [...required].every((p) => (d.platforms as string[]).includes(p)));
+}
+
 export function scoreDistros(
   answers: Answers,
-  distros: Distro[],
+  allDistros: Distro[],
   questions: Question[],
 ): ScoredDistro[] {
+  const distros = getEligibleDistros(answers, allDistros, questions);
   // Build index: distro id → raw score accumulator
   const rawScores = new Map<string, number>();
   for (const d of distros) {
@@ -72,59 +86,54 @@ export function scoreDistros(
     }
   }
 
-  // Build scored results with content-depth multiplier
-  const results: ScoredDistro[] = distros.map((distro) => {
-    const raw = rawScores.get(distro.id) ?? 0;
-    const multiplier = getContentDepthMultiplier(distro.links);
-    return {
-      distro,
-      score: raw,
-      contentDepthMultiplier: multiplier,
-      adjustedScore: raw * multiplier,
-    };
-  });
+  const results: ScoredDistro[] = distros.map((distro) => ({
+    distro,
+    score: rawScores.get(distro.id) ?? 0,
+  }));
 
-  // Sort descending by adjustedScore, then by raw score as tiebreaker
-  results.sort((a, b) => {
-    const diff = b.adjustedScore - a.adjustedScore;
-    if (diff !== 0) return diff;
-    return b.score - a.score;
-  });
+  results.sort((a, b) => b.score - a.score);
 
   return results;
 }
 
 /**
- * Computes the theoretical maximum raw score any distro could achieve.
- * Used to calculate match percentage.
+ * Computes the best raw score a distro could achieve for *these* answers.
+ * Used as the denominator of the match percentage.
  *
- * For single-select questions, only one option can be chosen, so this is
- * the single highest positive weight found anywhere in the question.
- * For multi-select questions, every option can be chosen simultaneously,
- * so this sums each option's own best positive weight.
+ * For every option the user actually selected, the highest positive weight
+ * that option gives to any distro is added. Options with no positive effects
+ * (e.g. "No preference") add nothing, so they neither help nor penalise the
+ * percentage. An ideal distro that is the top pick on every selected option
+ * would therefore score 100%.
  */
-export function getMaxPossibleScore(questions: Question[]): number {
+export function getMaxPossibleScore(questions: Question[], answers: Answers, distros?: Distro[]): number {
+  // When distros are given, only weights for distros that pass the hard
+  // filters count, so a filtered-out distro can't inflate the denominator.
+  const eligible = distros ? new Set(getEligibleDistros(answers, distros, questions).map((d) => d.id)) : null;
   let max = 0;
   for (const question of questions) {
-    if (question.type === "multi-select") {
-      for (const option of question.options) {
-        let bestForOption = 0;
-        for (const effect of option.scoreEffects) {
-          if (effect.weight > bestForOption) bestForOption = effect.weight;
-        }
-        max += bestForOption;
+    for (const selectedOptionId of getSelectedOptionIds(answers, question.id)) {
+      const option = question.options.find((o) => o.id === selectedOptionId);
+      if (!option) continue;
+      let best = 0;
+      for (const effect of option.scoreEffects) {
+        if (eligible && !eligible.has(effect.distroTag)) continue;
+        if (effect.weight > best) best = effect.weight;
       }
-    } else {
-      let bestForQuestion = 0;
-      for (const option of question.options) {
-        for (const effect of option.scoreEffects) {
-          if (effect.weight > bestForQuestion) bestForQuestion = effect.weight;
-        }
-      }
-      max += bestForQuestion;
+      max += best;
     }
   }
   return max;
+}
+
+/**
+ * Converts a raw score into a 0–100 match percentage relative to the best
+ * score achievable for the given answers.
+ */
+export function getMatchPercent(score: number, maxScore: number): number {
+  if (maxScore <= 0) return 0;
+  const percent = Math.round((score / maxScore) * 100);
+  return Math.min(100, Math.max(0, percent));
 }
 
 /**

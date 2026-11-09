@@ -1,0 +1,61 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/guides/Breadcrumbs.astro";
+import DistroTile from "../../components/guides/DistroTile.astro";
+import QuizCta from "../../components/guides/QuizCta.astro";
+import { comparisons } from "../../content/compare";
+import { distros } from "../../lib/data";
+
+const byId = new Map(distros.map((d) => [d.id, d]));
+
+// Pairs OpenSourceFeed already compares in its own articles.
+const onOsf = [{ label: "Ubuntu vs Fedora Workstation", href: "https://www.opensourcefeed.org/ubuntu-25-04-vs-fedora-42-workstation/" }];
+---
+
+<Layout
+	title="Linux Distro Comparisons | OpenSourceFeed"
+	description="Side-by-side comparisons of popular Linux distributions, such as Ubuntu vs Linux Mint and Arch vs EndeavourOS, with a clear verdict for each kind of user."
+	isApp={false}
+	breadcrumbs={[{ name: "Comparisons", href: "/distro-chooser/compare/" }]}
+>
+	<main id="main" class="flex-1">
+		<div class="mx-auto w-full max-w-4xl px-4 pt-6 pb-20 sm:px-6">
+			<Breadcrumbs items={[{ name: "Comparisons" }]} />
+			<h1 class="mt-6 text-h1 font-semibold tracking-tight">Linux distro comparisons</h1>
+			<p class="mt-4 max-w-[62ch] text-lead text-muted">
+				Stuck between two distributions? Each comparison puts the facts side by side, explains the differences that matter in daily use, and ends with a plain verdict on who should pick which.
+			</p>
+
+			<ul class="mt-10 grid gap-4 sm:grid-cols-2">
+				{comparisons.map((c) => {
+					const a = byId.get(c.a)!;
+					const b = byId.get(c.b)!;
+					return (
+						<li>
+							<a href={`/distro-chooser/compare/${c.slug}/`} class="flex h-full flex-col rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-lift)] focus-ring">
+								<span class="flex items-center gap-2" aria-hidden="true">
+									<DistroTile id={a.id} name={a.name} size="sm" />
+									<span class="text-sm font-semibold text-muted">vs</span>
+									<DistroTile id={b.id} name={b.name} size="sm" />
+								</span>
+								<span class="mt-3 font-display text-h3 font-semibold tracking-tight">{a.name} vs {b.name}</span>
+								<span class="mt-2 text-sm leading-relaxed text-muted">{c.answer}</span>
+							</a>
+						</li>
+					);
+				})}
+			</ul>
+
+			<section aria-labelledby="osf-heading" class="mt-12">
+				<h2 id="osf-heading" class="text-h3 font-semibold tracking-tight">More comparisons on OpenSourceFeed</h2>
+				<ul class="mt-4 space-y-1">
+					{onOsf.map((l) => (
+						<li><a href={l.href} class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">{l.label}</a></li>
+					))}
+				</ul>
+			</section>
+
+			<QuizCta />
+		</div>
+	</main>
+</Layout>

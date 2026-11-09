@@ -1,0 +1,22 @@
+---
+import { getInitials, getTileStyle } from "../../lib/distro-mark";
+
+interface Props {
+	id: string;
+	name: string;
+	size?: "sm" | "md" | "lg";
+}
+const { id, name, size = "md" } = Astro.props;
+const sizes = { sm: "h-9 w-9 text-sm rounded-lg", md: "h-12 w-12 text-base rounded-xl", lg: "h-16 w-16 text-xl rounded-2xl" };
+---
+
+<span
+	aria-hidden="true"
+	style={getTileStyle(id)}
+	class:list={[
+		sizes[size],
+		"inline-flex shrink-0 items-center justify-center font-display font-semibold tracking-tight",
+		"bg-[hsl(var(--tile-h)_55%_92%)] text-[hsl(var(--tile-h)_55%_24%)] ring-1 ring-inset ring-[hsl(var(--tile-h)_40%_80%)]",
+		"dark:bg-[hsl(var(--tile-h)_35%_20%)] dark:text-[hsl(var(--tile-h)_60%_82%)] dark:ring-[hsl(var(--tile-h)_30%_32%)]",
+	]}
+>{getInitials(name)}</span>

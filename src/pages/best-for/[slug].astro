@@ -1,0 +1,175 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/guides/Breadcrumbs.astro";
+import DistroTile from "../../components/guides/DistroTile.astro";
+import QuizCta from "../../components/guides/QuizCta.astro";
+import FaqList from "../../components/guides/FaqList.astro";
+import RelatedLinks from "../../components/guides/RelatedLinks.astro";
+import { bestForGuides } from "../../content/best-for";
+import { bestForGuideSchema, type BestForGuide } from "../../schemas/guide";
+import { distros, formatDate, RELEASE_MODEL_LABELS } from "../../lib/data";
+import { renderInline, toPlainText } from "../../lib/inline-text";
+
+export function getStaticPaths() {
+	return bestForGuides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+
+const guide = bestForGuideSchema.parse(Astro.props.guide) as BestForGuide;
+const byId = new Map(distros.map((d) => [d.id, d]));
+const picks = guide.picks.map((p) => {
+	const distro = byId.get(p.distroId);
+	if (!distro) throw new Error(`best-for/${guide.slug}: unknown distro "${p.distroId}"`);
+	return { ...p, distro };
+});
+
+const pageUrl = new URL(`/distro-chooser/best-for/${guide.slug}/`, Astro.site).toString();
+const structuredData = [
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		headline: guide.h1,
+		description: guide.metaDescription,
+		url: pageUrl,
+		dateModified: guide.lastReviewed,
+		publisher: { "@type": "Organization", name: "OpenSourceFeed", url: "https://www.opensourcefeed.org" },
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "ItemList",
+		name: guide.h1,
+		itemListOrder: "https://schema.org/ItemListOrderDescending",
+		itemListElement: picks.map((p, i) => ({
+			"@type": "ListItem",
+			position: i + 1,
+			name: p.distro.name,
+			url: p.distro.links.pageUrl ?? p.distro.links.officialUrl,
+		})),
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		mainEntity: guide.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: toPlainText(f.a) } })),
+	},
+];
+---
+
+<Layout
+	title={guide.metaTitle}
+	description={guide.metaDescription}
+	isApp={false}
+	breadcrumbs={[{ name: "Best distros by need", href: "/distro-chooser/best-for/" }, { name: guide.label, href: `/distro-chooser/best-for/${guide.slug}/` }]}
+	structuredData={structuredData}
+>
+	<main id="main" class="flex-1">
+		<article class="mx-auto w-full max-w-3xl px-4 pt-6 pb-20 sm:px-6">
+			<Breadcrumbs items={[{ name: "Best distros by need", href: "/distro-chooser/best-for/" }, { name: guide.label }]} />
+
+			<header class="mt-6">
+				<h1 class="text-h1 font-semibold tracking-tight">{guide.h1}</h1>
+				<p class="mt-3 text-sm text-muted">
+					By the OpenSourceFeed team · Reviewed <time datetime={guide.lastReviewed}>{formatDate(guide.lastReviewed)}</time>
+				</p>
+				<div class="mt-6 rounded-[var(--radius-card)] border border-line bg-accent-soft p-5">
+					<p class="text-xs font-semibold uppercase tracking-wider text-accent">Short answer</p>
+					<p class="mt-2 text-lead text-fg">{guide.answer}</p>
+				</div>
+			</header>
+
+			<div class="mt-8 space-y-4 text-lead text-muted">
+				{guide.intro.map((p) => <p set:html={renderInline(p)} />)}
+			</div>
+
+			<!-- At a glance -->
+			<nav aria-labelledby="glance-heading" class="mt-10 rounded-[var(--radius-card)] border border-line bg-surface p-5 sm:p-6">
+				<h2 id="glance-heading" class="text-xs font-semibold uppercase tracking-wider text-muted">Our picks at a glance</h2>
+				<ol class="mt-3 space-y-1">
+					{picks.map((p, i) => (
+						<li>
+							<a href={`#${p.distroId}`} class="flex min-h-11 items-center gap-3 rounded-lg px-1 hover:bg-surface-2 focus-ring">
+								<span class="w-5 text-right text-sm font-semibold text-muted tabular-nums">{i + 1}</span>
+								<span class="font-semibold text-fg">{p.distro.name}</span>
+								<span class="text-sm text-muted">· {p.bestFor}</span>
+							</a>
+						</li>
+					))}
+				</ol>
+			</nav>
+
+			<!-- Criteria -->
+			<section aria-labelledby="criteria-heading" class="mt-14">
+				<h2 id="criteria-heading" class="text-h2 font-semibold tracking-tight">What matters when choosing</h2>
+				<div class="mt-6 grid gap-4 sm:grid-cols-2">
+					{guide.criteria.map((c) => (
+						<div class="rounded-[var(--radius-card)] border border-line bg-surface p-5">
+							<h3 class="font-sans text-base font-semibold">{c.title}</h3>
+							<p class="mt-2 text-sm leading-relaxed text-muted" set:html={renderInline(c.text)} />
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- Picks -->
+			<section aria-labelledby="picks-heading" class="mt-14">
+				<h2 id="picks-heading" class="text-h2 font-semibold tracking-tight">The best picks, and who each is for</h2>
+				<ol class="mt-6 space-y-6">
+					{picks.map((p, i) => {
+						const d = p.distro;
+						const guideLink = d.links.pageUrl
+							? { href: d.links.pageUrl, label: `${d.name} guide on OpenSourceFeed` }
+							: { href: d.links.officialUrl, label: `${d.name} official website` };
+						return (
+							<li id={p.distroId} class="scroll-mt-24 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)] sm:p-6">
+								<div class="flex items-start gap-4">
+									<DistroTile id={d.id} name={d.name} />
+									<div class="min-w-0">
+										<p class="text-xs font-semibold uppercase tracking-wider text-muted">#{i + 1} · {p.bestFor}</p>
+										<h3 class="mt-1 text-h3 font-semibold tracking-tight">{d.name}</h3>
+									</div>
+								</div>
+								<p class="mt-4 leading-relaxed text-fg" set:html={renderInline(p.why)} />
+								{p.watchOut && (
+									<p class="mt-3 text-sm leading-relaxed text-muted">
+										<span class="font-semibold text-fg">Keep in mind: </span><span set:html={renderInline(p.watchOut)} />
+									</p>
+								)}
+								{d.caveat && (
+									<p class="mt-3 rounded-xl border border-warn-200 bg-warn-50 px-3.5 py-2.5 text-sm text-warn-900 dark:border-warn-700/50 dark:bg-warn-900/30 dark:text-warn-200">{d.caveat}</p>
+								)}
+								<dl class="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 border-t border-line pt-4 text-sm sm:grid-cols-4">
+									<div><dt class="text-xs text-muted">Based on</dt><dd class="font-medium">{d.baseDistro}</dd></div>
+									<div><dt class="text-xs text-muted">Packages</dt><dd class="font-medium break-words">{d.packageManager}</dd></div>
+									<div><dt class="text-xs text-muted">Updates</dt><dd class="font-medium">{RELEASE_MODEL_LABELS[d.releaseModel]}</dd></div>
+									<div><dt class="text-xs text-muted">Desktop</dt><dd class="font-medium">{d.desktopEnvironments[0]}{d.desktopEnvironments.length > 1 ? " +" + (d.desktopEnvironments.length - 1) : ""}</dd></div>
+								</dl>
+								<a href={guideLink.href} rel={d.links.pageUrl ? undefined : "noopener"} class="mt-4 inline-flex min-h-11 items-center gap-1.5 font-medium text-accent underline underline-offset-4 hover:no-underline rounded focus-ring">
+									{guideLink.label}
+								</a>
+							</li>
+						);
+					})}
+				</ol>
+			</section>
+
+			<QuizCta />
+
+			<section aria-labelledby="before-heading">
+				<h2 id="before-heading" class="text-h2 font-semibold tracking-tight">Before you choose</h2>
+				<div class="mt-6 space-y-6">
+					{guide.beforeYouChoose.map((s) => (
+						<div>
+							<h3 class="font-sans text-lg font-semibold">{s.title}</h3>
+							<p class="mt-2 leading-relaxed text-muted" set:html={renderInline(s.text)} />
+						</div>
+					))}
+				</div>
+			</section>
+
+			<FaqList faqs={guide.faqs} />
+			<RelatedLinks links={guide.related} />
+
+			<p class="mt-14 border-t border-line pt-6 text-sm text-muted">
+				How we chose: picks are ranked with the same weights the <a href="/distro-chooser/#methodology" class="text-accent underline underline-offset-4">Distro Chooser scoring</a> uses for this need, then reviewed by hand against each project's official documentation. No placements are paid. Spotted something out of date? <a href="https://github.com/opensourcefeed/distro-chooser/issues/new" rel="noopener" class="text-accent underline underline-offset-4">Report an error</a>.
+			</p>
+		</article>
+	</main>
+</Layout>

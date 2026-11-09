@@ -1,0 +1,177 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Breadcrumbs from "../../components/guides/Breadcrumbs.astro";
+import DistroTile from "../../components/guides/DistroTile.astro";
+import QuizCta from "../../components/guides/QuizCta.astro";
+import FaqList from "../../components/guides/FaqList.astro";
+import RelatedLinks from "../../components/guides/RelatedLinks.astro";
+import { comparisons } from "../../content/compare";
+import { comparisonSchema, type Comparison } from "../../schemas/guide";
+import { distros, formatDate, RELEASE_MODEL_LABELS, PLATFORM_LABELS, capitalize } from "../../lib/data";
+import { renderInline, toPlainText } from "../../lib/inline-text";
+
+export function getStaticPaths() {
+	return comparisons.map((c) => ({ params: { slug: c.slug }, props: { comparison: c } }));
+}
+
+const c = comparisonSchema.parse(Astro.props.comparison) as Comparison;
+const a = distros.find((d) => d.id === c.a);
+const b = distros.find((d) => d.id === c.b);
+if (!a || !b) throw new Error(`compare/${c.slug}: unknown distro`);
+
+const title = `${a.name} vs ${b.name}`;
+const rows: [string, string, string][] = [
+	["Based on", a.baseDistro, b.baseDistro],
+	["Package manager", a.packageManager, b.packageManager],
+	["Updates", RELEASE_MODEL_LABELS[a.releaseModel], RELEASE_MODEL_LABELS[b.releaseModel]],
+	["Desktops", a.desktopEnvironments.join(", "), b.desktopEnvironments.join(", ")],
+	["Best suited to", `${capitalize(a.experienceLevel)} users`, `${capitalize(b.experienceLevel)} users`],
+	["Easy NVIDIA setup", a.nvidiaFriendly ? "Yes" : "Manual", b.nvidiaFriendly ? "Yes" : "Manual"],
+	["Runs on", a.platforms.map((p) => PLATFORM_LABELS[p]).join(", "), b.platforms.map((p) => PLATFORM_LABELS[p]).join(", ")],
+];
+const guideLink = (d: typeof a) =>
+	d.links.pageUrl ? { href: d.links.pageUrl, label: `${d.name} on OpenSourceFeed` } : { href: d.links.officialUrl, label: `${d.name} official website` };
+
+const pageUrl = new URL(`/distro-chooser/compare/${c.slug}/`, Astro.site).toString();
+const structuredData = [
+	{
+		"@context": "https://schema.org",
+		"@type": "Article",
+		headline: title,
+		description: c.metaDescription,
+		url: pageUrl,
+		dateModified: c.lastReviewed,
+		about: [a, b].map((d) => ({ "@type": "SoftwareApplication", name: d.name, operatingSystem: "Linux", url: d.links.pageUrl ?? d.links.officialUrl })),
+		publisher: { "@type": "Organization", name: "OpenSourceFeed", url: "https://www.opensourcefeed.org" },
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		mainEntity: c.faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: toPlainText(f.a) } })),
+	},
+];
+---
+
+<Layout
+	title={c.metaTitle}
+	description={c.metaDescription}
+	isApp={false}
+	breadcrumbs={[{ name: "Comparisons", href: "/distro-chooser/compare/" }, { name: title, href: `/distro-chooser/compare/${c.slug}/` }]}
+	structuredData={structuredData}
+>
+	<main id="main" class="flex-1">
+		<article class="mx-auto w-full max-w-3xl px-4 pt-6 pb-20 sm:px-6">
+			<Breadcrumbs items={[{ name: "Comparisons", href: "/distro-chooser/compare/" }, { name: title }]} />
+
+			<header class="mt-6">
+				<div class="flex items-center gap-3" aria-hidden="true">
+					<DistroTile id={a.id} name={a.name} />
+					<span class="font-display text-lg font-semibold text-muted">vs</span>
+					<DistroTile id={b.id} name={b.name} />
+				</div>
+				<h1 class="mt-5 text-h1 font-semibold tracking-tight">{title}: which should you choose?</h1>
+				<p class="mt-3 text-sm text-muted">
+					By the OpenSourceFeed team · Reviewed <time datetime={c.lastReviewed}>{formatDate(c.lastReviewed)}</time>
+				</p>
+				<div class="mt-6 rounded-[var(--radius-card)] border border-line bg-accent-soft p-5">
+					<p class="text-xs font-semibold uppercase tracking-wider text-accent">Short answer</p>
+					<p class="mt-2 text-lead text-fg">{c.answer}</p>
+				</div>
+			</header>
+
+			<div class="mt-8 space-y-4 text-lead text-muted">
+				{c.intro.map((p) => <p set:html={renderInline(p)} />)}
+			</div>
+
+			<!-- At a glance -->
+			<section aria-labelledby="glance-heading" class="mt-12">
+				<h2 id="glance-heading" class="text-h2 font-semibold tracking-tight">At a glance</h2>
+				<div class="mt-6 overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface">
+					<table class="w-full table-fixed text-left text-sm">
+						<caption class="sr-only">{title} key facts</caption>
+						<thead class="bg-surface-2">
+							<tr>
+								<th scope="col" class="w-[30%] p-3 font-semibold text-muted sm:p-4"><span class="sr-only">Fact</span></th>
+								<th scope="col" class="p-3 font-semibold sm:p-4">{a.name}</th>
+								<th scope="col" class="p-3 font-semibold sm:p-4">{b.name}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-line">
+							{rows.map(([label, x, y]) => (
+								<tr>
+									<th scope="row" class="p-3 align-top font-medium text-muted sm:p-4">{label}</th>
+									<td class="p-3 align-top break-words sm:p-4">{x}</td>
+									<td class="p-3 align-top break-words sm:p-4">{y}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</section>
+
+			<!-- Verdict -->
+			<section aria-labelledby="verdict-heading" class="mt-14">
+				<h2 id="verdict-heading" class="text-h2 font-semibold tracking-tight">Which one is right for you?</h2>
+				<div class="mt-6 grid gap-4 sm:grid-cols-2">
+					{[
+						{ d: a, items: c.chooseA },
+						{ d: b, items: c.chooseB },
+					].map(({ d, items }) => (
+						<div class="rounded-[var(--radius-card)] border border-line bg-surface p-5">
+							<h3 class="font-sans text-base font-semibold">Choose {d.name} if…</h3>
+							<ul class="mt-3 space-y-2">
+								{items.map((t) => (
+									<li class="flex items-start gap-2 text-sm leading-relaxed">
+										<svg class="mt-0.5 h-4 w-4 shrink-0 text-brand-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+										<span set:html={renderInline(t)} />
+									</li>
+								))}
+							</ul>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<!-- Differences -->
+			<section aria-labelledby="diff-heading" class="mt-14">
+				<h2 id="diff-heading" class="text-h2 font-semibold tracking-tight">Key differences</h2>
+				<div class="mt-6 space-y-8">
+					{c.differences.map((s) => (
+						<div>
+							<h3 class="font-sans text-lg font-semibold">{s.title}</h3>
+							<p class="mt-2 leading-relaxed text-muted" set:html={renderInline(s.text)} />
+						</div>
+					))}
+				</div>
+			</section>
+
+			{(a.caveat || b.caveat) && (
+				<section aria-labelledby="caveat-heading" class="mt-12 space-y-3">
+					<h2 id="caveat-heading" class="text-h3 font-semibold tracking-tight">Worth knowing</h2>
+					{[a, b].filter((d) => d.caveat).map((d) => (
+						<p class="rounded-xl border border-warn-200 bg-warn-50 px-4 py-3 text-sm text-warn-900 dark:border-warn-700/50 dark:bg-warn-900/30 dark:text-warn-200"><strong>{d.name}:</strong> {d.caveat}</p>
+					))}
+				</section>
+			)}
+
+			<QuizCta title="Not sure either one fits?" text={`${a.name} and ${b.name} aren't your only options. The Distro Chooser quiz compares ${distros.length} distributions against your device, experience and preferences in about a minute.`} />
+
+			<section aria-labelledby="more-heading">
+				<h2 id="more-heading" class="text-h3 font-semibold tracking-tight">Learn more about each distro</h2>
+				<ul class="mt-3 space-y-1">
+					{[a, b].map((d) => {
+						const l = guideLink(d);
+						return <li><a href={l.href} rel={d.links.pageUrl ? undefined : "noopener"} class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">{l.label}</a></li>;
+					})}
+				</ul>
+			</section>
+
+			<FaqList faqs={c.faqs} />
+			<RelatedLinks links={c.related} />
+
+			<p class="mt-14 border-t border-line pt-6 text-sm text-muted">
+				Facts in the table come from the same reviewed data the <a href="/distro-chooser/#methodology" class="text-accent underline underline-offset-4">Distro Chooser</a> uses. Spotted something out of date? <a href="https://github.com/opensourcefeed/distro-chooser/issues/new" rel="noopener" class="text-accent underline underline-offset-4">Report an error</a>.
+			</p>
+		</article>
+	</main>
+</Layout>

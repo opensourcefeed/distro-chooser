@@ -1,8 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import type { ScoredDistro } from "../lib/scoring";
-import { getMaxPossibleScore, getWhyRecommended } from "../lib/scoring";
-import type { Answers, Question } from "../lib/scoring";
+import { useEffect, useState } from "react";
+import type { ScoredDistro, Answers, Question } from "../lib/scoring";
+import { getMatchPercent, getMaxPossibleScore, getWhyRecommended } from "../lib/scoring";
 import { generateExplanation } from "../lib/explain";
+import { distros as allDistros, RELEASE_MODEL_LABELS, capitalize } from "../lib/data";
+import type { Distro } from "../schemas/distro";
+import DistroMark from "./DistroMark";
+import { Icon } from "./icons";
+import { findComparisonSlug } from "../lib/guide-links";
 
 interface ResultsViewProps {
   results: ScoredDistro[];
@@ -12,7 +16,9 @@ interface ResultsViewProps {
   onStartOver: () => void;
 }
 
-// ── Match confidence tiers ──────────────────────────────────────────────────
+type Reason = { question: string; answer: string; weight: number };
+
+// ── Helpers ────────────────────────────────────────────────────────────────
 
 function getConfidenceLabel(percent: number): string {
   if (percent >= 85) return "Excellent match";
@@ -21,354 +27,435 @@ function getConfidenceLabel(percent: number): string {
   return "Fair match";
 }
 
-// ── Animated count-up for the match percentage ──────────────────────────────
+function primaryLink(distro: Distro): { href: string; label: string; external: boolean } {
+  return distro.links.pageUrl
+    ? { href: distro.links.pageUrl, label: `Read the ${distro.name} guide`, external: false }
+    : { href: distro.links.officialUrl, label: `Visit the ${distro.name} website`, external: true };
+}
 
-function useCountUp(target: number, durationMs = 700): number {
+/** Animated count-up for the match percentage (instant with reduced motion). */
+function useCountUp(target: number, durationMs = 800): number {
   const [value, setValue] = useState(0);
-  const startedRef = useRef(false);
-
   useEffect(() => {
-    const prefersReducedMotion =
-      typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setValue(target);
       return;
     }
-
-    startedRef.current = true;
     let frame: number;
     const start = performance.now();
-
     function tick(now: number) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / durationMs, 1);
-      // ease-out-cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setValue(Math.round(target * eased));
-      if (progress < 1) {
-        frame = requestAnimationFrame(tick);
-      }
+      const progress = Math.min((now - start) / durationMs, 1);
+      setValue(Math.round(target * (1 - Math.pow(1 - progress, 3))));
+      if (progress < 1) frame = requestAnimationFrame(tick);
     }
-
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
   }, [target, durationMs]);
-
   return value;
 }
 
-// ── Share button ─────────────────────────────────────────────────────────
+// ── Small pieces ───────────────────────────────────────────────────────────
 
-function ShareButton() {
-  const [copied, setCopied] = useState(false);
-
-  async function handleShare() {
-    const url = window.location.href;
-    const shareData = {
-      title: "My Linux distro match — Distro Chooser",
-      text: "I just found my perfect Linux distribution. See what fits you:",
-      url,
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-      } catch {
-        // User cancelled the native share sheet — no action needed.
-      }
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard access denied — silently ignore, link is still visible in the address bar.
-    }
-  }
-
+function MatchRing({ percent }: { percent: number }) {
+  const value = useCountUp(percent);
+  const r = 34;
+  const c = 2 * Math.PI * r;
   return (
-    <button
-      type="button"
-      onClick={handleShare}
-      aria-live="polite"
-      className="
-        inline-flex items-center gap-2 px-6 py-3 min-h-[44px]
-        bg-emerald-600 text-white
-        rounded-xl text-base font-medium
-        hover:bg-emerald-500
-        transition-all duration-150
-        focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
-      "
-    >
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <circle cx="18" cy="5" r="3" />
-        <circle cx="6" cy="12" r="3" />
-        <circle cx="18" cy="19" r="3" />
-        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+    <div className="relative h-24 w-24 shrink-0" role="img" aria-label={`${percent}% match`}>
+      <svg viewBox="0 0 80 80" className="h-full w-full -rotate-90" aria-hidden="true">
+        <circle cx="40" cy="40" r={r} fill="none" strokeWidth="7" className="stroke-surface-2" />
+        <circle
+          cx="40"
+          cy="40"
+          r={r}
+          fill="none"
+          strokeWidth="7"
+          strokeLinecap="round"
+          className="stroke-brand-500"
+          strokeDasharray={c}
+          strokeDashoffset={c * (1 - value / 100)}
+        />
       </svg>
-      {copied ? "Link copied!" : "Share My Results"}
-    </button>
+      <span className="absolute inset-0 flex items-center justify-center font-display text-2xl font-semibold tabular-nums" aria-hidden="true">
+        {value}%
+      </span>
+    </div>
   );
 }
 
-// ── Result card ──────────────────────────────────────────────────────────
-
-function ResultCard({
-  scored,
-  index,
-  matchPercent,
-  reasons,
-}: {
-  scored: ScoredDistro;
-  index: number;
-  matchPercent: number;
-  reasons: { question: string; answer: string; weight: number }[];
-}) {
-  const animatedPercent = useCountUp(matchPercent);
-
+function MatchBar({ percent }: { percent: number }) {
+  const value = useCountUp(percent);
   return (
-    <div
-      className={`
-        relative flex flex-col rounded-2xl border overflow-hidden
-        animate-fade-in-up
-        transition-all duration-150
-        focus-within:ring-2 focus-within:ring-emerald-400 focus-within:ring-offset-2 focus-within:ring-offset-gray-50 dark:focus-within:ring-offset-gray-950
-        ${
-          index === 0
-            ? "bg-gradient-to-b from-emerald-50 to-white dark:from-emerald-600/15 dark:to-gray-800 border-emerald-500/40 shadow-lg shadow-emerald-900/10 dark:shadow-emerald-900/20"
-            : "bg-white dark:bg-gray-800/80 border-gray-200 dark:border-gray-700"
-        }
-      `}
-      style={{ animationDelay: `${index * 90}ms` }}
-    >
-      {/* Rank badge */}
-      <div
-        className={`
-          absolute top-3 left-3 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold z-10
-          ${index === 0 ? "bg-emerald-500 text-white" : "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300"}
-        `}
-        aria-hidden="true"
-      >
-        {index + 1}
+    <div>
+      <div className="flex items-baseline justify-between text-sm">
+        <span className="font-medium text-muted">{getConfidenceLabel(percent)}</span>
+        <span className="font-display text-lg font-semibold tabular-nums text-fg" aria-hidden="true">{value}%</span>
+        <span className="sr-only">{percent}% match</span>
       </div>
-
-      {/* Card body */}
-      <div className="p-5 pt-12 flex flex-col flex-1">
-        {/* Distro name */}
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-          {scored.distro.name}
-        </h3>
-
-        {/* Description */}
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-          {scored.distro.description}
-        </p>
-
-        {/* Match percentage bar */}
-        <div className="mb-2">
-          <div className="flex justify-between items-center mb-1">
-            <span className="text-xs text-gray-500 font-medium">Match</span>
-            <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
-              {animatedPercent}%
-            </span>
-          </div>
-          <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full transition-[width] duration-700 ease-out"
-              style={{ width: `${Math.min(animatedPercent, 100)}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Confidence tier */}
-        <p className="text-xs font-medium text-emerald-700 dark:text-emerald-400 mb-4">
-          {getConfidenceLabel(matchPercent)}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-            {scored.distro.releaseModel}
-          </span>
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-            {scored.distro.experienceLevel}
-          </span>
-          {scored.distro.nvidiaFriendly && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400">
-              NVIDIA-ready
-            </span>
-          )}
-          {scored.contentDepthMultiplier > 1 && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400">
-              +{Math.round((scored.contentDepthMultiplier - 1) * 100)}% depth
-            </span>
-          )}
-        </div>
-
-        {/* Explanation sentence */}
-        {reasons.length > 0 && (
-          <div className="mb-3 px-3 py-2.5 rounded-lg bg-emerald-50 dark:bg-emerald-900/15 border border-emerald-200 dark:border-emerald-800/30">
-            <p className="text-sm text-emerald-800 dark:text-emerald-300 leading-relaxed">
-              {generateExplanation(scored.distro.name, reasons)}
-            </p>
-          </div>
-        )}
-
-        {/* Why recommended details */}
-        {reasons.length > 0 && (
-          <div className="mb-4">
-            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
-              How your answers matched
-            </h4>
-            <ul className="space-y-1.5">
-              {reasons.map((reason, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm">
-                  <svg
-                    className="w-4 h-4 text-emerald-500 dark:text-emerald-400 mt-0.5 flex-shrink-0"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                  <span className="text-gray-700 dark:text-gray-300">
-                    <span className="text-gray-500">{reason.question}: </span>
-                    {reason.answer}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Spacer to push link to bottom */}
-        <div className="flex-1" />
-
-        {/* Link to distro page on OpenSourceFeed — omitted entirely when the
-            distro doesn't have a page there yet, rather than linking to a 404. */}
-        {scored.distro.links.pageUrl && (
-          <div className="pt-2 border-t border-gray-200 dark:border-gray-700/50">
-            <a
-              href={scored.distro.links.pageUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 min-h-[44px] text-xs font-medium rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900"
-            >
-              <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-              </svg>
-              <span className="truncate">{scored.distro.name} on OpenSourceFeed</span>
-            </a>
-          </div>
-        )}
+      <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-surface-2" aria-hidden="true">
+        <div className="h-full rounded-full bg-brand-500" style={{ width: `${value}%` }} />
       </div>
     </div>
   );
 }
 
-// ── Main component ──────────────────────────────────────────────────────
+function Tags({ distro }: { distro: Distro }) {
+  const tags = [RELEASE_MODEL_LABELS[distro.releaseModel] ?? capitalize(distro.releaseModel), capitalize(distro.experienceLevel)];
+  return (
+    <ul className="flex flex-wrap gap-1.5" aria-label="Key facts">
+      {tags.map((t) => (
+        <li key={t} className="rounded-full border border-line bg-surface-2 px-2.5 py-0.5 text-xs font-medium text-muted">
+          {t}
+        </li>
+      ))}
+      {distro.nvidiaFriendly && (
+        <li className="rounded-full border border-brand-200 bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent dark:border-brand-800">
+          Easy NVIDIA setup
+        </li>
+      )}
+    </ul>
+  );
+}
 
-/**
- * Renders the top 3 recommended distros as responsive cards, plus a
- * collapsible list of runners-up and actions to share, edit answers, or
- * start over.
- */
-export default function ResultsView({ results, answers, questions, onEditAnswers, onStartOver }: ResultsViewProps) {
-  const topResults = results.slice(0, 3);
-  const runnersUp = results.slice(3, 6);
-  const [showRunnersUp, setShowRunnersUp] = useState(false);
+function Caveat({ text }: { text: string }) {
+  return (
+    <div className="flex items-start gap-2.5 rounded-xl border border-warn-200 bg-warn-50 px-3.5 py-3 text-sm text-warn-900 dark:border-warn-700/50 dark:bg-warn-900/30 dark:text-warn-200">
+      <Icon name="alert" className="mt-0.5 h-4 w-4 shrink-0" />
+      <p className="leading-relaxed">
+        <span className="sr-only">Note: </span>
+        {text}
+      </p>
+    </div>
+  );
+}
 
-  const maxScore = getMaxPossibleScore(questions);
+function CtaLinks({ distro, size = "md" }: { distro: Distro; size?: "md" | "lg" }) {
+  const primary = primaryLink(distro);
+  const height = size === "lg" ? "min-h-12" : "min-h-11";
+  return (
+    <div className="flex flex-col gap-2 sm:flex-row">
+      <a
+        href={primary.href}
+        rel={primary.external ? "noopener" : undefined}
+        className={`inline-flex ${height} flex-1 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-primary px-4 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover focus-ring`}
+      >
+        <Icon name={primary.external ? "external" : "book"} className="h-4 w-4" />
+        <span className="truncate">{primary.label}</span>
+      </a>
+      {distro.links.pageUrl && (
+        <a
+          href={distro.links.officialUrl}
+          rel="noopener"
+          className={`inline-flex ${height} items-center justify-center gap-2 rounded-[var(--radius-control)] border border-line bg-surface px-4 text-sm font-medium text-fg transition-colors hover:bg-surface-2 focus-ring`}
+        >
+          <Icon name="external" className="h-4 w-4" />
+          Official site
+          <span className="sr-only">for {distro.name}</span>
+        </a>
+      )}
+    </div>
+  );
+}
 
-  function getMatchPercent(adjustedScore: number): number {
-    if (maxScore <= 0) return 0;
-    return Math.round((adjustedScore / maxScore) * 100);
+function ReasonsList({ reasons }: { reasons: Reason[] }) {
+  if (reasons.length === 0) return null;
+  return (
+    <div>
+      <h4 className="text-xs font-semibold uppercase tracking-wider text-muted">How your answers matched</h4>
+      <ul className="mt-2 space-y-1.5">
+        {reasons.map((reason, i) => (
+          <li key={i} className="flex items-start gap-2 text-sm">
+            <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-brand-500" strokeWidth={2.5} />
+            <span>
+              <span className="text-muted">{reason.question} </span>
+              <span className="font-medium text-fg">{reason.answer}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// ── Cards ──────────────────────────────────────────────────────────────────
+
+function HeroCard({ scored, percent, reasons }: { scored: ScoredDistro; percent: number; reasons: Reason[] }) {
+  const d = scored.distro;
+  const specs: [string, string][] = [
+    ["Based on", d.baseDistro],
+    ["Package manager", d.packageManager],
+    ["Desktops", d.desktopEnvironments.slice(0, 4).join(", ") + (d.desktopEnvironments.length > 4 ? " and more" : "")],
+    ["Updates", RELEASE_MODEL_LABELS[d.releaseModel] ?? d.releaseModel],
+  ];
+
+  return (
+    <article
+      className="animate-fade-in-up relative flex flex-col gap-6 overflow-hidden rounded-[var(--radius-card)] border border-brand-300/60 bg-surface p-5 shadow-[var(--shadow-lift)] sm:p-7 md:col-span-2 xl:col-span-1 xl:row-span-2 dark:border-brand-800"
+      aria-labelledby={`result-${d.id}`}
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-accent-soft to-transparent" aria-hidden="true" />
+
+      <div className="relative flex items-start gap-4">
+        <DistroMark id={d.id} name={d.name} size="lg" />
+        <div className="min-w-0 flex-1">
+          <p className="inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-on-primary">
+            <Icon name="trophy" className="h-3.5 w-3.5" />
+            Best match
+          </p>
+          <h3 id={`result-${d.id}`} className="mt-2 text-h2 font-semibold tracking-tight break-words">
+            {d.name}
+          </h3>
+          <p className="mt-1 hidden text-sm font-medium text-accent sm:block">{getConfidenceLabel(percent)}</p>
+        </div>
+        <div className="hidden sm:block">
+          <MatchRing percent={percent} />
+        </div>
+      </div>
+
+      <div className="relative sm:hidden">
+        <MatchBar percent={percent} />
+      </div>
+
+      <p className="relative text-muted">{d.description}</p>
+
+      {reasons.length > 0 && (
+        <p className="relative rounded-xl bg-accent-soft px-4 py-3 text-sm leading-relaxed text-fg">{generateExplanation(d.name, reasons)}</p>
+      )}
+
+      {d.caveat && <Caveat text={d.caveat} />}
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <dl className="grid grid-cols-1 gap-x-4 gap-y-3 text-sm min-[420px]:grid-cols-2 lg:grid-cols-1">
+          {specs.map(([k, v]) => (
+            <div key={k} className="min-w-0">
+              <dt className="text-xs font-semibold uppercase tracking-wider text-muted">{k}</dt>
+              <dd className="mt-0.5 break-words font-medium text-fg">{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <ReasonsList reasons={reasons} />
+      </div>
+
+      <div className="mt-auto">
+        <CtaLinks distro={d} size="lg" />
+      </div>
+    </article>
+  );
+}
+
+function RunnerCard({
+  scored,
+  rank,
+  percent,
+  reasons,
+}: {
+  scored: ScoredDistro;
+  rank: number;
+  percent: number;
+  reasons: Reason[];
+}) {
+  const d = scored.distro;
+  return (
+    <article
+      className="animate-fade-in-up flex flex-col gap-4 rounded-[var(--radius-card)] border border-line bg-surface p-5 shadow-[var(--shadow-card)]"
+      style={{ animationDelay: `${rank * 90}ms` }}
+      aria-labelledby={`result-${d.id}`}
+    >
+      <div className="flex items-center gap-3">
+        <DistroMark id={d.id} name={d.name} />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted">#{rank}</p>
+          <h3 id={`result-${d.id}`} className="text-h3 font-semibold tracking-tight break-words">
+            {d.name}
+          </h3>
+        </div>
+      </div>
+      <MatchBar percent={percent} />
+      <p className="text-sm text-muted line-clamp-3">{d.description}</p>
+      {reasons.length > 0 && <p className="text-sm text-fg">{generateExplanation(d.name, reasons)}</p>}
+      {d.caveat && <Caveat text={d.caveat} />}
+      <Tags distro={d} />
+      <div className="mt-auto pt-1">
+        <CtaLinks distro={d} />
+      </div>
+    </article>
+  );
+}
+
+// ── Share ──────────────────────────────────────────────────────────────────
+
+function ShareButton({ topName }: { topName?: string }) {
+  const [toast, setToast] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2200);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  async function handleShare() {
+    const url = window.location.href;
+    const text = topName ? `My best Linux match is ${topName}. Find yours:` : "Find the Linux distribution that fits you:";
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: "My Linux distro match | Distro Chooser", text, url });
+      } catch {
+        // User cancelled the native share sheet.
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setToast("Link copied to clipboard");
+    } catch {
+      setToast("Couldn't copy. You can copy the link from the address bar.");
+    }
   }
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 pb-8">
-      {/* Cards grid: stack on mobile, 2-col on md, 3-col on lg */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topResults.map((scored, index) => (
-          <ResultCard
-            key={scored.distro.id}
-            scored={scored}
-            index={index}
-            matchPercent={getMatchPercent(scored.adjustedScore)}
-            reasons={getWhyRecommended(scored.distro.id, answers, questions)}
-          />
+    <>
+      <button
+        type="button"
+        onClick={handleShare}
+        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-primary px-6 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover focus-ring"
+      >
+        <Icon name="share" className="h-4 w-4" />
+        Share my results
+      </button>
+      <div aria-live="polite" className="contents">
+        {toast && (
+          <div className="animate-toast-in fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-1/2 z-50 inline-flex -translate-x-1/2 items-center gap-2 rounded-full bg-fg px-4 py-2.5 text-sm font-medium text-canvas shadow-[var(--shadow-lift)]">
+            <Icon name="check" className="h-4 w-4" />
+            {toast}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+// ── Main component ─────────────────────────────────────────────────────────
+
+/**
+ * Top match as a hero card, #2 and #3 as smaller cards, then up to five
+ * clickable runners-up and the share / edit / start-over actions.
+ *
+ * Layout: one column on phones; from md the hero spans the full width with
+ * #2 and #3 side by side below; from xl the hero sits on the left with #2
+ * and #3 stacked on the right.
+ */
+export default function ResultsView({ results, answers, questions, onEditAnswers, onStartOver }: ResultsViewProps) {
+  const [hero, ...rest] = results;
+  const runners = rest.slice(0, 2);
+  const more = rest.slice(2, 7);
+  const [showMore, setShowMore] = useState(false);
+
+  const maxScore = getMaxPossibleScore(questions, answers, allDistros);
+  const pct = (s: ScoredDistro) => getMatchPercent(s.score, maxScore);
+  const why = (s: ScoredDistro) => getWhyRecommended(s.distro.id, answers, questions);
+
+  // Link a head-to-head comparison if any two of the top three have one.
+  const top3 = results.slice(0, 3);
+  const comparison = [
+    [0, 1],
+    [0, 2],
+    [1, 2],
+  ]
+    .map(([i, j]) => top3[i] && top3[j] && { slug: findComparisonSlug(top3[i].distro.id, top3[j].distro.id), a: top3[i].distro.name, b: top3[j].distro.name })
+    .find((c) => c && c.slug) as { slug: string; a: string; b: string } | undefined;
+
+  if (!hero) {
+    return (
+      <div className="mt-10 rounded-[var(--radius-card)] border border-line bg-surface p-6">
+        <p className="text-fg">No distribution in our list supports that device yet.</p>
+        <button type="button" onClick={onEditAnswers} className="mt-4 inline-flex min-h-11 items-center gap-2 font-medium text-accent underline underline-offset-4 focus-ring rounded">
+          Change my answers
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-8 sm:mt-10">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+        <HeroCard scored={hero} percent={pct(hero)} reasons={why(hero)} />
+        {runners.map((s, i) => (
+          <RunnerCard key={s.distro.id} scored={s} rank={i + 2} percent={pct(s)} reasons={why(s)} />
         ))}
       </div>
 
-      {/* Runners-up */}
-      {runnersUp.length > 0 && (
-        <div className="mt-8 text-center">
+      {comparison && (
+        <a
+          href={`/distro-chooser/compare/${comparison.slug}/`}
+          className="mt-6 flex min-h-14 items-center justify-between gap-3 rounded-[var(--radius-control)] border border-line bg-surface px-4 py-3 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-card)] focus-ring"
+        >
+          <span>
+            <span className="block text-sm text-muted">Torn between your top picks?</span>
+            <span className="block font-semibold text-fg">
+              Read our {comparison.a} vs {comparison.b} comparison
+            </span>
+          </span>
+          <Icon name="arrow-right" className="h-5 w-5 shrink-0 text-muted" />
+        </a>
+      )}
+
+      {more.length > 0 && (
+        <div className="mt-10">
           <button
             type="button"
-            onClick={() => setShowRunnersUp((v) => !v)}
-            aria-expanded={showRunnersUp}
-            aria-controls="runners-up-list"
-            className="inline-flex items-center justify-center min-h-[44px] px-3 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white underline underline-offset-2 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded"
+            onClick={() => setShowMore((v) => !v)}
+            aria-expanded={showMore}
+            aria-controls="more-matches"
+            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-control)] px-1 font-semibold text-fg hover:text-accent focus-ring"
           >
-            {showRunnersUp ? "Hide other close matches" : `See ${runnersUp.length} more close matches`}
+            <Icon name="chevron-down" className={`h-5 w-5 transition-transform ${showMore ? "rotate-180" : ""}`} />
+            {showMore ? "Hide other close matches" : `Show ${more.length} more close matches`}
           </button>
-
-          {showRunnersUp && (
-            <ul id="runners-up-list" className="mt-4 max-w-xl mx-auto flex flex-col gap-2 text-left animate-fade-in-up">
-              {runnersUp.map((scored) => (
-                <li
-                  key={scored.distro.id}
-                  className="flex items-center justify-between gap-3 px-4 py-3 rounded-lg bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700"
-                >
-                  <span className="text-sm text-gray-800 dark:text-gray-200 font-medium">{scored.distro.name}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-500">{getMatchPercent(scored.adjustedScore)}% match</span>
-                </li>
-              ))}
-            </ul>
+          {showMore && (
+            <ol id="more-matches" start={4} className="animate-fade-in-up mt-4 grid gap-2 md:grid-cols-2">
+              {more.map((s, i) => {
+                const link = primaryLink(s.distro);
+                return (
+                  <li key={s.distro.id}>
+                    <a
+                      href={link.href}
+                      rel={link.external ? "noopener" : undefined}
+                      className="flex min-h-16 items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface p-3 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-card)] focus-ring"
+                    >
+                      <span className="w-6 text-center text-sm font-semibold text-muted tabular-nums">{i + 4}</span>
+                      <DistroMark id={s.distro.id} name={s.distro.name} size="sm" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate font-medium text-fg">{s.distro.name}</span>
+                        {s.distro.caveat && <span className="block truncate text-xs text-warn-700 dark:text-warn-200">Has a caveat: check before installing</span>}
+                      </span>
+                      <span className="text-sm font-semibold tabular-nums text-fg">{pct(s)}%</span>
+                      <Icon name={link.external ? "external" : "arrow-right"} className="h-4 w-4 text-muted" />
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
           )}
         </div>
       )}
 
-      {/* Actions */}
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-        <ShareButton />
-
+      <div className="mt-12 flex flex-col items-stretch gap-3 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-center">
+        <ShareButton topName={hero.distro.name} />
         <button
           type="button"
           onClick={onEditAnswers}
-          className="
-            inline-flex items-center gap-2 px-6 py-3 min-h-[44px]
-            bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200
-            rounded-xl text-base font-medium
-            hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500
-            transition-all duration-150
-            focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
-          "
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] border border-line bg-surface px-6 text-sm font-medium text-fg transition-colors hover:bg-surface-2 focus-ring"
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-            <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-          </svg>
-          Edit My Answers
+          <Icon name="edit" className="h-4 w-4" />
+          Edit my answers
         </button>
-      </div>
-
-      <div className="mt-4 text-center">
         <button
           type="button"
           onClick={onStartOver}
-          className="inline-flex items-center justify-center min-h-[44px] px-3 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white underline underline-offset-2 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-400 rounded"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-[var(--radius-control)] px-4 text-sm font-medium text-muted transition-colors hover:text-fg focus-ring"
         >
-          Start a fresh quiz instead
+          <Icon name="rotate" className="h-4 w-4" />
+          Start over
         </button>
       </div>
     </div>

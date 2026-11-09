@@ -1,0 +1,164 @@
+---
+/**
+ * Crawlable content below the quiz: how it works, methodology, FAQ and the
+ * full list of distros. Content boundary (see TODO.md P2): this page explains
+ * how to *choose*; "what is distro X" lives on the OpenSourceFeed
+ * /distribution/<slug> pages, so each distro here is a name, a few facts and
+ * a link, never a copied description.
+ */
+import { distros, questions, dataLastReviewed, formatDate, USE_CASE_LABELS, RELEASE_MODEL_LABELS } from "../lib/data";
+import { getInitials, getTileStyle } from "../lib/distro-mark";
+import { faqs } from "../lib/faq";
+import { bestForGuides } from "../content/best-for";
+import { comparisons } from "../content/compare";
+
+const levels = [
+	{ id: "beginner", title: "Beginner-friendly" },
+	{ id: "intermediate", title: "For intermediate users" },
+	{ id: "advanced", title: "For advanced users" },
+] as const;
+
+const sorted = [...distros].sort((a, b) => a.name.localeCompare(b.name, "en", { sensitivity: "base" }));
+---
+
+<div class="mx-auto w-full max-w-6xl px-4 sm:px-6">
+	<!-- How it works -->
+	<section id="how-it-works" aria-labelledby="how-heading" class="border-t border-line py-16 sm:py-20">
+		<h2 id="how-heading" class="text-h2 font-semibold tracking-tight">How the Distro Chooser works</h2>
+		<p class="mt-3 max-w-[65ch] text-lead text-muted">
+			Choosing a Linux distribution is mostly about fit: how much you want to tinker, what hardware you have and what you will use it for. The quiz turns those trade-offs into a short, ranked list.
+		</p>
+		<ol class="mt-10 grid gap-5 md:grid-cols-3">
+			{[
+				{ n: "1", t: `Answer ${questions.length} questions`, d: "Tell us about your device, experience, hardware, graphics card, update preference and favourite desktop. It takes about a minute." },
+				{ n: "2", t: "We filter and score", d: "Distros that don't support your device are removed. Every other distro gets points from each answer, using weights we review by hand." },
+				{ n: "3", t: "See your matches and why", d: "You get your top picks with a match percentage, the answers that drove each one and any caveats, plus a link to a full guide." },
+			].map((s) => (
+				<li class="rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-[var(--shadow-card)]">
+					<span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-accent-soft font-display font-semibold text-accent" aria-hidden="true">{s.n}</span>
+					<h3 class="mt-4 text-h3 font-semibold tracking-tight">{s.t}</h3>
+					<p class="mt-2 text-sm leading-relaxed text-muted">{s.d}</p>
+				</li>
+			))}
+		</ol>
+	</section>
+
+	<!-- Methodology -->
+	<section id="methodology" aria-labelledby="method-heading" class="border-t border-line py-16 sm:py-20">
+		<div class="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+			<div>
+				<h2 id="method-heading" class="text-h2 font-semibold tracking-tight">How we score distributions</h2>
+				<p class="mt-3 max-w-[60ch] text-lead text-muted">No sponsored placements and no black box. Here is exactly how a recommendation is made.</p>
+			</div>
+			<dl class="grid gap-6 sm:grid-cols-2">
+				<div>
+					<dt class="font-semibold">Hard filter for your device</dt>
+					<dd class="mt-1 text-sm leading-relaxed text-muted">If you pick a Raspberry Pi, an Apple Silicon Mac or a gaming handheld, only distros with official support for that hardware are ranked.</dd>
+				</div>
+				<div>
+					<dt class="font-semibold">Hand-tuned weights</dt>
+					<dd class="mt-1 text-sm leading-relaxed text-muted">Each answer adds or removes points for each distro, on a scale from −5 to +5. "No preference" and "Not sure" answers never change the ranking.</dd>
+				</div>
+				<div>
+					<dt class="font-semibold">An honest match percentage</dt>
+					<dd class="mt-1 text-sm leading-relaxed text-muted">Your match is a distro's score divided by the best score any distro could reach for <em>your</em> answers. 100% means it is the top pick on every answer.</dd>
+				</div>
+				<div>
+					<dt class="font-semibold">Caveats you should know</dt>
+					<dd class="mt-1 text-sm leading-relaxed text-muted">Some distros come with important limits, such as a live-USB-only system or limited hardware support. We show these on the result card.</dd>
+				</div>
+				<div class="sm:col-span-2">
+					<dt class="font-semibold">Reviewed data</dt>
+					<dd class="mt-1 text-sm leading-relaxed text-muted">
+						Desktops, release models, NVIDIA support and project status are checked against each project's official sources. Last full review: <time datetime={dataLastReviewed}>{formatDate(dataLastReviewed)}</time>.
+					</dd>
+				</div>
+			</dl>
+		</div>
+	</section>
+
+	<!-- Guides -->
+	<section id="guides" aria-labelledby="guides-heading" class="border-t border-line py-16 sm:py-20">
+		<h2 id="guides-heading" class="text-h2 font-semibold tracking-tight">Guides to help you decide</h2>
+		<p class="mt-3 max-w-[65ch] text-lead text-muted">Prefer to read first? These hand-reviewed guides cover common needs and the comparisons people ask about most.</p>
+		<div class="mt-10 grid gap-10 md:grid-cols-2">
+			<div>
+				<h3 class="text-h3 font-semibold tracking-tight"><a href="/distro-chooser/best-for/" class="hover:text-accent hover:underline underline-offset-4">Best distros by need</a></h3>
+				<ul class="mt-4 space-y-1">
+					{bestForGuides.map((g) => (
+						<li><a href={`/distro-chooser/best-for/${g.slug}/`} class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">{g.h1}</a></li>
+					))}
+				</ul>
+			</div>
+			<div>
+				<h3 class="text-h3 font-semibold tracking-tight"><a href="/distro-chooser/compare/" class="hover:text-accent hover:underline underline-offset-4">Comparisons</a></h3>
+				<ul class="mt-4 grid gap-x-6 gap-y-1 sm:grid-cols-2">
+					{comparisons.map((c) => {
+						const a = distros.find((d) => d.id === c.a)!;
+						const b = distros.find((d) => d.id === c.b)!;
+						return <li><a href={`/distro-chooser/compare/${c.slug}/`} class="inline-flex min-h-11 items-center font-medium text-accent underline underline-offset-4 hover:no-underline">{a.name} vs {b.name}</a></li>;
+					})}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- FAQ -->
+	<section id="faq" aria-labelledby="faq-heading" class="border-t border-line py-16 sm:py-20">
+		<h2 id="faq-heading" class="text-h2 font-semibold tracking-tight">Frequently asked questions</h2>
+		<div class="mt-8 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-surface">
+			{faqs.map((f) => (
+				<details class="group px-5 sm:px-6 [&_summary::-webkit-details-marker]:hidden">
+					<summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 font-semibold rounded focus-ring">
+						<h3 class="text-base font-sans font-semibold">{f.q}</h3>
+						<svg class="h-5 w-5 shrink-0 text-muted transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+					</summary>
+					<p class="max-w-[70ch] pb-5 text-sm leading-relaxed text-muted">{f.a}</p>
+				</details>
+			))}
+		</div>
+	</section>
+
+	<!-- All distros -->
+	<section id="all-distros" aria-labelledby="all-heading" class="border-t border-line py-16 sm:py-20">
+		<h2 id="all-heading" class="text-h2 font-semibold tracking-tight">All {distros.length} distributions we consider</h2>
+		<p class="mt-3 max-w-[65ch] text-lead text-muted">
+			Each name links to its full guide on OpenSourceFeed, or to the project's own website where we don't have a guide yet.
+		</p>
+		{levels.map((level) => {
+			const items = sorted.filter((d) => d.experienceLevel === level.id);
+			return (
+				<div class="mt-10">
+					<h3 class="text-h3 font-semibold tracking-tight">{level.title} <span class="text-base font-normal text-muted">({items.length})</span></h3>
+					<ul class="mt-4 grid gap-3 [grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr))]">
+						{items.map((d) => {
+							const href = d.links.pageUrl ?? d.links.officialUrl;
+							return (
+								<li>
+									<a
+										href={href}
+										rel={d.links.pageUrl ? undefined : "noopener"}
+										class="flex h-full min-h-16 items-center gap-3 rounded-[var(--radius-control)] border border-line bg-surface p-3 transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-[var(--shadow-card)] focus-ring"
+									>
+										<span
+											aria-hidden="true"
+											style={getTileStyle(d.id)}
+											class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-display text-sm font-semibold bg-[hsl(var(--tile-h)_55%_92%)] text-[hsl(var(--tile-h)_55%_24%)] ring-1 ring-inset ring-[hsl(var(--tile-h)_40%_80%)] dark:bg-[hsl(var(--tile-h)_35%_20%)] dark:text-[hsl(var(--tile-h)_60%_82%)] dark:ring-[hsl(var(--tile-h)_30%_32%)]"
+										>{getInitials(d.name)}</span>
+										<span class="min-w-0">
+											<span class="block font-medium leading-snug text-fg">{d.name}</span>
+											<span class="block truncate text-xs text-muted">
+												{d.baseDistro === "Independent" ? "Independent" : `Based on ${d.baseDistro}`} · {RELEASE_MODEL_LABELS[d.releaseModel]} · {d.useCases.slice(0, 2).map((u) => USE_CASE_LABELS[u]).join(", ")}
+											</span>
+										</span>
+										{!d.links.pageUrl && <span class="sr-only">(official website)</span>}
+									</a>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			);
+		})}
+	</section>
+</div>

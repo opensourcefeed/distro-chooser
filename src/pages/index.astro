@@ -1,22 +1,28 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import QuizApp from '../components/QuizApp';
+import Layout from "../layouts/Layout.astro";
+import QuizApp from "../components/QuizApp";
+import ContentSections from "../components/ContentSections.astro";
+import { faqJsonLd } from "../lib/faq";
+import { distrosSchema } from "../schemas/distro";
+import { questionsSchema } from "../schemas/question";
+import distrosData from "../data/distros.json";
+import questionsData from "../data/questions.json";
+
+// Build-time validation: the build fails if the data doesn't match the
+// schemas. This runs only on the server, so Zod never reaches the browser.
+distrosSchema.parse(distrosData);
+questionsSchema.parse(questionsData);
 ---
 
 <!--
-  Tradeoff: on mid-quiz reload we restart cleanly.
-  We could persist answers to sessionStorage and restore on load,
-  but the quiz is only 6 questions and the added complexity of
-  hydrating partial state wasn't justified. If the quiz grows
-  significantly, sessionStorage persistence is the recommended upgrade.
-
-  The heading and its "quiz" vs "results" copy live inside QuizApp.tsx so
-  there's exactly one <h1> at a time instead of a static one here plus a
-  second heading once results are shown.
+  The quiz has one <h1> at a time (landing, quiz or results heading), rendered
+  by QuizApp. Mid-quiz reloads restart cleanly; see TODO P3-1 for
+  sessionStorage persistence.
 -->
 
-<Layout>
-	<main class="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-200">
+<Layout structuredData={[faqJsonLd]}>
+	<main id="main" class="flex-1">
 		<QuizApp client:load />
+		<ContentSections />
 	</main>
 </Layout>

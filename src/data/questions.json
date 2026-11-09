@@ -1,12 +1,82 @@
 [
   {
+    "id": "device",
+    "text": "What will you install Linux on?",
+    "shortLabel": "Device",
+    "type": "single-select",
+    "options": [
+      {
+        "id": "pc",
+        "label": "PC or laptop (Intel/AMD)",
+        "description": "Most desktops and laptops, including former Windows machines",
+        "icon": "monitor",
+        "filterPlatform": "pc",
+        "scoreEffects": []
+      },
+      {
+        "id": "apple-silicon",
+        "label": "Apple Silicon Mac",
+        "description": "A Mac with an M-series chip",
+        "icon": "laptop",
+        "filterPlatform": "apple-silicon",
+        "scoreEffects": [
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "id": "raspberry-pi",
+        "label": "Raspberry Pi or other ARM board",
+        "description": "Single-board computers",
+        "icon": "cpu",
+        "filterPlatform": "raspberry-pi",
+        "scoreEffects": [
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 5
+          }
+        ]
+      },
+      {
+        "id": "handheld",
+        "label": "Gaming handheld",
+        "description": "Steam Deck, ROG Ally, Legion Go and similar",
+        "icon": "gamepad",
+        "filterPlatform": "handheld",
+        "scoreEffects": [
+          {
+            "distroTag": "steamos",
+            "weight": 3
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "id": "not-sure",
+        "label": "Not sure",
+        "description": "We'll assume a regular PC or laptop",
+        "icon": "help",
+        "filterPlatform": "pc",
+        "scoreEffects": []
+      }
+    ]
+  },
+  {
     "id": "experience-level",
     "text": "How would you describe your Linux experience?",
+    "shortLabel": "Experience",
     "type": "single-select",
     "options": [
       {
         "id": "beginner",
-        "label": "Beginner — I'm new to Linux or prefer a user-friendly experience",
+        "label": "Beginner",
+        "description": "New to Linux, or want things to just work",
+        "icon": "sprout",
         "scoreEffects": [
           {
             "distroTag": "ubuntu",
@@ -125,10 +195,6 @@
             "weight": 3
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 3
-          },
-          {
             "distroTag": "deepin",
             "weight": 3
           },
@@ -167,12 +233,54 @@
           {
             "distroTag": "trisquel",
             "weight": -1
+          },
+          {
+            "distroTag": "garuda-linux",
+            "weight": -1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 3
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": -1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 3
           }
         ]
       },
       {
         "id": "intermediate",
-        "label": "Intermediate — I'm comfortable with the terminal and troubleshooting",
+        "label": "Intermediate",
+        "description": "Happy to use the terminal and fix small problems",
+        "icon": "terminal",
         "scoreEffects": [
           {
             "distroTag": "fedora",
@@ -320,13 +428,47 @@
           },
           {
             "distroTag": "trisquel",
+            "weight": 2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 2
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": -1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse-leap",
             "weight": 2
           }
         ]
       },
       {
         "id": "advanced",
-        "label": "Advanced — I want full control and don't mind manual configuration",
+        "label": "Advanced",
+        "description": "Want full control, manual setup is fine",
+        "icon": "wrench",
         "scoreEffects": [
           {
             "distroTag": "arch-linux",
@@ -490,6 +632,38 @@
           },
           {
             "distroTag": "trisquel",
+            "weight": 1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": -1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 3
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": -3
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": -3
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse-leap",
             "weight": 1
           }
         ]
@@ -498,12 +672,15 @@
   },
   {
     "id": "primary-use-case",
-    "text": "What will you use it for? (select all that apply)",
+    "text": "What will you use it for?",
+    "shortLabel": "Use",
     "type": "multi-select",
     "options": [
       {
         "id": "everyday",
-        "label": "Everyday computing (browsing, media, office work)",
+        "label": "Everyday computing",
+        "description": "Browsing, media, office work",
+        "icon": "globe",
         "scoreEffects": [
           {
             "distroTag": "ubuntu",
@@ -598,10 +775,6 @@
             "weight": 3
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 3
-          },
-          {
             "distroTag": "deepin",
             "weight": 3
           },
@@ -632,12 +805,46 @@
           {
             "distroTag": "trisquel",
             "weight": 2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 3
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 3
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
+            "weight": 3
           }
         ]
       },
       {
         "id": "development",
-        "label": "Development / Programming",
+        "label": "Development",
+        "description": "Coding, containers, dev tools",
+        "icon": "code",
         "scoreEffects": [
           {
             "distroTag": "fedora",
@@ -730,12 +937,30 @@
           {
             "distroTag": "mageia",
             "weight": 2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 2
           }
         ]
       },
       {
         "id": "gaming",
         "label": "Gaming",
+        "description": "Steam, Proton and native games",
+        "icon": "gamepad",
         "scoreEffects": [
           {
             "distroTag": "pop-os",
@@ -796,24 +1021,46 @@
           {
             "distroTag": "steamos",
             "weight": 3
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 3
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 3
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": -1
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": -1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": -1
           }
         ]
       },
       {
         "id": "privacy",
-        "label": "Privacy & Security",
+        "label": "Privacy & security",
+        "description": "Less tracking, more isolation",
+        "icon": "shield",
         "scoreEffects": [
           {
             "distroTag": "debian",
             "weight": 2
           },
           {
-            "distroTag": "elementary-os",
-            "weight": 2
-          },
-          {
             "distroTag": "kali-linux",
-            "weight": 3
+            "weight": -3
           },
           {
             "distroTag": "alpine-linux",
@@ -826,10 +1073,6 @@
           {
             "distroTag": "gentoo",
             "weight": 2
-          },
-          {
-            "distroTag": "garuda-linux",
-            "weight": 1
           },
           {
             "distroTag": "fedora",
@@ -870,12 +1113,30 @@
           {
             "distroTag": "trisquel",
             "weight": 3
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 3
+          }
+        ]
+      },
+      {
+        "id": "security-testing",
+        "label": "Security testing",
+        "description": "Penetration testing and security research",
+        "icon": "bug",
+        "scoreEffects": [
+          {
+            "distroTag": "kali-linux",
+            "weight": 5
           }
         ]
       },
       {
         "id": "ai-ml",
-        "label": "AI & Machine Learning",
+        "label": "AI & machine learning",
+        "description": "GPU compute, ML frameworks",
+        "icon": "sparkles",
         "scoreEffects": [
           {
             "distroTag": "fedora",
@@ -924,12 +1185,26 @@
           {
             "distroTag": "kali-linux",
             "weight": -1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": -1
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
           }
         ]
       },
       {
         "id": "old-hardware",
-        "label": "Old Hardware Revival",
+        "label": "Old hardware revival",
+        "description": "Give an old computer a second life",
+        "icon": "history",
         "scoreEffects": [
           {
             "distroTag": "debian",
@@ -1008,10 +1283,6 @@
             "weight": 3
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 2
-          },
-          {
             "distroTag": "devuan",
             "weight": 2
           },
@@ -1022,6 +1293,30 @@
           {
             "distroTag": "spirallinux",
             "weight": 2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 3
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": -2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": -1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": -1
           }
         ]
       }
@@ -1030,11 +1325,14 @@
   {
     "id": "hardware-age",
     "text": "How old is your hardware?",
+    "shortLabel": "Hardware",
     "type": "single-select",
     "options": [
       {
         "id": "less-than-2",
         "label": "Less than 2 years old",
+        "description": "Recent hardware",
+        "icon": "zap",
         "scoreEffects": [
           {
             "distroTag": "fedora",
@@ -1089,10 +1387,6 @@
             "weight": 2
           },
           {
-            "distroTag": "puppy",
-            "weight": 1
-          },
-          {
             "distroTag": "devuan",
             "weight": 1
           },
@@ -1106,6 +1400,30 @@
           },
           {
             "distroTag": "antix",
+            "weight": 1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse-leap",
             "weight": 1
           }
         ]
@@ -1113,6 +1431,8 @@
       {
         "id": "2-to-5",
         "label": "2–5 years",
+        "description": "A few years old",
+        "icon": "monitor",
         "scoreEffects": [
           {
             "distroTag": "ubuntu",
@@ -1200,6 +1520,38 @@
           },
           {
             "distroTag": "trisquel",
+            "weight": 1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 1
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
             "weight": 1
           }
         ]
@@ -1207,6 +1559,8 @@
       {
         "id": "5-plus",
         "label": "5–10 years",
+        "description": "Getting older",
+        "icon": "clock",
         "scoreEffects": [
           {
             "distroTag": "linux-mint",
@@ -1289,10 +1643,6 @@
             "weight": 2
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 2
-          },
-          {
             "distroTag": "devuan",
             "weight": 2
           },
@@ -1319,12 +1669,34 @@
           {
             "distroTag": "trisquel",
             "weight": 2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": -1
           }
         ]
       },
       {
         "id": "10-plus",
         "label": "10+ years",
+        "description": "Very old or low-spec",
+        "icon": "history",
         "scoreEffects": [
           {
             "distroTag": "debian",
@@ -1411,10 +1783,6 @@
             "weight": 3
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 3
-          },
-          {
             "distroTag": "devuan",
             "weight": 3
           },
@@ -1441,19 +1809,57 @@
           {
             "distroTag": "trisquel",
             "weight": 2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 3
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 2
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -3
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": -2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": -2
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": -2
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": -1
           }
         ]
+      },
+      {
+        "id": "not-sure",
+        "label": "Not sure",
+        "description": "Hardware age won't affect your results",
+        "icon": "help",
+        "scoreEffects": []
       }
     ]
   },
   {
     "id": "nvidia-gpu",
     "text": "Do you have an NVIDIA GPU?",
+    "shortLabel": "GPU",
     "type": "single-select",
     "options": [
       {
         "id": "yes",
         "label": "Yes",
+        "description": "Distros with easy NVIDIA drivers rank higher",
+        "icon": "chip",
         "scoreEffects": [
           {
             "distroTag": "pop-os",
@@ -1618,12 +2024,42 @@
           {
             "distroTag": "trisquel",
             "weight": -2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 3
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": -1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 2
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
           }
         ]
       },
       {
         "id": "no",
         "label": "No",
+        "description": "Intel or AMD graphics",
+        "icon": "circle-off",
         "scoreEffects": [
           {
             "distroTag": "elementary-os",
@@ -1650,15 +2086,15 @@
             "weight": 1
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 1
-          },
-          {
             "distroTag": "antix",
             "weight": 1
           },
           {
             "distroTag": "trisquel",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
             "weight": 1
           }
         ]
@@ -1666,6 +2102,8 @@
       {
         "id": "not-sure",
         "label": "Not sure",
+        "description": "NVIDIA support won't affect your results",
+        "icon": "help",
         "scoreEffects": []
       }
     ]
@@ -1673,11 +2111,14 @@
   {
     "id": "update-philosophy",
     "text": "What's your update philosophy?",
+    "shortLabel": "Updates",
     "type": "single-select",
     "options": [
       {
         "id": "stable",
-        "label": "Rock-solid stability — I want things to just work",
+        "label": "Rock-solid stability",
+        "description": "Tested releases, fewer surprises",
+        "icon": "shield-check",
         "scoreEffects": [
           {
             "distroTag": "debian",
@@ -1773,7 +2214,7 @@
           },
           {
             "distroTag": "solus",
-            "weight": 2
+            "weight": 1
           },
           {
             "distroTag": "kdeneon",
@@ -1801,10 +2242,6 @@
           },
           {
             "distroTag": "steamos",
-            "weight": 2
-          },
-          {
-            "distroTag": "raspberry-pi-os",
             "weight": 2
           },
           {
@@ -1845,13 +2282,47 @@
           },
           {
             "distroTag": "trisquel",
+            "weight": 2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 2
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 3
+          },
+          {
+            "distroTag": "raspberry-pi-os",
             "weight": 2
           }
         ]
       },
       {
         "id": "rolling",
-        "label": "Cutting-edge — I want the latest packages",
+        "label": "Cutting-edge",
+        "description": "Newest software as soon as it ships",
+        "icon": "refresh",
         "scoreEffects": [
           {
             "distroTag": "arch-linux",
@@ -1947,7 +2418,7 @@
           },
           {
             "distroTag": "solus",
-            "weight": -2
+            "weight": 1
           },
           {
             "distroTag": "kdeneon",
@@ -2020,24 +2491,82 @@
           {
             "distroTag": "trisquel",
             "weight": -2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": -2
+          },
+          {
+            "distroTag": "lubuntu",
+            "weight": -2
+          },
+          {
+            "distroTag": "linux-lite",
+            "weight": -2
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": -3
           }
         ]
       },
       {
         "id": "balanced",
         "label": "Somewhere in between",
-        "scoreEffects": []
+        "description": "Recent but tested, or not sure",
+        "icon": "scale",
+        "scoreEffects": [
+          {
+            "distroTag": "solus",
+            "weight": 2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 2
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          }
+        ]
       }
     ]
   },
   {
     "id": "desktop-environment",
     "text": "Which desktop environment appeals to you most?",
+    "shortLabel": "Desktop",
     "type": "single-select",
     "options": [
       {
         "id": "gnome",
         "label": "GNOME",
+        "description": "Clean, modern, workflow-focused",
+        "icon": "layout",
         "scoreEffects": [
           {
             "distroTag": "ubuntu",
@@ -2046,10 +2575,6 @@
           {
             "distroTag": "fedora",
             "weight": 3
-          },
-          {
-            "distroTag": "pop-os",
-            "weight": 2
           },
           {
             "distroTag": "debian",
@@ -2137,13 +2662,35 @@
           },
           {
             "distroTag": "trisquel",
+            "weight": 1
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 1
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 1
+          },
+          {
+            "distroTag": "fedora-atomic",
             "weight": 3
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 1
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 1
           }
         ]
       },
       {
         "id": "kde-plasma",
         "label": "KDE Plasma",
+        "description": "Familiar layout, highly customisable",
+        "icon": "sliders",
         "scoreEffects": [
           {
             "distroTag": "opensuse",
@@ -2163,10 +2710,6 @@
           },
           {
             "distroTag": "fedora",
-            "weight": 1
-          },
-          {
-            "distroTag": "ubuntu",
             "weight": 1
           },
           {
@@ -2260,12 +2803,34 @@
           {
             "distroTag": "spirallinux",
             "weight": 2
+          },
+          {
+            "distroTag": "bazzite",
+            "weight": 3
+          },
+          {
+            "distroTag": "nobara",
+            "weight": 3
+          },
+          {
+            "distroTag": "fedora-atomic",
+            "weight": 2
+          },
+          {
+            "distroTag": "fedora-asahi-remix",
+            "weight": 3
+          },
+          {
+            "distroTag": "opensuse-leap",
+            "weight": 3
           }
         ]
       },
       {
         "id": "xfce",
         "label": "XFCE",
+        "description": "Lightweight and traditional",
+        "icon": "feather",
         "scoreEffects": [
           {
             "distroTag": "linux-mint",
@@ -2316,10 +2881,6 @@
             "weight": 1
           },
           {
-            "distroTag": "ubuntu",
-            "weight": 1
-          },
-          {
             "distroTag": "pop-os",
             "weight": -2
           },
@@ -2348,10 +2909,6 @@
             "weight": 3
           },
           {
-            "distroTag": "raspberry-pi-os",
-            "weight": 2
-          },
-          {
             "distroTag": "devuan",
             "weight": 3
           },
@@ -2365,6 +2922,14 @@
           },
           {
             "distroTag": "spirallinux",
+            "weight": 3
+          },
+          {
+            "distroTag": "qubes-os",
+            "weight": 2
+          },
+          {
+            "distroTag": "linux-lite",
             "weight": 3
           }
         ]
@@ -2372,6 +2937,8 @@
       {
         "id": "cinnamon",
         "label": "Cinnamon",
+        "description": "Windows-like and easy to learn",
+        "icon": "home",
         "scoreEffects": [
           {
             "distroTag": "linux-mint",
@@ -2417,7 +2984,9 @@
       },
       {
         "id": "no-preference",
-        "label": "No preference / I'll use whatever comes default",
+        "label": "No preference",
+        "description": "Use whatever the distro ships",
+        "icon": "shuffle",
         "scoreEffects": []
       }
     ]

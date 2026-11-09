@@ -7,27 +7,29 @@ export const USE_CASES = [
   "development",
   "gaming",
   "privacy",
+  "security-testing",
   "ai-ml",
   "old-hardware",
 ] as const;
 export const RELEASE_MODELS = ["stable", "rolling"] as const;
+// Hardware a distro officially supports. Used as a hard filter by the
+// "Which device?" question: a distro is only ranked if it lists the device.
+export const PLATFORMS = ["pc", "raspberry-pi", "apple-silicon", "handheld"] as const;
 
 // ── Reusable enums ─────────────────────────────────────────────────────────
 export const experienceLevelSchema = z.enum(EXPERIENCE_LEVELS);
 export const useCaseSchema = z.enum(USE_CASES);
 export const releaseModelSchema = z.enum(RELEASE_MODELS);
+export const platformSchema = z.enum(PLATFORMS);
 
 // ── Links sub-schema ───────────────────────────────────────────────────────
-// pageUrl is optional: a handful of distros don't yet have a page on
-// opensourcefeed.org, and the UI hides the outbound link entirely for those
-// rather than pointing at a 404. The rest are populated once dedicated
-// install/release/comparison pages exist.
+// pageUrl is the distro's page on opensourcefeed.org, which stays the single
+// home for "what is distro X" content. It is optional because a few distros
+// don't have an OSF page yet; for those the UI falls back to officialUrl
+// rather than linking to a 404.
 export const linksSchema = z.object({
   pageUrl: z.string().url().optional(),
-  overviewUrl: z.string().url().optional(),
-  installGuideUrl: z.string().url().optional(),
-  latestReleaseUrl: z.string().url().optional(),
-  comparisonUrls: z.array(z.string().url()).optional(),
+  officialUrl: z.string().url(),
 });
 
 // ── Main distro schema ─────────────────────────────────────────────────────
@@ -40,7 +42,14 @@ export const distroSchema = z.object({
   useCases: z.array(useCaseSchema).min(1),
   releaseModel: releaseModelSchema,
   desktopEnvironments: z.array(z.string()).min(1),
+  platforms: z.array(platformSchema).min(1),
+  // "Independent" for distros not derived from another one.
+  baseDistro: z.string().min(1),
+  packageManager: z.string().min(1),
   nvidiaFriendly: z.boolean(),
+  // Short warning shown on the result card when a distro has an important
+  // limitation the scoring can't express (e.g. "live USB only").
+  caveat: z.string().max(200).optional(),
   lastVerifiedDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, {
     message: "lastVerifiedDate must be an ISO date string (YYYY-MM-DD)",
   }),
@@ -52,22 +61,4 @@ export const distrosSchema = z.array(distroSchema);
 
 // ── Inferred TypeScript type ───────────────────────────────────────────────
 export type Distro = z.infer<typeof distroSchema>;
-
-// ── Helper to check content depth ──────────────────────────────────────────
-// Counts populated optional link fields (beyond the required pageUrl) to
-// reward distros with richer opensourcefeed.org content: full (all 4) → 1.15,
-// partial (1-3) → 1.05, sparse (none) → 1.0.
-const OPTIONAL_LINK_FIELDS = [
-  "overviewUrl",
-  "installGuideUrl",
-  "latestReleaseUrl",
-  "comparisonUrls",
-] as const;
-
-export function getContentDepthMultiplier(links: Distro["links"]): number {
-  const populatedCount = OPTIONAL_LINK_FIELDS.filter((field) => links[field] !== undefined).length;
-
-  if (populatedCount === OPTIONAL_LINK_FIELDS.length) return 1.15;
-  if (populatedCount > 0) return 1.05;
-  return 1.0;
-}
+export type Platform = z.infer<typeof platformSchema>;

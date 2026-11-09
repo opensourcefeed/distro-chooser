@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import type { Question } from "../schemas/question";
 import type { Answers } from "../lib/scoring";
+import { Icon } from "./icons";
 
 interface QuizProps {
   questions: Question[];
@@ -10,9 +11,63 @@ interface QuizProps {
 
 // ── Utility ────────────────────────────────────────────────────────────────
 
-function getProgressPercent(current: number, total: number): number {
+/** Share of questions already behind the user: 0% on the first question. */
+export function getProgressPercent(currentIndex: number, total: number): number {
   if (total <= 0) return 0;
-  return Math.round(((current + 1) / total) * 100);
+  return Math.round((currentIndex / total) * 100);
+}
+
+// ── Step indicator ─────────────────────────────────────────────────────────
+
+function StepIndicator({ questions, currentIndex }: { questions: Question[]; currentIndex: number }) {
+  const total = questions.length;
+  const percent = getProgressPercent(currentIndex, total);
+  const label = `Question ${currentIndex + 1} of ${total}: ${questions[currentIndex].shortLabel}`;
+
+  return (
+    <div className="mt-3">
+      {/* Phones: compact text + thin bar */}
+      <div className="sm:hidden">
+        <div className="flex items-center justify-between text-sm text-muted">
+          <span>
+            Step <span className="font-semibold text-fg tabular-nums">{currentIndex + 1}</span> of {total}
+          </span>
+          <span className="font-medium">{questions[currentIndex].shortLabel}</span>
+        </div>
+        <div
+          className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-surface-2"
+          role="progressbar"
+          aria-valuenow={percent}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuetext={label}
+          aria-label="Quiz progress"
+        >
+          <div className="h-full rounded-full bg-brand-500 transition-[width] duration-300 ease-[var(--ease-soft)]" style={{ width: `${percent}%` }} />
+        </div>
+      </div>
+
+      {/* Wider screens: segmented steps with labels */}
+      <ol className="hidden sm:grid gap-2" style={{ gridTemplateColumns: `repeat(${total}, minmax(0, 1fr))` }} aria-label={label}>
+        {questions.map((q, i) => {
+          const state = i < currentIndex ? "done" : i === currentIndex ? "current" : "todo";
+          return (
+            <li key={q.id} aria-current={state === "current" ? "step" : undefined}>
+              <span
+                className={`block h-1.5 rounded-full transition-colors duration-300 ${
+                  state === "done" ? "bg-brand-500" : state === "current" ? "bg-brand-300 dark:bg-brand-700" : "bg-surface-2"
+                }`}
+                aria-hidden="true"
+              />
+              <span className={`mt-2 block truncate text-xs ${state === "current" ? "font-semibold text-fg" : "text-muted"}`}>
+                {q.shortLabel}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
 }
 
 // ── Component ──────────────────────────────────────────────────────────────
@@ -22,44 +77,39 @@ export default function Quiz({ questions, initialAnswers, onComplete }: QuizProp
   const [answers, setAnswers] = useState<Answers>(initialAnswers ?? {});
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [transitioning, setTransitioning] = useState(false);
+  const isFirstRender = useRef(true);
 
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const optionListRef = useRef<HTMLFieldSetElement>(null);
 
   const currentQuestion = questions[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
-  const totalQuestions = questions.length;
   const isMultiSelect = currentQuestion.type === "multi-select";
+  const twoColumns = currentQuestion.options.length >= 4;
 
   const currentValue = answers[currentQuestion.id];
   const selectedIds = Array.isArray(currentValue) ? currentValue : currentValue ? [currentValue] : [];
 
-  const isOptionSelected = useCallback(
-    (optionId: string) => selectedIds.includes(optionId),
-    [selectedIds],
-  );
-
   const optionRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [focusedIndex, setFocusedIndex] = useState(0);
 
-  // Focus the heading when the question changes
+  // Move focus to the question heading when the question changes (not on
+  // first render, so the page doesn't jump when the quiz opens).
   useEffect(() => {
-    // Small delay to let the transition start then focus
-    const timer = setTimeout(() => {
-      headingRef.current?.focus();
-    }, 50);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      headingRef.current?.focus({ preventScroll: true });
+      return;
+    }
+    const timer = setTimeout(() => headingRef.current?.focus({ preventScroll: true }), 50);
     return () => clearTimeout(timer);
   }, [currentIndex]);
 
-  // Reset roving focus index when the question changes: land on the
-  // previously-selected option if there is one, otherwise the first option.
+  // Roving focus lands on the previously selected option, or the first one.
   useEffect(() => {
     optionRefs.current = [];
     const firstSelectedId = selectedIds[0];
-    const selectedIndex = firstSelectedId
-      ? currentQuestion.options.findIndex((o) => o.id === firstSelectedId)
-      : -1;
+    const selectedIndex = firstSelectedId ? currentQuestion.options.findIndex((o) => o.id === firstSelectedId) : -1;
     setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
@@ -91,16 +141,13 @@ export default function Quiz({ questions, initialAnswers, onComplete }: QuizProp
     [answers, currentQuestion.id, goToNextOrComplete],
   );
 
-  // Multi-select: toggling an option only updates the checked state;
-  // advancing requires the explicit Next action.
+  // Multi-select: toggling only updates the checked state; Next advances.
   const handleToggleMulti = useCallback(
     (optionId: string) => {
       setAnswers((prev) => {
         const current = prev[currentQuestion.id];
         const currentArr = Array.isArray(current) ? current : [];
-        const next = currentArr.includes(optionId)
-          ? currentArr.filter((id) => id !== optionId)
-          : [...currentArr, optionId];
+        const next = currentArr.includes(optionId) ? currentArr.filter((id) => id !== optionId) : [...currentArr, optionId];
         return { ...prev, [currentQuestion.id]: next };
       });
     },
@@ -128,26 +175,17 @@ export default function Quiz({ questions, initialAnswers, onComplete }: QuizProp
 
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        if (isMultiSelect) {
-          handleToggleMulti(optionId);
-        } else {
-          handleSingleSelect(optionId);
-        }
+        if (isMultiSelect) handleToggleMulti(optionId);
+        else handleSingleSelect(optionId);
         return;
       }
 
-      // Roving-tabindex arrow key navigation per the WAI-ARIA pattern for
-      // radiogroups/listboxes: arrow keys move focus without submitting.
+      // Roving-tabindex arrow navigation (WAI-ARIA radiogroup pattern).
       let nextIndex: number | null = null;
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        nextIndex = (index + 1) % optionCount;
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        nextIndex = (index - 1 + optionCount) % optionCount;
-      } else if (e.key === "Home") {
-        nextIndex = 0;
-      } else if (e.key === "End") {
-        nextIndex = optionCount - 1;
-      }
+      if (e.key === "ArrowDown" || e.key === "ArrowRight") nextIndex = (index + 1) % optionCount;
+      else if (e.key === "ArrowUp" || e.key === "ArrowLeft") nextIndex = (index - 1 + optionCount) % optionCount;
+      else if (e.key === "Home") nextIndex = 0;
+      else if (e.key === "End") nextIndex = optionCount - 1;
 
       if (nextIndex !== null) {
         e.preventDefault();
@@ -160,172 +198,134 @@ export default function Quiz({ questions, initialAnswers, onComplete }: QuizProp
 
   // ── Render ──────────────────────────────────────────────────────────────
 
-  const transitionClass =
-    transitioning
-      ? direction === "forward"
-        ? "animate-slide-out-left"
-        : "animate-slide-out-right"
-      : direction === "forward"
-        ? "animate-slide-in-right"
-        : "animate-slide-in-left";
+  const transitionClass = transitioning
+    ? direction === "forward"
+      ? "animate-slide-out-left"
+      : "animate-slide-out-right"
+    : direction === "forward"
+      ? "animate-slide-in-right"
+      : "animate-slide-in-left";
+
+  const headingId = `question-${currentQuestion.id}-heading`;
+  const showMobileBar = !isFirst || isMultiSelect;
 
   return (
-    <div className="w-full max-w-lg mx-auto px-4 py-8">
-      {/* Progress bar */}
-      <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            Question {currentIndex + 1} of {totalQuestions}
-          </span>
-          <span className="text-sm text-gray-500 dark:text-gray-400">{getProgressPercent(currentIndex, totalQuestions)}%</span>
-        </div>
-        <div
-          className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden"
-          role="progressbar"
-          aria-valuenow={getProgressPercent(currentIndex, totalQuestions)}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label={`Quiz progress: question ${currentIndex + 1} of ${totalQuestions}`}
-        >
-          <div
-            className="h-full bg-emerald-500 rounded-full transition-all duration-300 ease-out"
-            style={{ width: `${getProgressPercent(currentIndex, totalQuestions)}%` }}
-          />
-        </div>
-      </div>
+    <div className={showMobileBar ? "pb-28 sm:pb-16" : "pb-12 sm:pb-16"}>
+      <StepIndicator questions={questions} currentIndex={currentIndex} />
 
-      {/* Question card */}
-      <div className={`transition-all duration-150 ease-in-out ${transitionClass}`}>
+      <div className={`mt-8 sm:mt-10 ${transitionClass}`}>
         <h2
           ref={headingRef}
           tabIndex={-1}
-          className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white mb-6 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950 rounded"
-          id={`question-${currentQuestion.id}-heading`}
+          id={headingId}
+          className="text-h2 font-semibold tracking-tight text-fg outline-none"
         >
           {currentQuestion.text}
         </h2>
+        {isMultiSelect && <p className="mt-2 text-muted">Pick as many as you like.</p>}
 
-        <fieldset
-          ref={optionListRef}
-          className="border-0 p-0 m-0"
-          aria-labelledby={`question-${currentQuestion.id}-heading`}
+        <div
+          role={isMultiSelect ? "group" : "radiogroup"}
+          aria-labelledby={headingId}
+          className={`mt-6 grid gap-3 ${twoColumns ? "sm:grid-cols-2" : ""}`}
         >
-          <legend className="sr-only">{currentQuestion.text}</legend>
-          <div className="flex flex-col gap-3">
-            {currentQuestion.options.map((option, index) => {
-              const selected = isOptionSelected(option.id);
-              return (
-                <button
-                  key={option.id}
-                  ref={(el) => {
-                    optionRefs.current[index] = el;
-                  }}
-                  type="button"
-                  role={isMultiSelect ? "checkbox" : "radio"}
-                  aria-checked={selected}
-                  aria-label={option.label}
-                  tabIndex={index === focusedIndex ? 0 : -1}
-                  onClick={() => {
-                    setFocusedIndex(index);
-                    if (isMultiSelect) {
-                      handleToggleMulti(option.id);
-                    } else {
-                      handleSingleSelect(option.id);
-                    }
-                  }}
-                  onKeyDown={(e) => handleKeyDown(e, option.id, index)}
-                  className={`
-                    w-full min-h-[44px] px-5 py-3 rounded-xl text-left text-base
-                    transition-all duration-150 ease-in-out
-                    focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
-                    cursor-pointer border flex items-center gap-3
-                    ${
-                      selected
-                        ? "bg-emerald-50 dark:bg-emerald-600/20 border-emerald-500 text-emerald-700 dark:text-emerald-300 font-medium"
-                        : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300 dark:hover:border-gray-500"
-                    }
-                  `}
-                >
-                  {isMultiSelect && (
-                    <span
-                      aria-hidden="true"
-                      className={`
-                        flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center
-                        ${selected ? "bg-emerald-500 border-emerald-400" : "border-gray-400 dark:border-gray-500"}
-                      `}
-                    >
-                      {selected && (
-                        <svg className="w-3 h-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="20 6 9 17 4 12" />
-                        </svg>
-                      )}
-                    </span>
-                  )}
-                  {option.label}
-                </button>
-              );
-            })}
-          </div>
-        </fieldset>
-
-        {/* Navigation */}
-        <div className="flex justify-between items-center mt-8">
-          {!isFirst ? (
-            <button
-              type="button"
-              onClick={handleBack}
-              aria-label="Go back to the previous question"
-              className="
-                inline-flex items-center gap-2 px-4 py-2 min-h-[44px]
-                text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white
-                transition-colors duration-150
-                focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950 rounded
-              "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
+          {currentQuestion.options.map((option, index) => {
+            const selected = selectedIds.includes(option.id);
+            return (
+              <button
+                key={option.id}
+                ref={(el) => {
+                  optionRefs.current[index] = el;
+                }}
+                type="button"
+                role={isMultiSelect ? "checkbox" : "radio"}
+                aria-checked={selected}
+                tabIndex={index === focusedIndex ? 0 : -1}
+                onClick={() => {
+                  setFocusedIndex(index);
+                  if (isMultiSelect) handleToggleMulti(option.id);
+                  else handleSingleSelect(option.id);
+                }}
+                onKeyDown={(e) => handleKeyDown(e, option.id, index)}
+                className={`
+                  group relative flex w-full min-h-16 items-center gap-4 rounded-[var(--radius-control)] border p-4 text-left
+                  transition-[border-color,background-color,box-shadow,transform] duration-150 ease-[var(--ease-soft)]
+                  active:scale-[0.99] focus-ring cursor-pointer
+                  ${
+                    selected
+                      ? "border-brand-500 bg-accent-soft shadow-[0_0_0_1px_var(--color-brand-500)]"
+                      : "border-line bg-surface hover:border-line-strong hover:shadow-[var(--shadow-card)]"
+                  }
+                `}
               >
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-              Back
-            </button>
-          ) : (
-            <div /> /* Spacer to keep the layout balanced */
-          )}
-
-          {isMultiSelect ? (
-            <button
-              type="button"
-              onClick={handleMultiNext}
-              disabled={selectedIds.length === 0}
-              className="
-                inline-flex items-center gap-2 px-5 py-2 min-h-[44px]
-                bg-emerald-600 text-white text-sm font-medium rounded-lg
-                transition-colors duration-150
-                hover:bg-emerald-500
-                disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-emerald-600
-                focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-gray-950
-              "
-            >
-              {isLast ? "See results" : "Next"}
-            </button>
-          ) : (
-            <span className="text-xs text-gray-500">
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-gray-500 dark:text-gray-400 font-mono">↑↓</kbd>&nbsp;to navigate,&nbsp;
-              <kbd className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-gray-500 dark:text-gray-400 font-mono">Enter</kbd>&nbsp;to select
-            </span>
-          )}
+                <span
+                  className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                    selected ? "bg-primary text-on-primary" : "bg-surface-2 text-accent"
+                  }`}
+                  aria-hidden="true"
+                >
+                  <Icon name={option.icon ?? "help"} className="h-5 w-5" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold leading-snug text-fg">{option.label}</span>
+                  {option.description && <span className="mt-0.5 block text-sm leading-snug text-muted">{option.description}</span>}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`inline-flex h-6 w-6 shrink-0 items-center justify-center border-2 transition-colors ${
+                    isMultiSelect ? "rounded-md" : "rounded-full"
+                  } ${selected ? "border-brand-500 bg-brand-500 text-white" : "border-line-strong"}`}
+                >
+                  {selected && <Icon name="check" className="h-3.5 w-3.5" strokeWidth={3} />}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
+
+      {/* Navigation: sticky bottom bar on phones, inline from sm up. Kept
+          outside the animated wrapper: a transformed ancestor would make
+          position: fixed relative to it instead of the viewport. */}
+        <div
+          className={`
+            ${showMobileBar ? "fixed" : "hidden"} inset-x-0 bottom-0 z-30 border-t border-line bg-canvas/90 backdrop-blur-md
+            px-[max(1rem,env(safe-area-inset-left))] pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]
+            sm:static sm:z-auto sm:mt-8 sm:flex sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none
+          `}
+        >
+          <div className="mx-auto flex w-full max-w-2xl items-center justify-between gap-3">
+            {!isFirst ? (
+              <button
+                type="button"
+                onClick={handleBack}
+                className="inline-flex min-h-12 items-center gap-2 rounded-[var(--radius-control)] border border-line bg-surface px-4 text-sm font-medium text-fg transition-colors hover:bg-surface-2 focus-ring"
+              >
+                <Icon name="arrow-left" className="h-4 w-4" />
+                Back
+              </button>
+            ) : (
+              <span />
+            )}
+
+            {isMultiSelect ? (
+              <button
+                type="button"
+                onClick={handleMultiNext}
+                disabled={selectedIds.length === 0}
+                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-[var(--radius-control)] bg-primary px-6 text-sm font-semibold text-on-primary transition-colors hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-surface-2 disabled:text-muted sm:flex-none focus-ring"
+              >
+                {isLast ? "See my results" : "Next"}
+                <Icon name="arrow-right" className="h-4 w-4" />
+              </button>
+            ) : (
+              <span className="hidden items-center gap-1.5 text-xs text-muted pointer-fine:flex">
+                <kbd className="rounded border border-line bg-surface px-1.5 py-0.5 font-mono">↑↓</kbd> to move
+                <kbd className="ml-2 rounded border border-line bg-surface px-1.5 py-0.5 font-mono">Enter</kbd> to choose
+              </span>
+            )}
+          </div>
+        </div>
     </div>
   );
 }
