@@ -1,6 +1,6 @@
 ---
 /**
- * Sticky site header: OpenSourceFeed logo + "Distro Chooser" wordmark on the
+ * Sticky site header: OpenSourceFeed mark and wordmark (brand kit v2) + "Distro Chooser" on the
  * left; "Start over" (only while the quiz is in progress) and the theme
  * toggle on the right. Plain HTML + a tiny inline script, no framework
  * island. QuizApp announces its view with a `dc:view` window event and
@@ -14,8 +14,8 @@
 >
 	<div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-[max(1rem,env(safe-area-inset-left))] sm:px-6">
 		<a href="https://www.opensourcefeed.org" class="group flex min-h-11 items-center gap-2.5 rounded-lg focus-ring" aria-label="OpenSourceFeed home">
-			<img src="/distro-chooser/icon-512.png" alt="" width="32" height="32" class="h-8 w-8 rounded-lg" />
-			<span class="hidden text-sm font-medium text-muted transition-colors group-hover:text-fg min-[400px]:inline">OpenSourceFeed</span>
+			<img src="/distro-chooser/favicon.svg" alt="" width="32" height="32" class="h-8 w-8 rounded-lg" />
+			<span class="hidden text-sm font-bold tracking-tight text-fg min-[400px]:inline">OpenSource<span class="bg-linear-to-r from-[#22d3ee] to-[#8b9bff] bg-clip-text text-transparent">Feed</span></span>
 		</a>
 		<span class="hidden h-5 w-px bg-line min-[400px]:block" aria-hidden="true"></span>
 		<a href="/distro-chooser/" class="mr-auto min-h-11 inline-flex items-center rounded-lg font-display text-base font-semibold tracking-tight text-fg focus-ring">
